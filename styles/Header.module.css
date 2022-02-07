@@ -1,0 +1,130 @@
+.ChangeLanguage {
+  display: flex;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  margin-left: 25px;
+  padding: 3px;
+  border: 1px solid #00407a;
+}
+
+.ChangeLanguage img {
+  width: 100%;
+}
+
+.Header {
+  z-index: 3;
+  display: flex;
+  width: 100%;
+  border-top: 5px solid #00407a;
+  background-color: #fff;
+}
+
+.Menus {
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 15px 7px;
+  margin: 0px;
+}
+
+.Menus li {
+  display: flex;
+}
+
+.DropMenu {
+  position: relative;
+}
+
+.Menus a {
+  position: relative;
+  font-family: "DinPro";
+  font-size: 0.75rem;
+  letter-spacing: -25;
+  font-weight: 400;
+  margin: 20px 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgb(0 64 122);
+}
+
+.Menus a::after {
+  color: rgb(0 64 122) !important;
+}
+
+.Menus a::before {
+  color: rgb(0 64 122) !important;
+}
+
+.Menus:hover li a::before {
+  color: rgb(145, 145, 145) !important;
+}
+
+.Menus:hover {
+  color: rgb(0 64 122) !important;
+}
+
+.Menus a.Dropdown {
+  position: relative;
+}
+
+.DropdownMenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  padding: 10px 0px;
+  margin: 0px;
+  min-width: 280px;
+  /* display: none; */
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #2c2929;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.DropdownMenu a {
+  width: 100%;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0px;
+  padding: 12px 10px;
+  padding-left: 20px;
+  transition: all 0.4s ease-in-out;
+  font-size: 0.7rem;
+}
+
+.DropdownMenu a:hover {
+  color: #a7794a;
+  padding-left: 30px;
+}
+
+.DropMenu:hover > .DropdownMenu {
+  display: block;
+}
+
+.LogoBox {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  display: flex;
+  width: 350px;
+  height: 190px;
+  background: #00407a;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+
+.LogoBox img {
+  height: 91px;
+}

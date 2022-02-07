@@ -1,0 +1,236 @@
+.swiper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1 !important;
+}
+
+.bannerBg {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  flex: 0 0 40%;
+  width: 40%;
+  height: 100%;
+  background-color: #2c2929;
+}
+
+.swiper-slide {
+  display: flex;
+  font-size: 18px;
+  height: 100%;
+}
+
+.contentText {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  padding-left: 8rem;
+  padding-right: 8rem;
+  justify-content: center;
+  flex: 0 0 40%;
+  flex-direction: column;
+  color: #fff;
+  z-index: 6;
+}
+
+.contentText:hover ~ .imageBox > img {
+  transform: scale(1.1);
+}
+
+.silde__headText {
+  opacity: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  color: #ca9259;
+}
+
+.slide__title {
+  opacity: 0;
+  font-family: "DinPro";
+  font-weight: bold;
+  font-size: 3rem;
+  text-transform: uppercase;
+  margin-bottom: 0px;
+}
+
+.slide__text {
+  opacity: 0;
+  font-size: 0.9rem;
+  margin: 20px 0px;
+}
+
+.bannerBtn {
+  opacity: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: -0.8px;
+  background-color: #a7794a;
+  border-right: 5px solid #db9e5f;
+  border-radius: 0px;
+  width: auto;
+  color: #fff;
+  transition: all 0.1s;
+}
+
+.bannerBtn:hover {
+  color: #fff;
+  border-right: 10px solid #d38b42;
+}
+
+.swiper-slide.swiper-slide-active .bannerBtn {
+  animation: fadeInUp;
+  animation-duration: 1.2s;
+  animation-delay: 1.2s;
+  transition-delay: 1.2s;
+  opacity: 1;
+}
+
+.swiper-slide.swiper-slide-active .slide__title {
+  animation: fadeInUp;
+  animation-duration: 1.2s;
+  animation-delay: 0.4s;
+  transition-delay: 0.4s;
+  opacity: 1;
+}
+
+.swiper-slide.swiper-slide-active .slide__text {
+  animation: fadeIn;
+  animation-duration: 1.3s;
+  transition-delay: 1.2s;
+  animation-delay: 1.2s;
+  opacity: 1;
+}
+
+.swiper-slide.swiper-slide-active .silde__headText {
+  animation: fadeInDown;
+  animation-duration: 1.2s;
+  transition-delay: 0.7s;
+  animation-delay: 0.7s;
+  opacity: 1;
+}
+
+.slider__bottom {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  top: 80%;
+  right: 0;
+  width: 100%;
+  max-width: 340px;
+  background-color: #2c2929;
+  justify-content: center;
+  align-items: center;
+  z-index: 12;
+  padding: 45px 30px 45px 15px;
+  font-size: 12px;
+}
+
+.slider__bottom .swiper-scrollbar-drag {
+  height: 5px;
+}
+
+.slider__nav {
+  position: relative;
+}
+
+.slider__pagination-wrapper {
+  position: relative;
+  display: flex;
+  flex: 0 0 20%;
+}
+
+.swiper-pagination {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  position: relative !important;
+  bottom: unset !important;
+  left: unset !important;
+  color: rgb(63, 63, 63);
+  display: flex;
+  align-items: center;
+}
+
+.swiper-pagination b {
+  color: rgb(161, 161, 161);
+}
+
+.swiper-pagination span {
+  height: 100%;
+  width: 2px;
+  background-color: #383838;
+  margin: 0px 10px;
+}
+
+.slider__scrollbar_box {
+  flex: 0 0 40%;
+  width: 100%;
+}
+
+.slider__nav {
+  flex: 0 0 25%;
+  width: 100%;
+}
+.slider__prev::after,
+.slider__next::after {
+  font-size: 18px !important;
+  color: #585858;
+}
+
+.imgBg {
+  position: absolute;
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  background: #35466f;
+  background: linear-gradient(
+    280deg,
+    rgba(0, 64, 122, 1),
+    rgba(7, 64, 122, 0.3) 30%,
+    rgba(7, 64, 122, 0)
+  );
+}
+
+.imageBox {
+  flex: 0 0 60%;
+  object-fit: cover;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-color: #2c2929;
+  height: 80%;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.imageBox > img {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  display: block;
+  object-fit: cover;
+  transition: all 0.7s;
+}
+
+.swiper-pagination-bullet {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 12px;
+  color: #000;
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.swiper-pagination-bullet-active {
+  color: #fff;
+  background: #007aff;
+}
