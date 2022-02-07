@@ -7,7 +7,8 @@
 }
 
 .Menus.Active {
-  opacity: 0;
+  /* opacity: 0; */
+  display: none;
   animation: fadeInUp;
   transition: all 0.3s;
 }
@@ -171,7 +172,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    opacity: 0;
+    display: none;
     flex-direction: column;
     background-color: #003f7a;
     width: 100%;
@@ -183,6 +184,7 @@
   }
 
   .Menus.Active {
+    display: flex;
     opacity: 1;
     animation-duration: 1s;
     animation-delay: 0.5s;

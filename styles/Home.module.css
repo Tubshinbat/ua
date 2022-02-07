@@ -5,9 +5,14 @@
   width: 100%;
   height: 100vh;
 }
-
-@media (max-width: 953px) {
+@media (max-height: 850px) {
   .HomeSection {
-    /* height: 110vh; */
+    height: 120vh;
+  }
+}
+
+@media (max-height: 550px) {
+  .HomeSection {
+    height: 130vh;
   }
 }
