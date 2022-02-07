@@ -4,7 +4,7 @@ import css from "styles/TopLinks.module.css";
 export default () => {
   return (
     <>
-      <div className={`container ${css.FastBoxs}`}>
+      <div className={`${css.FastBoxs}`}>
         <div className={css.FastBox}>
           <a href="#">
             <div className={css.FastBg}>

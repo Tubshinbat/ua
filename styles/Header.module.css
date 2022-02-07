@@ -1,23 +1,39 @@
-.ChangeLanguage {
-  display: flex;
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  margin-left: 25px;
-  padding: 3px;
-  border: 1px solid #00407a;
-}
-
-.ChangeLanguage img {
-  width: 100%;
-}
-
 .Header {
   z-index: 3;
   display: flex;
   width: 100%;
   border-top: 5px solid #00407a;
   background-color: #fff;
+}
+
+.Menus.Active {
+  opacity: 0;
+  animation: fadeInUp;
+  transition: all 0.3s;
+}
+
+.LogoBox {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  display: flex;
+  width: 350px;
+  height: 190px;
+  background: #00407a;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+
+.LogoBox img {
+  height: 91px;
+}
+
+.Navbar {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .Menus {
@@ -112,19 +128,118 @@
   display: block;
 }
 
-.LogoBox {
-  position: absolute;
-  z-index: 2;
-  top: 0;
+.ChangeLanguage {
   display: flex;
-  width: 350px;
-  height: 190px;
-  background: #00407a;
-  justify-content: center;
-  align-items: center;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  margin-left: 25px;
+  padding: 3px;
+  border: 1px solid #00407a;
 }
 
-.LogoBox img {
-  height: 91px;
+.ChangeLanguage img {
+  width: 100%;
+}
+
+/* RESPONSIVE  */
+
+@media (max-width: 1520px) {
+  .LogoBox {
+    width: 300px;
+    height: 150px;
+  }
+
+  .LogoBox > img {
+    height: 80px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .LogoBox {
+    width: 350px;
+    height: 200px;
+  }
+  .LogoBox > img {
+    height: 85px;
+  }
+
+  .Navbar {
+    height: 80px;
+  }
+  .Menus {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    opacity: 0;
+    flex-direction: column;
+    background-color: #003f7a;
+    width: 100%;
+    max-height: 500px;
+    overflow-x: scroll;
+    animation: fadeInUp;
+    animation-duration: 1s;
+    animation-delay: 0.5s;
+  }
+
+  .Menus.Active {
+    opacity: 1;
+    animation-duration: 1s;
+    animation-delay: 0.5s;
+    animation: fadeInUp;
+  }
+
+  .Menus:hover li a::before {
+    color: #fff !important;
+  }
+  .effect.slide-down:after {
+    color: rgb(255, 255, 255) !important;
+  }
+
+  .Menus a::before {
+    color: rgb(255, 255, 255) !important;
+  }
+  .ChangeLanguage {
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 990px) {
+  .LogoBox {
+    width: 300px;
+    height: 170px;
+  }
+  .LogoBox > img {
+    height: 75px;
+  }
+}
+
+@media (max-width: 680px) {
+  .LogoBox {
+    width: 270px;
+    height: 150px;
+  }
+  .LogoBox > img {
+    height: 70px;
+  }
+}
+
+@media (max-width: 680px) {
+  .LogoBox {
+    width: 230px;
+    height: 130px;
+  }
+  .LogoBox > img {
+    height: 70px;
+  }
+}
+
+@media (max-width: 500px) {
+  .LogoBox {
+    width: 200px;
+    height: 100px;
+  }
+  .LogoBox > img {
+    height: 55px;
+  }
 }

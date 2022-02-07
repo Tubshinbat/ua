@@ -21,9 +21,10 @@ export default () => {
       <Swiper
         modules={[EffectFade, Pagination, Navigation, Scrollbar, Autoplay]}
         effect="fade"
-        autoplay={{
-          delay: 5000,
-        }}
+        // autoplay={{
+        //   delay: 5000,
+        // }}
+        loop={true}
         pagination={{
           el: ".slider_pagination",
           type: "custom",

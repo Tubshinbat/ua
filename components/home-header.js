@@ -1,15 +1,21 @@
 import css from "styles/Header.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default () => {
+  const [show, setShow] = useState(false);
+
+  const menuShow = () => {
+    show ? setShow(() => false) : setShow(() => true);
+  };
   return (
     <header className={css.Header}>
       <div className={css.LogoBox}>
         <img src="/images/white-logo.png" />
       </div>
-      <div className="container">
-        <ul className={` ${css.Menus}`}>
+      <div className={`custom-container ${css.Navbar}`}>
+        <ul className={` ${css.Menus}  ${show && css.Active} `}>
           <li>
             <Link href="/">
               <a className={`effect  slide-down `} data-effect=" Эхлэл">
@@ -85,6 +91,11 @@ export default () => {
             <img src="/images/eng.png" />
           </div>
         </ul>
+
+        <input id="menu__toggle" type="checkbox" />
+        <label class="menu__btn" onClick={menuShow} for="menu__toggle">
+          <span></span>
+        </label>
       </div>
     </header>
   );
