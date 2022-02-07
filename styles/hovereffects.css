@@ -14,7 +14,7 @@
   -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
   position: relative;
-  color: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.6);
   line-height: 1em;
   backface-visibility: hidden;
 }
