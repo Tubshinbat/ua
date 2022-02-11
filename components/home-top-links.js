@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { Fragment } from "react";
 import css from "styles/TopLinks.module.css";
 
 export default () => {
   return (
-    <>
+    <Fragment>
       <div className={`${css.FastBoxs}`}>
         <div className={css.FastBox}>
           <a href="#">
@@ -40,6 +40,6 @@ export default () => {
           </a>
         </div>
       </div>
-    </>
+    </Fragment>
   );
 };

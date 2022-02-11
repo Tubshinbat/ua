@@ -1,9 +1,10 @@
 import css from "styles/Header.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import pkg from "react";
 
 export default () => {
+  const { useState } = pkg;
   const [show, setShow] = useState(false);
 
   const menuShow = () => {

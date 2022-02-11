@@ -53,3 +53,10 @@
   font-weight: bold;
   src: url("/fonts/dinpro_bold.otf") format("opentype");
 }
+
+@font-face {
+  font-family: "DinPro";
+  font-style: normal;
+  font-weight: 900;
+  src: url("/fonts/dinpro_black.otf") format("opentype");
+}

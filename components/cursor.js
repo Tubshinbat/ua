@@ -1,6 +1,6 @@
+import React, { Fragment, useEffect } from "react";
+
 import Script from "next/script";
-import { useEffect, useRef } from "react";
-import $ from "jquery";
 import lerp from "lerpjs";
 import gsap from "gsap";
 
@@ -98,11 +98,9 @@ const inti = () => {
   window.addEventListener("wheel", wheel, false);
 };
 export default function CustomCursor() {
-  const cursorRef = useRef(null);
-
   useEffect(() => {
     inti();
   }, []);
 
-  return <></>;
+  return <Fragment></Fragment>;
 }

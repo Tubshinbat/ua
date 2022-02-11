@@ -25,5 +25,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tubshinbat/ua.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tubshinbat/ua/issues"
+  },
+  "homepage": "https://github.com/Tubshinbat/ua#readme",
   "description": ""
 }

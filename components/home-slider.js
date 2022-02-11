@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -16,7 +18,7 @@ import {
 
 export default () => {
   return (
-    <>
+    <Fragment>
       <div className="bannerBg"> </div>
       <Swiper
         modules={[EffectFade, Pagination, Navigation, Scrollbar, Autoplay]}
@@ -55,7 +57,10 @@ export default () => {
               төр, захиргааны байгууллагуудад мэргэжил, арга зүйн зөвлөгөө өгөх
               чиг үүрэг бүхий байгууллага юм.
             </p>
-            <button className={`btn bannerBtn`}> БИДНИЙ ТУХАЙ </button>
+            <button className={`btn bannerBtn btn__defualt`}>
+              {" "}
+              БИДНИЙ ТУХАЙ{" "}
+            </button>
           </div>
           <div className="imageBox">
             <div className="imgBg"> </div>
@@ -72,7 +77,10 @@ export default () => {
               нарийн цагийн хуваарийн дагуу хичээллэх шаардлагагүй мөн хаанаас ч
               сурч болох юм.
             </p>
-            <button className={`btn bannerBtn`}> ОНЛАЙН СУРГАЛТ </button>
+            <button className={`btn bannerBtn btn__defualt`}>
+              {" "}
+              ОНЛАЙН СУРГАЛТ{" "}
+            </button>
           </div>
           <div className="imageBox">
             <div className="imgBg"> </div>
@@ -89,7 +97,10 @@ export default () => {
               нарийн цагийн хуваарийн дагуу хичээллэх шаардлагагүй мөн хаанаас ч
               сурч болох юм.
             </p>
-            <button className={`btn bannerBtn`}> ОНЛАЙН СУРГАЛТ </button>
+            <button className={`btn bannerBtn btn__defualt`}>
+              {" "}
+              ОНЛАЙН СУРГАЛТ{" "}
+            </button>
           </div>
           <div className="imageBox">
             <div className="imgBg"> </div>
@@ -109,6 +120,6 @@ export default () => {
           </div>
         </div>
       </Swiper>
-    </>
+    </Fragment>
   );
 };
