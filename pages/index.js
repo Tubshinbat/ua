@@ -6,6 +6,7 @@ import CustomCursor from "components/cursor";
 
 import css from "styles/Home.module.css";
 import HomeTopLinks from "components/home-top-links";
+import HomeNeedLink from "components/home-needLink";
 
 export default () => {
   return (
@@ -16,10 +17,10 @@ export default () => {
       <CustomCursor />
       <div className={css.HomeSection}>
         <HomeHeader />
-
         <Slider />
         <HomeTopLinks />
       </div>
+      <HomeNeedLink />
     </>
   );
 };

@@ -8,6 +8,11 @@ body {
   /* overflow: hidden; */
 }
 
+.custom-section {
+  position: relative;
+  padding: 70px 0px;
+}
+
 .custom-container {
   width: 100%;
   padding-right: var(--bs-gutter-x, 1rem);
