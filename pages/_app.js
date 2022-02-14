@@ -5,6 +5,8 @@ import "styles/hovereffects.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "styles/banner.css";
 import "styles/globals.css";
+import "styles/newsBanner.css";
+
 import "animate.css";
 
 function MyApp({ Component, pageProps }) {
@@ -12,6 +14,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <link href="/fonts/fonts.css" rel="stylesheet" />
+        <link href="/css/all.min.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -32,6 +35,7 @@ function MyApp({ Component, pageProps }) {
           src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"
           crossorigin
         ></script>
+        <Script src="/js/all.min.js" />
       </Head>
 
       <Component {...pageProps} />
