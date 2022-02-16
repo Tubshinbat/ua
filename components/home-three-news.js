@@ -20,8 +20,8 @@ export default () => {
           delay: 5000,
         }}
         navigation={{
-          prevEl: ".news__three_slider_prev",
-          nextEl: ".news__three_slider_next",
+          prevEl: ".news__three_prev",
+          nextEl: ".news__three_next",
         }}
         scrollbar={{
           el: ".news__three_scrollbar",
@@ -123,8 +123,12 @@ export default () => {
             <div className="news__three_scrollbar swiper-scrollbar"></div>
           </div>
           <div className="news__three_nav">
-            <div className="news__three_prev swiper-button-prev"></div>
-            <div className="news__three_next swiper-button-next"></div>
+            <div className="news__three_prev swiper-button-prev">
+              <img src="/images/prev-bl.png" />
+            </div>
+            <div className="news__three_next swiper-button-next">
+              <img src="/images/next-bl.png" />
+            </div>
           </div>
         </div>
       </Swiper>
