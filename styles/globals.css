@@ -7,6 +7,7 @@ body {
   font-weight: normal;
   font-family: "Montserrat", "DinPro", sans-serif;
   /* overflow: hidden; */
+  cursor: none;
 }
 
 .custom-section {
