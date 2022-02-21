@@ -1,15 +1,22 @@
 import Head from "next/head";
 import Script from "next/script";
+const isServer = typeof window === "undefined";
+const WOW = !isServer ? require("wow.js") : null;
 
 import "styles/hovereffects.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "styles/banner.css";
 import "styles/globals.css";
 import "styles/newsBanner.css";
+import "styles/book.css";
 
 import "animate.css";
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    new WOW().init();
+  }, []);
   return (
     <>
       <Head>
@@ -35,6 +42,7 @@ function MyApp({ Component, pageProps }) {
           src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"
           crossorigin
         ></script>
+
         <Script src="/js/all.min.js" />
       </Head>
 

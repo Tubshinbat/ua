@@ -64,10 +64,40 @@
 
 .Link__info {
   margin-top: 12px;
+  font-size: 0.8rem;
 }
 
 .Link__info p {
-  font-size: 0.88rem;
+  font-size: 0.8rem;
   color: #6b6b6b;
   margin-bottom: 0px;
+}
+
+@media (max-width: 1199px) {
+  .Links {
+    margin-top: 35px;
+  }
+}
+
+@media (max-width: 767px) {
+  .Link {
+    width: calc(1 / 2 * 100% - (1 - 1 / 2) * 25px);
+  }
+}
+
+@media (max-width: 479px) {
+  .Links {
+    gap: 15px;
+  }
+  .Link {
+    width: calc(1 / 2 * 100% - (1 - 1 / 2) * 15px);
+    padding: 10px;
+  }
+}
+
+@media (max-width: 339px) {
+  .Link {
+    width: 100%;
+    padding: 10px;
+  }
 }

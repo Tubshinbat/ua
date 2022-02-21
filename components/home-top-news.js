@@ -14,12 +14,12 @@ import HomeThreeNews from "./home-three-news";
 export default () => {
   return (
     <>
-      <Section ClassPlus={`news`}>
+      <Section ClassPlus={`news  wow animate__animated animate__fadeIn`}>
         <Swiper
           className={`newsTopSlider`}
           modules={[EffectFade, Navigation, Autoplay]}
           autoplay={{
-            delay: 6000,
+            delay: 4000,
           }}
           effect="fade"
           navigation={{
@@ -50,7 +50,7 @@ export default () => {
                 ажиллах санамж бичигт гарын үсэг зурлаа......
               </p>
             </div>
-            <div className={`news__image`}>
+            <div className={`news__image `}>
               <img src="/images/blog-1.jpg" />
             </div>
           </SwiperSlide>

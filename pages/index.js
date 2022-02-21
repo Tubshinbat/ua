@@ -9,6 +9,10 @@ import HomeTopLinks from "components/home-top-links";
 import HomeNeedLink from "components/home-needLink";
 import { Fragment } from "react";
 import HomeTopNews from "components/home-top-news";
+import HomeStatic from "components/home-static";
+import HomeFiles from "components/home-files";
+import FooterPartners from "components/footer-partners";
+import Footer from "components/footer";
 
 export default () => {
   return (
@@ -24,6 +28,10 @@ export default () => {
       </div>
       <HomeNeedLink />
       <HomeTopNews />
+      <HomeStatic />
+      <HomeFiles />
+      <FooterPartners />
+      <Footer />
     </Fragment>
   );
 };

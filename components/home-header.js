@@ -1,17 +1,35 @@
 import css from "styles/Header.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import pkg from "react";
+import { useEffect, useState } from "react";
 
 export default () => {
-  const { useState } = pkg;
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    window.onscroll = () => {
+      let header = document.querySelector(".myHeader");
+      let needLink = document.querySelector(".needLinks");
+      let sticky = header.offsetTop;
+      if (window.pageYOffset > sticky) {
+        header.classList.add(`${css.Sticky}`);
+        header.classList.add("animate__animated");
+        header.classList.add("animate__slideInDown");
+        header.classList.add("animate__delay-0.2s");
+      } else {
+        header.classList.remove(`${css.Sticky}`);
+        header.classList.remove("animate__animated");
+        header.classList.remove("animate__slideInDown");
+        header.classList.remove("animate__delay-0.2s");
+      }
+    };
+  }, []);
 
   const menuShow = () => {
     show ? setShow(() => false) : setShow(() => true);
   };
   return (
-    <header className={css.Header}>
+    <header className={`${css.Header} myHeader `}>
       <div className={css.LogoBox}>
         <img src="/images/white-logo.png" />
       </div>

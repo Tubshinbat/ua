@@ -12,12 +12,36 @@ export default () => {
   return (
     <div className="home__three_news container">
       <Swiper
-        className={`news__three_slider`}
+        className={`news__three_slider wow animate__animated animate__fadeInUp`}
         modules={[EffectFade, Navigation, Scrollbar, Autoplay]}
         slidesPerView={3}
+        loop={true}
         spaceBetween={40}
         autoplay={{
           delay: 5000,
+        }}
+        breakpoints={{
+          1000: {
+            slidesPerView: 3,
+          },
+          986: {
+            slidesPerView: 2,
+          },
+          782: {
+            slidesPerView: 2,
+          },
+          500: {
+            slidesPerView: 2,
+          },
+          400: {
+            slidesPerView: 1,
+          },
+          300: {
+            slidesPerView: 1,
+          },
+          200: {
+            slidesPerView: 1,
+          },
         }}
         navigation={{
           prevEl: ".news__three_prev",

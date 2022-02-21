@@ -143,6 +143,34 @@
   width: 100%;
 }
 
+.Sticky {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 100 !important;
+  top: 0px;
+  width: 100%;
+  padding: 0px 0px;
+  animation: fadeInUp;
+  animation-duration: 1.2s;
+  animation-delay: 1.2s;
+  transition-delay: 1.2s;
+  transition: all 0.3s;
+  box-shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
+}
+
+.Sticky .LogoBox {
+  position: absolute;
+  left: 0px;
+  height: 100px;
+  padding: 10px 30px;
+}
+
+.Sticky .LogoBox img {
+  height: 60px;
+}
+
 /* RESPONSIVE  */
 
 @media (max-width: 1520px) {

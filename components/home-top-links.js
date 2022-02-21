@@ -5,7 +5,10 @@ export default () => {
   return (
     <Fragment>
       <div className={`${css.FastBoxs}`}>
-        <div className={css.FastBox}>
+        <div
+          className={`${css.FastBox}  wow animate__animated animate__fadeInUp`}
+          data-wow-delay={`0.20s`}
+        >
           <a href="#">
             <div className={css.FastBg}>
               <img src="/images/box-bg1.jpg" />
@@ -16,7 +19,10 @@ export default () => {
             </div>
           </a>
         </div>
-        <div className={css.FastBox}>
+        <div
+          className={`${css.FastBox}  wow animate__animated animate__fadeInUp`}
+          data-wow-delay={`0.30s`}
+        >
           <a href="#">
             <div className={css.FastBg}>
               <img src="/images/box-bg2.jpg" />
@@ -27,7 +33,10 @@ export default () => {
             </div>
           </a>
         </div>
-        <div className={css.FastBox}>
+        <div
+          className={`${css.FastBox}  wow animate__animated animate__fadeInUp`}
+          data-wow-delay={`0.40s`}
+        >
           <a href="#">
             <div className={css.FastBg}>
               <img src="/images/box-bg3.jpg" />
