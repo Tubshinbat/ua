@@ -238,6 +238,13 @@ h3.section__title {
 .menu__item:hover {
   background-color: #cfd8dc;
 }
+.SimpleShare a {
+  margin-right: 5px;
+}
+
+.sticky-top {
+  top: 120px;
+}
 
 /* RESPONSIVE  */
 

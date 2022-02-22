@@ -2,9 +2,70 @@ import css from "styles/Header.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useMenus } from "hooks/use-menus";
 
-export default () => {
+const HomeHeader = () => {
   const [show, setShow] = useState(false);
+  const [dataMenus, setDataMenus] = useState([]);
+  const { menus } = useMenus();
+
+  useEffect(() => {
+    if (menus) {
+      setDataMenus(menus.data);
+      console.log(menus);
+    }
+  }, [menus]);
+
+  const renderCategories = (categories, child = false) => {
+    let myCategories = [];
+    categories &&
+      categories.map((el) => {
+        myCategories.push(
+          <li key={el._id} className={el.children.length > 0 && css.DropMenu}>
+            {!el.isDirect && !el.model && (
+              <Link href={`/page/${el.slug}`}>
+                <a
+                  className={child ? `` : `effect  slide-down `}
+                  data-effect={el.name}
+                >
+                  {el.name}
+                </a>
+              </Link>
+            )}
+            {el.isDirect && (
+              <a
+                href={el.direct}
+                target="_blank"
+                className={child ? `` : `effect  slide-down `}
+                data-effect={el.name}
+              >
+                {el.name}
+              </a>
+            )}
+            {el.model && (
+              <Link href={`${el.model}`}>
+                <a
+                  className={child ? `` : `effect  slide-down `}
+                  data-effect={el.name}
+                >
+                  {el.name}
+                </a>
+              </Link>
+            )}
+
+            {el.children.length > 0 ? (
+              <ul
+                className={`animate__animated animate__fadeIn animate__fast ${css.DropdownMenu}`}
+              >
+                {renderCategories(el.children, true)}
+              </ul>
+            ) : null}
+          </li>
+        );
+      });
+
+    return myCategories;
+  };
 
   useEffect(() => {
     window.onscroll = () => {
@@ -42,70 +103,7 @@ export default () => {
               </a>
             </Link>
           </li>
-          <li>
-            <Link href="/">
-              <a className={`effect slide-down `} data-effect="Бидний тухай">
-                Бидний тухай
-              </a>
-            </Link>
-          </li>
-          <li className={css.DropMenu}>
-            <Link href="/">
-              <a
-                className={`effect slide-down ${css.Dropdown}`}
-                data-effect="Бүрэлдхүүн сургууль"
-              >
-                Бүрэлдхүүн сургууль
-              </a>
-            </Link>
-            <ul
-              className={`animate__animated animate__fadeIn animate__fast ${css.DropdownMenu}`}
-            >
-              <li>
-                <Link href="#">
-                  <a>Төрийн албаны сургууль</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="#">
-                  <a>Удирдахуйн ухааны сургууль</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="#">
-                  <a>Мэргэшил дээшлүүлэх институт</a>
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <Link href="/">
-              <a className={`effect slide-down `} data-effect="Мэдээ мэдээлэл">
-                Мэдээ мэдээлэл
-              </a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/">
-              <a className={`effect slide-down `} data-effect="Шилэн данс">
-                Шилэн данс
-              </a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/">
-              <a className={`effect slide-down `} data-effect="Үйл ажиллагаа">
-                Үйл ажиллагаа
-              </a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/">
-              <a className={`effect slide-down `} data-effect="Ил тод байдал">
-                Ил тод байдал
-              </a>
-            </Link>
-          </li>
+          {renderCategories(dataMenus)}
           <div className={css.ChangeLanguage}>
             <img src="/images/eng.png" />
           </div>
@@ -119,3 +117,5 @@ export default () => {
     </header>
   );
 };
+
+export default HomeHeader;
