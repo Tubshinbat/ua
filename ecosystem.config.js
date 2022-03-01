@@ -2,13 +2,16 @@ module.exports = {
   apps: [
     {
       name: "naog-cms-portal",
-      script: "npm start",
-      args: ["--color"],
+      script: 'npm start',
+	  autorestart: true,
       env: {
-        NODE_ENV: "prod",
-        SERVER_ENV: "prod",
+		PORT: 8091,
+        NODE_ENV: "production",
+        SERVER_ENV: "production",
         DEBUG: "server:*",
-        DEBUG_COLORS: true
+        DEBUG_COLORS: true,
+		NEXT_PUBLIC_ENV_API_PREFIX: '/api/v1',
+        NEXT_PUBLIC_API_PREFIX: '/api/v1'
       }
     }
   ]
