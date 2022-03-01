@@ -46,13 +46,14 @@ function MyApp({ Component, pageProps }) {
         }}
       >
         <Head>
-          <link href="/fonts/fonts.css" rel="stylesheet" />
-          <link href="/css/all.min.css" rel="stylesheet" />
+          <link href="/fonts/fonts.css" rel="stylesheet" crossorigin />
+          <link href="/css/all.min.css" rel="stylesheet" crossorigin />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
             href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
             rel="stylesheet"
+            crossorigin
           ></link>
           <script
             src="https://unpkg.com/react/umd/react.production.min.js"
@@ -69,7 +70,7 @@ function MyApp({ Component, pageProps }) {
             crossorigin
           ></script>
 
-          <Script src="/js/all.min.js" />
+          <Script src="/js/all.min.js" crossorigin />
         </Head>
         <CustomCursor />
         <Component {...pageProps} />
