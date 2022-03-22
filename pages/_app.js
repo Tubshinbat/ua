@@ -3,6 +3,7 @@ import Script from "next/script";
 const isServer = typeof window === "undefined";
 import { SWRConfig } from "swr";
 const WOW = !isServer ? require("wow.js") : null;
+import { useCookies } from "react-cookie";
 
 import "styles/hovereffects.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,8 +17,10 @@ import { useEffect } from "react";
 import CustomCursor from "components/cursor";
 
 function MyApp({ Component, pageProps }) {
+  const [cookies, setCookie, removeCookie] = useCookies(["language"]);
   useEffect(() => {
     new WOW().init();
+    if (!cookies.language) setCookie("language", "mn", { path: "/" });
   }, []);
 
   const fetcher = async (url) => {
@@ -40,7 +43,6 @@ function MyApp({ Component, pageProps }) {
           fetcher,
           onError: (error, key) => {
             if (error.status !== 403 && error.status !== 404) {
-              // alert("Алдаа");
             }
           },
         }}

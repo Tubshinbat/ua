@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useCookies } from "react-cookie";
 
 import HomeHeader from "components/home-header";
 import Slider from "components/home-slider";
@@ -12,12 +13,20 @@ import HomeStatic from "components/home-static";
 import HomeFiles from "components/home-files";
 import FooterPartners from "components/footer-partners";
 import Footer from "components/footer";
+import { getInfo } from "lib/webinfo";
 
-export default () => {
+export default ({ info }) => {
+  const [cookies] = useCookies(["language"]);
+
   return (
     <Fragment>
       <Head>
-        <title> Удирдлагын академ </title>
+        <title>
+          {" "}
+          {info[cookies.language] !== undefined
+            ? info[cookies.language].name
+            : cookies.language === "mn" && info["eng"].name}
+        </title>
       </Head>
 
       <div className={css.HomeSection}>
@@ -33,4 +42,15 @@ export default () => {
       <Footer />
     </Fragment>
   );
+};
+
+export const getStaticProps = async () => {
+  const { info } = await getInfo();
+
+  return {
+    props: {
+      info,
+    },
+    revalidate: 50,
+  };
 };

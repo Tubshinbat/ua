@@ -3,32 +3,46 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useMenus } from "hooks/use-menus";
+import { useCookies } from "react-cookie";
+import { useInfo } from "hooks/use-info";
+import base from "base";
 
 const HomeHeader = () => {
+  const [cookies, setCookie] = useCookies(["language"]);
   const [show, setShow] = useState(false);
   const [dataMenus, setDataMenus] = useState([]);
   const { menus } = useMenus();
+  const { info } = useInfo();
 
   useEffect(() => {
     if (menus) {
       setDataMenus(menus.data);
-      console.log(menus);
     }
   }, [menus]);
 
-  const renderCategories = (categories, child = false) => {
+  const changeLanguage = (lang) => {
+    setCookie("language", lang, { path: "/" });
+  };
+
+  const renderCategories = (categories, child = false, parentSlug = "") => {
     let myCategories = [];
     categories &&
       categories.map((el) => {
+        let lang;
+        if (el[cookies.language].name === undefined) {
+          if (cookies.language == "mn") lang = "eng";
+          else lang = "mn";
+        } else lang = cookies.language;
+
         myCategories.push(
           <li key={el._id} className={el.children.length > 0 && css.DropMenu}>
             {!el.isDirect && !el.model && (
-              <Link href={`/page/${el.slug}`}>
+              <Link href={`/p/${parentSlug}/${el.slug}`}>
                 <a
                   className={child ? `` : `effect  slide-down `}
-                  data-effect={el.name}
+                  data-effect={el[lang].name}
                 >
-                  {el.name}
+                  {el[lang].name}
                 </a>
               </Link>
             )}
@@ -37,27 +51,27 @@ const HomeHeader = () => {
                 href={el.direct}
                 target="_blank"
                 className={child ? `` : `effect  slide-down `}
-                data-effect={el.name}
+                data-effect={el[lang].name}
               >
-                {el.name}
+                {el[lang].name}
               </a>
             )}
             {el.model && (
-              <Link href={`${el.model}`}>
+              <Link href={`/${el.model}`}>
                 <a
                   className={child ? `` : `effect  slide-down `}
-                  data-effect={el.name}
+                  data-effect={el[lang].name}
                 >
-                  {el.name}
+                  {el[lang].name}
                 </a>
               </Link>
             )}
 
-            {el.children.length > 0 ? (
+            {el.children.length > 0 && !child ? (
               <ul
                 className={`animate__animated animate__fadeIn animate__fast ${css.DropdownMenu}`}
               >
-                {renderCategories(el.children, true)}
+                {renderCategories(el.children, true, el.slug)}
               </ul>
             ) : null}
           </li>
@@ -92,7 +106,13 @@ const HomeHeader = () => {
   return (
     <header className={`${css.Header} myHeader `}>
       <div className={css.LogoBox}>
-        <img src="/images/white-logo.png" />
+        <img
+          src={`http://localhost:8000/uploads/${
+            info[cookies.language] !== undefined
+              ? info[cookies.language].whiteLogo
+              : info[cookies.language] === "mn" && info.eng.whiteLogo
+          }`}
+        />
       </div>
       <div className={`custom-container ${css.Navbar}`}>
         <ul className={` ${css.Menus}  ${show && css.Active} `}>
@@ -105,7 +125,14 @@ const HomeHeader = () => {
           </li>
           {renderCategories(dataMenus)}
           <div className={css.ChangeLanguage}>
-            <img src="/images/eng.png" />
+            {cookies.language === "mn" ? (
+              <img
+                src="/images/eng.png"
+                onClick={() => changeLanguage("eng")}
+              />
+            ) : (
+              <img src="/images/mn.png" onClick={() => changeLanguage("mn")} />
+            )}
           </div>
         </ul>
 
