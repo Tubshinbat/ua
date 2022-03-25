@@ -1,0 +1,50 @@
+import useSWR from "swr";
+import base from "base";
+
+export const useTopNews = () => {
+  const { data, error } = useSWR(
+    `http://localhost:8000/api/v1/news?active=true&star=true&limit=6`
+  );
+
+  let topNews = [];
+  if (data) {
+    topNews = data.data;
+  }
+
+  return {
+    topNews,
+    isLoading: !error && !data,
+    error,
+  };
+};
+
+export const useNews = (slug) => {
+  let news = [];
+  const { data, error } = useSWR(`http://localhost:8000/api/v1/news?${slug}`);
+
+  if (data) {
+    news = data.data;
+  }
+  return {
+    news,
+    isLoading: !error && !data,
+    error,
+  };
+};
+
+export const useNewNews = () => {
+  const { data, error } = useSWR(
+    `http://localhost:8000/api/v1/news?active=true&limit=10`
+  );
+
+  let news = [];
+  if (data) {
+    news = data.data;
+  }
+
+  return {
+    news,
+    isLoading: !error && !data,
+    error,
+  };
+};

@@ -1,4 +1,6 @@
 import Section from "./generals/section";
+import ReactTimeAgo from "react-time-ago";
+import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -10,8 +12,13 @@ import "swiper/css/autoplay";
 
 import { EffectFade, Navigation, Autoplay } from "swiper";
 import HomeThreeNews from "./home-three-news";
+import { useTopNews } from "hooks/use-news";
+import { useCookies } from "react-cookie";
 
 export default () => {
+  const { topNews } = useTopNews();
+  const [cookies] = useCookies(["language"]);
+
   return (
     <>
       <Section ClassPlus={`news  wow animate__animated animate__fadeIn`}>
@@ -27,60 +34,51 @@ export default () => {
             nextEl: ".news__slider_next",
           }}
         >
-          <SwiperSlide className={`newsSlide`}>
-            <div className={`sliderContainer`}>
-              <div className={`news__category`}> Үйл явдал </div>
-              <h3 className={`news__title`}>
-                Хамтын ажиллагааны санамж бичиг байгууллаа{" "}
-              </h3>
-              <div className={`news__date`}>
-                <div className={`news__date_item`}>
-                  <i class="fa-regular fa-clock"></i>1 Цагийн өмнө нийтлэгдсэн
-                </div>
-                <div className={`news__date_item`}>
-                  <i class="fa fa-bolt"></i> 156 хүн үзсэн
-                </div>
-              </div>
-              <p className={`news__shortDescription`}>
-                2021 оны 12 дугаар сарын 10-ны өдөр Монгол улсын Засгийн газрын
-                Хэрэг эрхлэх газрын дэргэдэх Удирдлагын академийн захирал,
-                доктор Д.Сүрэнчимэг Дархан хотод томилолтоор ажилласан.
-                Томилолтын хүрээнд захирал Д.Сүрэнчимэг Дархан-уул аймгийн Засаг
-                даргын орлогч А.Түвшинбаттай ажлын уулзалт хийж хоёр тал хамтран
-                ажиллах санамж бичигт гарын үсэг зурлаа......
-              </p>
-            </div>
-            <div className={`news__image `}>
-              <img src="/images/blog-1.jpg" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide className={`newsSlide`}>
-            <div className={`sliderContainer`}>
-              <div className={`news__category`}> Үйл явдал </div>
-              <h3 className={`news__title`}>
-                Профессор Ч.ЭНХБААТАР Монгол улсын гавьяат багш цол хүртлээ
-              </h3>
-              <div className={`news__date`}>
-                <div className={`news__date_item`}>
-                  <i class="fa-regular fa-clock"></i>1 Цагийн өмнө нийтлэгдсэн
-                </div>
-                <div className={`news__date_item`}>
-                  <i class="fa fa-bolt"></i> 156 хүн үзсэн
-                </div>
-              </div>
-              <p className={`news__shortDescription`}>
-                Парламентат ёсыг төлөвшүүлэх, төр, нийгмийн шинэчлэлийг
-                эхлүүлэхэд оруулсан хувь нэмэр, үндэсний өв соёл, түүх,
-                уламжлалыг сэргээн хөгжүүлэх, сурталчлан түгээх үйлсэд оруулсан
-                хичээл зүтгэл, шинжлэх ухаан, боловсролын салбарт олон жил үр
-                бүтээлтэй ажилласныг нь үнэлэн......
-              </p>
-            </div>
-            <div className={`news__image`}>
-              <img src="/images/blog-2.jpg" />
-            </div>
-          </SwiperSlide>
-
+          {topNews &&
+            topNews.map((el) => {
+              let lang;
+              if (el[cookies.language] === undefined) {
+                if (cookies.language == "mn") lang = "eng";
+                else lang = "mn";
+              } else lang = cookies.language;
+              return (
+                <SwiperSlide className={`newsSlide`}>
+                  <div className={`sliderContainer`}>
+                    {el.categories[0] && (
+                      <div className={`news__category`}>
+                        {el.categories[0][cookies.language] !== undefined &&
+                          el.categories[0][cookies.language].name}
+                      </div>
+                    )}
+                    <h3 className={`news__title`}>{el[lang].name}</h3>
+                    <div className={`news__date`}>
+                      <div className={`news__date_item`}>
+                        <i class="fa-regular fa-clock"></i>{" "}
+                        <ReactTimeAgo date={el.createAt} locale="mn-MN" />
+                      </div>
+                      <div className={`news__date_item`}>
+                        <i class="fa fa-bolt"></i> {el.views} үзсэн
+                      </div>
+                    </div>
+                    <p className={`news__shortDescription`}>
+                      {el[lang].shortDetails.substring(0, 150)}...
+                    </p>
+                    <Link href={`/news/${el.slug}`}>
+                      <a class={"news__more"}>Дэлгэрэнгүй</a>
+                    </Link>
+                  </div>
+                  <div className={`news__image`}>
+                    {el.pictures[0] && (
+                      <Link href={`/news/${el.slug}`}>
+                        <img
+                          src={`http://localhost:8000/uploads/${el.pictures[0]}`}
+                        />
+                      </Link>
+                    )}
+                  </div>
+                </SwiperSlide>
+              );
+            })}
           <div className={`news__slider_nav`}>
             <div className={`news__slider_prev swiper-button-prev`}>
               <img src="/images/prev.png" />

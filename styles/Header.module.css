@@ -213,6 +213,7 @@
 
   .Menus.Active {
     display: flex;
+    z-index: 1;
     opacity: 1;
     animation-duration: 1s;
     animation-delay: 0.5s;

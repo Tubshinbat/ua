@@ -5,6 +5,13 @@ import { SWRConfig } from "swr";
 const WOW = !isServer ? require("wow.js") : null;
 import { useCookies } from "react-cookie";
 
+import TimeAgo from "javascript-time-ago";
+import mn from "javascript-time-ago/locale/mn.json";
+import ru from "javascript-time-ago/locale/ru.json";
+
+TimeAgo.addDefaultLocale(mn);
+TimeAgo.addLocale(ru);
+
 import "styles/hovereffects.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "styles/banner.css";
@@ -39,7 +46,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <SWRConfig
         value={{
-          refreshInterval: 1000,
+          refreshInterval: 10000,
           fetcher,
           onError: (error, key) => {
             if (error.status !== 403 && error.status !== 404) {

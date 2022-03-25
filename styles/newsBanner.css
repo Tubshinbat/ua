@@ -31,10 +31,25 @@
   height: 500px;
   top: -80px;
   right: 0;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+
+.news__more {
+  text-decoration: none;
+  background-color: #a7794a;
+  color: #fff;
+  padding: 7px 15px;
+  font-size: 0.8rem;
+  transition: all 0.3s;
+}
+
+.news__more:hover {
+  background-color: #94612d;
+  color: #fff;
 }
 
 .news__image > img {
@@ -144,7 +159,8 @@
 }
 
 .news__box_t:hover {
-  margin-top: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 .news__box_t_image {

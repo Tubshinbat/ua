@@ -1,4 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import Link from "next/link";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
@@ -7,8 +8,14 @@ import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 
 import { EffectFade, Navigation, Autoplay, Scrollbar } from "swiper";
+import { useNewNews } from "hooks/use-news";
+import { useCookies } from "react-cookie";
+import ReactTimeAgo from "react-time-ago";
 
 export default () => {
+  const [cookies] = useCookies(["language"]);
+  const { news } = useNewNews();
+
   return (
     <div className="home__three_news container">
       <Swiper
@@ -52,96 +59,39 @@ export default () => {
           draggable: false,
         }}
       >
-        <SwiperSlide className={`three_slide`}>
-          <div className="news__box_t">
-            <div className="news__box_t_image">
-              <img src="/images/blog-3.jpg" />
-            </div>
-            <div className="news__box_desciption">
-              <div className="news__box_date">
-                <div className={`news__date_item`}>
-                  <i class="fa-regular fa-clock"></i>1 Цагийн өмнө
-                </div>
-                <div className={`news__date_item`}>
-                  <i class="fa fa-bolt"></i> 156 үзсэн
-                </div>
-              </div>
-              <h5>Сургалтын хаалтын ажиллагаа боллоо</h5>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className={`three_slide`}>
-          <div className="news__box_t">
-            <div className="news__box_t_image">
-              <img src="/images/blog-4.jpg" />
-            </div>
-            <div className="news__box_desciption">
-              <div className="news__box_date">
-                <div className={`news__date_item`}>
-                  <i class="fa-regular fa-clock"></i>2 сарын өмнө
-                </div>
-                <div className={`news__date_item`}>
-                  <i class="fa fa-bolt"></i> 126 үзсэн
-                </div>
-              </div>
-              <h5>Пэрэнлэйн Оюун-Эрдэнэ докторын дипломоо гардан авлаа</h5>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className={`three_slide`}>
-          <div className="news__box_t">
-            <div className="news__box_t_image">
-              <img src="/images/blog-5.jpg" />
-            </div>
-            <div className="news__box_desciption">
-              <div className="news__box_date">
-                <div className={`news__date_item`}>
-                  <i class="fa-regular fa-clock"></i>2 сарын өмнө
-                </div>
-                <div className={`news__date_item`}>
-                  <i class="fa fa-bolt"></i> 126 үзсэн
-                </div>
-              </div>
-              <h5>Сар шинийн мэндчилгээ</h5>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className={`three_slide`}>
-          <div className="news__box_t">
-            <div className="news__box_t_image">
-              <img src="/images/blog-6.jpg" />
-            </div>
-            <div className="news__box_desciption">
-              <div className="news__box_date">
-                <div className={`news__date_item`}>
-                  <i class="fa-regular fa-clock"></i>2 сарын өмнө
-                </div>
-                <div className={`news__date_item`}>
-                  <i class="fa fa-bolt"></i> 126 үзсэн
-                </div>
-              </div>
-              <h5>Нээлттэй ажлын байрны зар</h5>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className={`three_slide`}>
-          <div className="news__box_t">
-            <div className="news__box_t_image">
-              <img src="/images/blog-7.jpg" />
-            </div>
-            <div className="news__box_desciption">
-              <div className="news__box_date">
-                <div className={`news__date_item`}>
-                  <i class="fa-regular fa-clock"></i>2 сарын өмнө
-                </div>
-                <div className={`news__date_item`}>
-                  <i class="fa fa-bolt"></i> 126 үзсэн
-                </div>
-              </div>
-              <h5>Цахим сургалт боллоо</h5>
-            </div>
-          </div>
-        </SwiperSlide>
+        {news &&
+          news.map((el) => {
+            let lang;
+            if (el[cookies.language] === undefined) {
+              if (cookies.language == "mn") lang = "eng";
+              else lang = "mn";
+            } else lang = cookies.language;
+            return (
+              <SwiperSlide className={`three_slide`}>
+                <Link href={`/news/${el.slug}`}>
+                  <div className="news__box_t">
+                    <div className="news__box_t_image">
+                      <img
+                        src={`http://localhost:8000/uploads/${el.pictures[0]}`}
+                      />
+                    </div>
+                    <div className="news__box_desciption">
+                      <div className="news__box_date">
+                        <div className={`news__date_item`}>
+                          <i class="fa-regular fa-clock"></i>
+                          <ReactTimeAgo date={el.createAt} locale="mn-MN" />
+                        </div>
+                        <div className={`news__date_item`}>
+                          <i class="fa fa-bolt"></i> {el.views} үзсэн
+                        </div>
+                      </div>
+                      <h5>{el[lang].name}</h5>
+                    </div>
+                  </div>
+                </Link>
+              </SwiperSlide>
+            );
+          })}
         <div className="news__three_bottom">
           <div className="news__three_scrollbar_box">
             <div className="news__three_scrollbar swiper-scrollbar"></div>

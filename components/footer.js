@@ -1,6 +1,69 @@
+import { useFooterMenu } from "hooks/use-menus";
+import { useCookies } from "react-cookie";
 import css from "styles/Footer.module.css";
+import Link from "next/link";
+import { useInfo } from "hooks/use-info";
+import { useSocials } from "hooks/use-links";
 
 const Footer = () => {
+  const { menus } = useFooterMenu();
+  const { info } = useInfo();
+  const { socialLinks } = useSocials();
+  const [cookies] = useCookies(["language"]);
+
+  const renderCategories = (categories, child = false, parentSlug = "") => {
+    let myCategories = [];
+    let count = 1;
+    categories &&
+      categories.map((el) => {
+        let lang;
+        if (el[cookies.language].name === undefined) {
+          if (cookies.language == "mn") lang = "eng";
+          else lang = "mn";
+        } else lang = cookies.language;
+
+        myCategories.push(
+          <>
+            <div key={el._id} className={`${!child && css.Footer__box}`}>
+              {!child && (
+                <div className={css.Footer__Title}>{el[lang].name}</div>
+              )}
+
+              {!el.isDirect && !el.model && child && (
+                <Link href={`/f/${parentSlug}/${el.slug}`}>
+                  <a>{el[lang].name}</a>
+                </Link>
+              )}
+
+              {el.isDirect && child && (
+                <a href={el.direct} target="_blank">
+                  {el[lang].name}
+                </a>
+              )}
+
+              {el.model && child && (
+                <Link href={`/${el.model}`}>
+                  <a>{el[lang].name}</a>
+                </Link>
+              )}
+              {el.children.length > 0 && !child ? (
+                <ul className={css.Footer__Links}>
+                  {renderCategories(el.children, true, el.slug)}
+                </ul>
+              ) : null}
+            </div>
+            {child === false && count++ === 2 ? (
+              <div className={css.Footer__logo}>
+                <img src="/images/footer-logo.png" />
+              </div>
+            ) : null}
+          </>
+        );
+      });
+
+    return myCategories;
+  };
+
   return (
     <>
       <footer className={css.Footer}>
@@ -9,102 +72,25 @@ const Footer = () => {
             <div className={css.Footer__logo_m}>
               <img src="/images/footer-logo.png" />
             </div>
-            <div className={`${css.Footer__box}`}>
-              <div className={css.Footer__Title}>УДИРДЛАГЫН АКАДЕМИ</div>
-              <ul className={css.Footer__Links}>
-                <li>
-                  <a href="#"> ДҮРЭМ ЖУРАМ</a>
-                </li>
-                <li>
-                  <a href="#"> ХОЛБОО БАРИХ</a>
-                </li>
-                <li>
-                  <a href="#"> ВЭБСАЙТ АШИГЛАХ</a>
-                </li>
-                <li>
-                  <a href="#"> МЭДЭЭЛЛИЙН НУУЦЛАЛ</a>
-                </li>
-              </ul>
-            </div>
-            <div className={`${css.Footer__box}`}>
-              {" "}
-              <div className={css.Footer__Title}>
-                УДИРДЛАГЫН АКАДЕМИД СУРАЛЦАХ
-              </div>
-              <ul className={css.Footer__Links}>
-                <li>
-                  <a href="#"> ДОКТОРЫН СУРГАЛТ</a>
-                </li>
-                <li>
-                  <a href="#">МАГИСТРЫН СУРГАЛТ</a>
-                </li>
-                <li>
-                  <a href="#"> МЭРГЭШҮҮЛЭХ БАГЦ СУРГАЛТ</a>
-                </li>
-                <li>
-                  <a href="#">СЕРТИФИКАТЫН СУРГАЛТ</a>
-                </li>
-                <li>
-                  <a href="#">БОГИНО СУРГАЛТ</a>
-                </li>
-                <li>
-                  <a href="#">ОНЛАЙН СУРГАЛТ</a>
-                </li>
-              </ul>
-            </div>
-            <div className={css.Footer__logo}>
-              <img src="/images/footer-logo.png" />
-            </div>
-            <div className={`${css.Footer__box}`}>
-              <div className={css.Footer__Title}>ЧУХАЛ ХОЛБООСУУД</div>
-              <ul className={css.Footer__Links}>
-                <li>
-                  <a href="#"> ЭЛСЭЛТ</a>
-                </li>
-                <li>
-                  <a href="#">БАГШЛАХ БҮРЭЛДЭХҮҮН</a>
-                </li>
-                <li>
-                  <a href="#"> СОНСОГЧИЙН ВЕБ</a>
-                </li>
-                <li>
-                  <a href="#">БАГШИЙН ВЕБ</a>
-                </li>
-                <li>
-                  <a href="#">НОМЫН САНГИЙН ПРОГРАМ</a>
-                </li>
-                <li>
-                  <a href="#">ТӨГСӨГЧИД</a>
-                </li>
-                <li>
-                  <a href="#">ХОЛБОО БАРИХ</a>
-                </li>
-              </ul>
-            </div>
+            {renderCategories(menus)}
+
             <div className={`${css.Footer__box}`}>
               <div className={css.Footer__contact}>
                 <div className={css.Footer__contact_box}>
-                  <i class="fa-solid fa-phone"></i>7013-3043
+                  <i class="fa-solid fa-phone"></i>
+                  {info.phone}
                 </div>
                 <div className={css.Footer__contact_box}>
-                  <i class="fa-solid fa-envelope"></i>info@naog.gov.mn
+                  <i class="fa-solid fa-envelope"></i>
+                  {info.email}
                 </div>
                 <div className={css.Footer__socials}>
-                  <a href="#">
-                    <i class="fa-brands fa-linkedin"></i>
-                  </a>
-                  <a href="#">
-                    <i class="fa-brands fa-facebook-square"></i>
-                  </a>
-                  <a href="#">
-                    <i class="fa-brands fa-twitter-square"></i>
-                  </a>
-                  <a href="#">
-                    <i class="fa-brands fa-google-plus-square"></i>
-                  </a>
-                  <a href="#">
-                    <i class="fa-brands fa-youtube-square"></i>
-                  </a>
+                  {socialLinks &&
+                    socialLinks.map((el) => (
+                      <a href={el.link}>
+                        <i class={`fa-brands fa-${el.name}`}></i>
+                      </a>
+                    ))}
                 </div>
               </div>
             </div>

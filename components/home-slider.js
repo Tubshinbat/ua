@@ -1,4 +1,6 @@
 import { Fragment } from "react";
+import { useBanners } from "hooks/use-banner";
+import { useCookies } from "react-cookie";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -17,6 +19,9 @@ import {
 } from "swiper";
 
 export default () => {
+  const { banners } = useBanners();
+  const [cookies] = useCookies(["language"]);
+
   return (
     <Fragment>
       <div className="bannerBg"> </div>
@@ -45,68 +50,36 @@ export default () => {
         navigation={{ prevEl: ".slider__prev", nextEl: ".slider__next" }}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <div className="contentText">
-            <span className="silde__headText">Тавтай морил</span>
-            <h4 className="slide__title">Удирдлагын академи</h4>
-            <p className="slide__text">
-              Удирдлагын академи нь төрийн албаны хөгжлийн шаардлагад нийцүүлэн
-              өндөр мэдлэг, чадвар бүхий албан хаагчдыг бэлтгэх, давтан сургах,
-              мэргэшлийг нь дээшлүүлэх, төрийн захиргаа, удирдлагын асуудлаар
-              судалгааны ажил гүйцэтгэх, төрийн бодлого боловсруулах чиглэлээр
-              төр, захиргааны байгууллагуудад мэргэжил, арга зүйн зөвлөгөө өгөх
-              чиг үүрэг бүхий байгууллага юм.
-            </p>
-            <button className={`btn bannerBtn btn__defualt`}>
-              {" "}
-              БИДНИЙ ТУХАЙ{" "}
-            </button>
-          </div>
-          <div className="imageBox">
-            <div className="imgBg"> </div>
-            <img src="/images/slide-1.jpg" />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="contentText">
-            <span className="silde__headText"> Онцлох </span>
-            <h4 className="slide__title">ТАХ Цахим сургалтын систем</h4>
-            <p className="slide__text">
-              Цаг үетэйгээ зэрэгцэн цахим шилжилтүүдийг хийж бид ТАХ цахим
-              сургалтын системээ нэвтрүүллээ. Энэхүү сургалтын системээр тогтсон
-              нарийн цагийн хуваарийн дагуу хичээллэх шаардлагагүй мөн хаанаас ч
-              сурч болох юм.
-            </p>
-            <button className={`btn bannerBtn btn__defualt`}>
-              {" "}
-              ОНЛАЙН СУРГАЛТ{" "}
-            </button>
-          </div>
-          <div className="imageBox">
-            <div className="imgBg"> </div>
-            <img src="/images/slide-2.jpg" />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="contentText">
-            <span className="silde__headText"> Онцлох </span>
-            <h4 className="slide__title">ТАХ Цахим сургалтын систем</h4>
-            <p className="slide__text">
-              Цаг үетэйгээ зэрэгцэн цахим шилжилтүүдийг хийж бид ТАХ цахим
-              сургалтын системээ нэвтрүүллээ. Энэхүү сургалтын системээр тогтсон
-              нарийн цагийн хуваарийн дагуу хичээллэх шаардлагагүй мөн хаанаас ч
-              сурч болох юм.
-            </p>
-            <button className={`btn bannerBtn btn__defualt`}>
-              {" "}
-              ОНЛАЙН СУРГАЛТ{" "}
-            </button>
-          </div>
-          <div className="imageBox">
-            <div className="imgBg"> </div>
-            <img src="/images/slide-3.jpg" />
-          </div>
-        </SwiperSlide>
+        {banners &&
+          banners.map((banner) => {
+            let lang;
+            if (banner[cookies.language] === undefined) {
+              if (cookies.language == "mn") lang = "eng";
+              else lang = "mn";
+            } else lang = cookies.language;
+
+            return (
+              <SwiperSlide>
+                <div className="contentText">
+                  <span className="silde__headText">
+                    {cookies.language === "mn" ? "Тавтай морил" : "WELCOME TO"}
+                  </span>
+                  <h4 className="slide__title">{banner[lang].name}</h4>
+                  <p className="slide__text">{banner[lang].details}</p>
+                  {banner.link && (
+                    <button className={`btn bannerBtn btn__defualt`}>
+                      {cookies.language === "mn" ? "Дэлгэрэнгүй" : "More"}
+                    </button>
+                  )}
+                </div>
+                <div className="imageBox">
+                  <div className="imgBg"> </div>
+                  <img src={`http://localhost:8000/uploads/${banner.banner}`} />
+                </div>
+              </SwiperSlide>
+            );
+          })}
+
         <div className="row slider__bottom">
           <div className="slider__pagination-wrapper">
             <div className="slider_pagination swiper-pagination"></div>

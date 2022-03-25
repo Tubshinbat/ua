@@ -7,6 +7,10 @@
   width: 100%;
 }
 
+.FastBox {
+  text-decoration: none;
+}
+
 .FastBoxs {
   display: flex;
   position: absolute;
@@ -242,6 +246,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .FastBox__container > .Icon {

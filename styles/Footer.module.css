@@ -40,7 +40,7 @@
   list-style: none;
 }
 
-.Footer__Links li a {
+.Footer__Links a {
   display: flex;
   text-decoration: none;
   color: #fff;
@@ -49,7 +49,7 @@
   transition: all 0.4s ease;
 }
 
-.Footer__Links li a:hover {
+.Footer__Links a:hover {
   padding-left: 15px;
 }
 
