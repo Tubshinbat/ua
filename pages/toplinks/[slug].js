@@ -18,6 +18,14 @@ import { getNews } from "lib/news";
 import ReactTimeAgo from "react-time-ago";
 
 const TopLink = ({ info, topLink, topLinks, news }) => {
+  const router = useRouter();
+  const { asPath } = useRouter();
+
+  if (router.isFallback) return <div>Түр хүлээнэ үү ...</div>;
+
+  if (!router.isFallback && !topLink?.slug)
+    return <div>Уучлаарай ийм пост байхгүй байна...</div>;
+
   const [cookies] = useCookies(["language"]);
   const [infoLang, setinfoLang] = useState();
   const [lang, setLang] = useState();
@@ -132,7 +140,7 @@ const TopLink = ({ info, topLink, topLinks, news }) => {
                           >
                             <div className={css.News__img}>
                               <img
-                                src={`http://localhost:8000/uploads/150x150/${el.pictures[0]}`}
+                                src={`http://naog-admin.lvg.mn/rest/uploads/150x150/${el.pictures[0]}`}
                               />
                             </div>
                             <div className={css.News__detials}>
@@ -181,6 +189,7 @@ export const getStaticProps = async ({ params }) => {
 
 export const getStaticPaths = async () => {
   const { topLinks } = await getTopLinks(`direct=true`);
+
   return {
     paths: topLinks.map((el) => ({
       params: {

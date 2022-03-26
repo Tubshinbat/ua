@@ -60,7 +60,7 @@ export default () => {
                       <div className={css.Link__top}>
                         <div className={`${css.TopIcon} ${css.Gray} `}>
                           <img
-                            src={`http://localhost:8000/uploads/${el.picture}`}
+                            src={`http://naog-admin.lvg.mn/rest/uploads/${el.picture}`}
                           />
                         </div>
                         <h4 className={css.Link__title}> {el[lang].name}</h4>

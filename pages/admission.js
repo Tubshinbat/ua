@@ -20,7 +20,7 @@ import ReactTimeAgo from "react-time-ago";
 import { useNews } from "hooks/use-news";
 import { SimpleShareButtons } from "react-simple-share";
 
-const News = ({ info, news, menus }) => {
+const Admission = () => {
   //   const router = useRouter();
 
   //   if (router.isFallback) return <div>Түр хүлээнэ үү ...</div>;
@@ -207,4 +207,4 @@ const News = ({ info, news, menus }) => {
 //   };
 // };
 
-export default News;
+export default Admission;

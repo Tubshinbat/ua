@@ -72,7 +72,7 @@ export default () => {
                   <div className="news__box_t">
                     <div className="news__box_t_image">
                       <img
-                        src={`http://localhost:8000/uploads/${el.pictures[0]}`}
+                        src={`http://naog-admin.lvg.mn/rest/uploads/${el.pictures[0]}`}
                       />
                     </div>
                     <div className="news__box_desciption">

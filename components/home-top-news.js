@@ -71,7 +71,7 @@ export default () => {
                     {el.pictures[0] && (
                       <Link href={`/news/${el.slug}`}>
                         <img
-                          src={`http://localhost:8000/uploads/${el.pictures[0]}`}
+                          src={`http://naog-admin.lvg.mn/rest/uploads/${el.pictures[0]}`}
                         />
                       </Link>
                     )}

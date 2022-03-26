@@ -1,7 +1,7 @@
 const base = {
-  apiUrl: "http://localhost:8000/api/v1/",
-  baseUrl: "http://localhost:3001/",
-  cdnUrl: "http://localhost:8000/uploads/",
+  apiUrl: "http://naog-admin.lvg.mn/api/v1/",
+  baseUrl: "http://naog-admin.lvg.mn/rest/api/v1/",
+  cdnUrl: "http://naog-admin.lvg.mn/uploads/",
 };
 
 export default base;

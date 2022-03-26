@@ -33,11 +33,13 @@ export default () => {
                 key={el.direct}
               >
                 <div className={css.FastBg}>
-                  <img src={`http://localhost:8000/uploads/${el.picture}`} />
+                  <img
+                    src={`http://naog-admin.lvg.mn/rest/uploads/${el.picture}`}
+                  />
                 </div>
                 <div className={css.FastBox__container}>
                   <img
-                    src={`http://localhost:8000/uploads/${el.icon}`}
+                    src={`http://naog-admin.lvg.mn/rest/uploads/${el.icon}`}
                     className={css.Icon}
                   />
                   <h5> {el[lang].name} </h5>

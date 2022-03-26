@@ -50,6 +50,7 @@ function MyApp({ Component, pageProps }) {
           fetcher,
           onError: (error, key) => {
             if (error.status !== 403 && error.status !== 404) {
+              console.log(error);
             }
           },
         }}

@@ -226,7 +226,7 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
                           >
                             <div className={css.News__img}>
                               <img
-                                src={`http://localhost:8000/uploads/150x150/${el.pictures[0]}`}
+                                src={`http://naog-admin.lvg.mn/rest/uploads/150x150/${el.pictures[0]}`}
                               />
                             </div>
                             <div className={css.News__detials}>

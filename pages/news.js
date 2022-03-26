@@ -61,7 +61,7 @@ export default ({ info, news, menus }) => {
                             <div className={cssNews.NewsList__imgBox}>
                               <Link href={`/news/${el.slug}`}>
                                 <img
-                                  src={`http://localhost:8000/uploads/350x350/${el.pictures[0]}`}
+                                  src={`http://naog-admin.lvg.mn/rest/uploads/350x350/${el.pictures[0]}`}
                                 />
                               </Link>
                             </div>
@@ -165,7 +165,7 @@ export default ({ info, news, menus }) => {
                             >
                               <div className={css.News__img}>
                                 <img
-                                  src={`http://localhost:8000/uploads/150x150/${el.pictures[0]}`}
+                                  src={`http://naog-admin.lvg.mn/rest/uploads/150x150/${el.pictures[0]}`}
                                 />
                               </div>
                               <div className={css.News__detials}>

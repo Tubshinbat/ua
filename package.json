@@ -43,5 +43,8 @@
     "url": "https://github.com/Tubshinbat/ua/issues"
   },
   "homepage": "https://github.com/Tubshinbat/ua#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "eslint": "^8.12.0"
+  }
 }
