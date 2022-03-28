@@ -11,7 +11,7 @@ import PageHeader from "components/page-header";
 
 import cssNews from "styles/News.module.css";
 import css from "styles/Page.module.css";
-import { getNews, getNewsMenus, getSlug } from "lib/news";
+import { getNews, getNewsMenus, getSlug, updateView } from "lib/news";
 import { getInfo } from "lib/webinfo";
 import ReactTimeAgo from "react-time-ago";
 import { useNews } from "hooks/use-news";
@@ -20,6 +20,10 @@ import { SimpleShareButtons } from "react-simple-share";
 
 export default ({ info, news, menus }) => {
   const router = useRouter();
+  useEffect(async () => {
+    const { slug } = router.query;
+    await updateView(slug);
+  }, []);
 
   if (router.isFallback)
     return (
@@ -34,6 +38,9 @@ export default ({ info, news, menus }) => {
   const [cookies] = useCookies(["language"]);
   const [infoLang, setinfoLang] = useState();
   const [lang, setLang] = useState();
+
+  useEffect(() => {}, []);
+
   useEffect(() => {
     if (info) {
       if (info[cookies.language] === undefined)
