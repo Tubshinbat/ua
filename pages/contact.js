@@ -1,11 +1,8 @@
 import Head from "next/head";
-
 import { useCookies } from "react-cookie";
-import Link from "next/link";
-
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import GoogleMapReact from "google-map-react";
-import { useEffect } from "react/cjs/react.development";
+import { useRouter } from "next/router";
 
 import FooterPartners from "components/footer-partners";
 import Footer from "components/footer";
@@ -15,8 +12,6 @@ import PageHeader from "components/page-header";
 import cssNews from "styles/News.module.css";
 import css from "styles/Page.module.css";
 
-import { getInfo } from "lib/webinfo";
-
 import {
   maxLength,
   minLength,
@@ -24,9 +19,13 @@ import {
   regEmail,
   requiredCheck,
 } from "lib/inputRegex";
+
 import { sendData } from "lib/contact";
+import { useInfo } from "hooks/use-info";
+import { getInfo } from "lib/webinfo";
 
 const Contact = ({ info }) => {
+  const router = useRouter();
   const [cookies] = useCookies(["language"]);
   const [infoLang, setinfoLang] = useState();
   const [formData, setForm] = useState({});
@@ -36,6 +35,7 @@ const Contact = ({ info }) => {
     message: false,
     phoneNumber: false,
   });
+
   const AnyReactComponent = ({ text }) => <div>{text}</div>;
   const [lang, setLang] = useState();
   useEffect(() => {

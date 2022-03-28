@@ -191,7 +191,7 @@ export const getStaticPaths = async () => {
         slug: el.direct,
       },
     })),
-    fallback: true,
+    fallback: false,
   };
 };
 
