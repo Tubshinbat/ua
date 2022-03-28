@@ -19,7 +19,7 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
   // const { page } = usePage(slug);
   const router = useRouter();
   const [slug, setSlug] = useState(router.query.slug);
-  const { news } = useNews(`limit=4&sort={ views: -1 }&star=true`);
+  const { news } = useNews([], `limit=4&sort={ views: -1 }&star=true`);
   useEffect(() => {
     const data = router.query.slug;
     setSlug(data.join("/"));

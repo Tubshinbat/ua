@@ -384,9 +384,24 @@ h3.section__title {
   animation-delay: -0.1s;
 }
 
+.litleError {
+  font-size: 0.8rem;
+  color: red;
+}
+
+.sendBtn {
+  padding: 5px 25px;
+}
+
 .page-link {
   padding: 0.2rem 0.7rem;
   font-size: 0.8rem;
+}
+
+.list-unstyled li i {
+  font-size: 1.5rem;
+  color: #00407a;
+  margin-bottom: 10px;
 }
 
 @-webkit-keyframes sk-circleBounceDelay {

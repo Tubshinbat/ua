@@ -52,7 +52,7 @@ export default ({ info, news, menus }) => {
     link: "/news",
   };
 
-  const { news: topNews } = useNews(`limit=4&sort={ views: -1 }&star=true`);
+  const { news: topNews } = useNews([], `limit=4&sort={ views: -1 }&star=true`);
   return (
     <Fragment>
       <Head>
@@ -127,7 +127,7 @@ export default ({ info, news, menus }) => {
                             }
                             return (
                               <li key={menu._id}>
-                                <Link href={`/n/${menu.slug}`}>
+                                <Link href={`/news?category=${menu._id}`}>
                                   <a>{menu[mlang] && menu[mlang].name}</a>
                                 </Link>
                               </li>
@@ -153,7 +153,7 @@ export default ({ info, news, menus }) => {
                           }
                           return (
                             <a
-                              href={`/news/${el.slug}`}
+                              href={`/post/${el.slug}`}
                               className={css.Side__Newsbox}
                               key={el._id}
                             >

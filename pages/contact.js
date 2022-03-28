@@ -4,7 +4,7 @@ import { useCookies } from "react-cookie";
 import Link from "next/link";
 
 import React, { Fragment, useState } from "react";
-
+import GoogleMapReact from "google-map-react";
 import { useEffect } from "react/cjs/react.development";
 
 import FooterPartners from "components/footer-partners";
@@ -14,157 +14,268 @@ import PageHeader from "components/page-header";
 
 import cssNews from "styles/News.module.css";
 import css from "styles/Page.module.css";
-import { getNews, getNewsMenus, getSlug } from "lib/news";
+
 import { getInfo } from "lib/webinfo";
-import ReactTimeAgo from "react-time-ago";
-import { useNews } from "hooks/use-news";
-import { SimpleShareButtons } from "react-simple-share";
 
-const Contact = () => {
-  //   const router = useRouter();
+import {
+  maxLength,
+  minLength,
+  onlyNumber,
+  regEmail,
+  requiredCheck,
+} from "lib/inputRegex";
+import { sendData } from "lib/contact";
 
-  //   if (router.isFallback) return <div>Түр хүлээнэ үү ...</div>;
+const Contact = ({ info }) => {
+  const [cookies] = useCookies(["language"]);
+  const [infoLang, setinfoLang] = useState();
+  const [formData, setForm] = useState({});
+  const [errors, setErrors] = useState({
+    name: false,
+    email: false,
+    message: false,
+    phoneNumber: false,
+  });
+  const AnyReactComponent = ({ text }) => <div>{text}</div>;
+  const [lang, setLang] = useState();
+  useEffect(() => {
+    if (info) {
+      if (info[cookies.language] === undefined)
+        cookies.language === "mn" ? setinfoLang("eng") : setinfoLang("mn");
+      else setinfoLang(cookies.language);
+    }
+  }, [info, cookies.language]);
 
-  //   if (!router.isFallback && !news?.slug)
-  //     return <div>Уучлаарай ийм пост байхгүй байна...</div>;
+  //CHECK FORM FUNCTION
+  const checkName = (el, name) => {
+    return name === el;
+  };
 
-  //   const [cookies] = useCookies(["language"]);
-  //   const [infoLang, setinfoLang] = useState();
-  //   const [lang, setLang] = useState();
-  //   useEffect(() => {
-  //     if (info) {
-  //       if (info[cookies.language] === undefined)
-  //         cookies.language === "mn" ? setinfoLang("eng") : setinfoLang("mn");
-  //       else setinfoLang(cookies.language);
+  const checkFrom = (name, val) => {
+    // Шалгах формуудаа энд тодорхойлоно
+    const valueErrors = Object.keys(errors);
+    let result;
+    if (valueErrors.find((el) => checkName(el, name))) {
+      result = requiredCheck(val);
 
-  //       if (news[cookies.language] === undefined)
-  //         cookies.language === "mn" ? setLang("eng") : setLang("mn");
-  //       else setLang(cookies.language);
-  //     }
-  //   }, [info, news, cookies.language]);
+      if (name === "name" && result === true) {
+        result = minLength(val, 2);
+        result === true && (result = maxLength(val, 300));
+      }
+      if (name === "email" && result === true) result = regEmail(val);
+      if (name === "phoneNumber" && result === true) result = onlyNumber(val);
+      setErrors((bfError) => ({ ...bfError, [name]: result }));
+    }
+  };
 
-  //   const { news: topNews } = useNews(`limit=4&sort={ views: -1 }&star=true`);
+  const checkTrue = () => {
+    let errorCount = 0;
+    let errorsValues = Object.values(errors);
+    errorsValues.map((el) => {
+      el === true && errorCount++;
+    });
+    return errorsValues.length === errorCount;
+  };
+
+  const allCheck = () => {
+    Object.keys(errors).map((el) => {
+      checkFrom(el, formData[el] === undefined ? "" : formData[el]);
+    });
+    return checkTrue();
+  };
+
+  // -- HANDLE CHANGE INPUT
+  const handleChange = (event) => {
+    let { name, value } = event.target;
+    setForm((bf) => ({ ...bf, [name]: value }));
+    checkFrom(event.target.name, event.target.value);
+  };
+
+  const send = () => {
+    if (allCheck()) {
+      sendData(formData);
+      alert("Таны санал хүсэлтийг хүлээж авлаа");
+      setForm(() => ({
+        name: "",
+      }));
+    }
+  };
 
   return (
     <Fragment>
       <Head>
         <title>
-          {/* {news[lang] && news[lang].name} -
-          {info[infoLang] && info[infoLang].name} */}
+          {cookies.language === "mn" ? "Холбоо барих" : "Contact us"} -{" "}
+          {info[infoLang] && info[infoLang].name}
         </title>
       </Head>
       <HomeHeader />
-      {/* <PageHeader
-        pageTitle={cookies.language === "mn" ? "Мэдээ мэдээлэл" : "News"}
-      /> */}
+      <PageHeader
+        pageTitle={cookies.language === "mn" ? "Холбоо барих" : "Contact us"}
+      />
       <div className={`${cssNews.Page} animate__animated animate__fadeIn`}>
         <div className="container">
           <div className="row">
             <div className="container">
               <div className="row">
-                <div className="col-md-8">
+                <div className="col-md-12">
                   <div className={cssNews.NewsList}>
                     <div className={css.PageInfo}>
-                      devloping
-                      {/* <div className={css.PageInfo__head}>
-                        <h4 className={css.PageName}>
-                          {news[lang] && news[lang].name}
-                        </h4>
-                        {news.pictures && (
-                          <img
-                            src={`http://naog-admin.lvg.mn/rest/uploads/${news.pictures[0]}`}
-                            className={css.bigImage}
-                          />
-                        )}
-                        {news[lang] && (
-                          <SimpleShareButtons
-                            whitelist={[
-                              "Facebook",
-                              "Twitter",
-                              "LinkedIn",
-                              "Google+",
-                            ]}
-                            size={"25px"}
-                          />
-                        )}
-                      </div> */}
-                      {/* <div
-                        dangerouslySetInnerHTML={{
-                          __html: news[lang] && news[lang].details,
+                      <div
+                        style={{
+                          height: "400px",
+                          width: "100%",
+                          padding: "10px",
+                          boxShadow: "0px 0px 15px rgb(0 0 0 / 8%)",
                         }}
-                        className={css.Description}
-                      ></div> */}
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-4">
-                  <div className={`${css.Sides}`}>
-                    {/* {menus && (
-                      <div className={`${css.Side} `}>
-                        <ul className={css.ListSub}>
-                          {menus.map((menu) => {
-                            let mlang;
-                            if (menu[cookies.language] === undefined) {
-                              if (cookies.language === "mn") {
-                                mlang = "eng";
-                              } else if (cookies.language === "eng") {
-                                mlang = "mn";
-                              }
-                            } else {
-                              mlang = cookies.language;
-                            }
-                            return (
-                              <li key={menu._id}>
-                                <Link href={`/n/${menu.slug}`}>
-                                  <a>{menu[mlang] && menu[mlang].name}</a>
-                                </Link>
-                              </li>
-                            );
-                          })}
-                        </ul>
+                        className={`wow animate__animated animate__fadeInDown`}
+                        data-wow-delay={`0.5s`}
+                      >
+                        <GoogleMapReact
+                          bootstrapURLKeys={{
+                            key: "AIzaSyBVbaukknpuyvHnYSK_MmpI-5pcBwz83kw",
+                          }}
+                          defaultZoom={16}
+                          defaultCenter={{
+                            lat: 47.89591117918217,
+                            lng: 106.91511278045269,
+                          }}
+                        >
+                          <AnyReactComponent
+                            lat={47.89591117918217}
+                            lng={106.91511278045269}
+                            text={<img src="/favicon.ico" />}
+                          />
+                        </GoogleMapReact>
                       </div>
-                    )} */}
-                  </div>
-                  <div className={`${css.Side} `}>
-                    <div className={css.Side__title}> Эрэлтэй мэдээлэл</div>
-                    <div className={css.Title__Border}></div>
-                    <div className={css.Side__News}>
-                      {/* {topNews &&
-                        topNews.map((el, index) => {
-                          let language;
-                          if (el[cookies.language] === undefined) {
-                            cookies.language === "mn"
-                              ? (language = "eng")
-                              : (language = "mn");
-                          } else {
-                            language = cookies.language;
-                          }
-                          return (
-                            <a
-                              href={`/news/${el.slug}`}
-                              className={css.Side__Newsbox}
-                              key={el._id}
-                            >
-                              <div className={css.News__img}>
-                                <img
-                                  src={`http://naog-admin.lvg.mn/rest/uploads/150x150/${el.pictures[0]}`}
-                                />
-                              </div>
-                              <div className={css.News__detials}>
-                                <div className={css.News__date}>
-                                  <i class="fa-regular fa-clock"></i>{" "}
-                                  <ReactTimeAgo
-                                    date={el.createAt}
-                                    locale="mn-MN"
+                      <section className={css.ContactForm}>
+                        <div className="row">
+                          <div className="col-md-9 mb-md-0 mb-5">
+                            <div className="row">
+                              <div
+                                className={`${css.Form__el} col-md-6 form-group`}
+                              >
+                                <label htmlFor="name" className>
+                                  Таны овог нэр
+                                </label>
+                                <div className=" mb-0">
+                                  <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    className="form-control"
+                                    value={formData.name || ""}
+                                    onChange={handleChange}
                                   />
+                                  {errors.name && (
+                                    <span className={`litleError`}>
+                                      {errors.name}
+                                    </span>
+                                  )}
                                 </div>
-                                <h4 className={css.News__title}>
-                                  {el[language] && el[language].name}
-                                </h4>
                               </div>
-                            </a>
-                          );
-                        })} */}
+
+                              <div
+                                className={`${css.Form__el} col-md-6 form-group`}
+                              >
+                                <label htmlFor="email" className>
+                                  Имэйл хаяг
+                                </label>
+                                <div className=" mb-0">
+                                  <input
+                                    type="text"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email || ""}
+                                    className="form-control"
+                                    onChange={handleChange}
+                                  />
+                                  {errors.email && (
+                                    <span className={`litleError`}>
+                                      {errors.email}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="row">
+                              <div
+                                className={`${css.Form__el} col-md-12 form-group`}
+                              >
+                                <div className=" mb-0">
+                                  <label htmlFor="subject" className>
+                                    Утасны дугаар
+                                  </label>
+                                  <input
+                                    type="number"
+                                    name="phoneNumber"
+                                    className="form-control"
+                                    value={formData.phoneNumber || ""}
+                                    onChange={handleChange}
+                                  />
+                                  {errors.phoneNumber && (
+                                    <span className={`litleError`}>
+                                      {errors.phoneNumber}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="row">
+                              <div
+                                className={`${css.Form__el} col-md-12 form-group`}
+                              >
+                                <div className="">
+                                  <label htmlFor="message">Санал хүсэлт</label>
+                                  <textarea
+                                    type="text"
+                                    id="message"
+                                    name="message"
+                                    value={formData.message || ""}
+                                    rows={3}
+                                    className="form-control md-textarea"
+                                    onChange={handleChange}
+                                  />
+                                  {errors.message && (
+                                    <span className={`litleError`}>
+                                      {errors.message}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="text-center text-md-left">
+                              <button
+                                className="btn btn-primary sendBtn"
+                                onClick={send}
+                              >
+                                Илгээх
+                              </button>
+                            </div>
+                            <div className="status" />
+                          </div>
+
+                          <div className="col-md-3 text-center">
+                            <ul className="list-unstyled ">
+                              <li>
+                                <i className="fas fa-map-marker-alt fa-2x" />
+                                <p>{info.mn.address}</p>
+                              </li>
+                              <li>
+                                <i className="fas fa-phone mt-4 fa-2x" />
+                                <p>{info.phone}</p>
+                              </li>
+                              <li>
+                                <i className="fas fa-envelope mt-4 fa-2x" />
+                                <p>{info.email}</p>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </section>
                     </div>
                   </div>
                 </div>
@@ -179,32 +290,15 @@ const Contact = () => {
   );
 };
 
-// export const getStaticProps = async ({ params }) => {
-//   const { info } = await getInfo();
-//   const { news } = await getSlug(params.slug);
-//   const { menus } = await getNewsMenus(`active=true`);
+export const getStaticProps = async ({ params }) => {
+  const { info } = await getInfo();
 
-//   return {
-//     props: {
-//       info,
-//       news: news && news,
-//       menus,
-//     },
-//     revalidate: 10,
-//   };
-// };
-
-// export const getStaticPaths = async () => {
-//   const { news } = await getNews(`active=true`);
-
-//   return {
-//     paths: news.map((n) => ({
-//       params: {
-//         slug: n.slug,
-//       },
-//     })),
-//     fallback: true,
-//   };
-// };
+  return {
+    props: {
+      info,
+    },
+    revalidate: 10,
+  };
+};
 
 export default Contact;

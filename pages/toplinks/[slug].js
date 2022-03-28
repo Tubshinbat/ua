@@ -9,22 +9,17 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, useEffect, useState } from "react";
 import { SimpleShareButtons } from "react-simple-share";
+import ReactTimeAgo from "react-time-ago";
 
 import css from "styles/Page.module.css";
 
 import { getTopLink, getTopLinks } from "lib/topLink";
 import { getInfo } from "lib/webinfo";
 import { getNews } from "lib/news";
-import ReactTimeAgo from "react-time-ago";
 
 const TopLink = ({ info, topLink, topLinks, news }) => {
   const router = useRouter();
   const { asPath } = useRouter();
-
-  if (router.isFallback) return <div>Түр хүлээнэ үү ...</div>;
-
-  if (!router.isFallback && !topLink?.slug)
-    return <div>Уучлаарай ийм пост байхгүй байна...</div>;
 
   const [cookies] = useCookies(["language"]);
   const [infoLang, setinfoLang] = useState();
@@ -183,7 +178,7 @@ export const getStaticProps = async ({ params }) => {
       topLinks,
       news,
     },
-    revalidate: 12000,
+    revalidate: 6000,
   };
 };
 

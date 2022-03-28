@@ -306,6 +306,19 @@
   justify-content: center;
 }
 
+.ContactForm {
+  margin-top: 80px;
+}
+
+.Form__el {
+  margin-bottom: 20px;
+}
+
+.Form__el label {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
 @media (max-width: 982px) {
   .PageTitle {
     margin-left: 320px;
