@@ -68,7 +68,7 @@ export default () => {
             } else lang = cookies.language;
             return (
               <SwiperSlide className={`three_slide`}>
-                <Link href={`/news/${el.slug}`}>
+                <Link href={`/post/${el.slug}`}>
                   <div className="news__box_t">
                     <div className="news__box_t_image">
                       <img

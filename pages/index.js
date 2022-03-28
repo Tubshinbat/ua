@@ -22,8 +22,8 @@ export default ({ info }) => {
     <Fragment>
       <Head>
         <title>
-          {info[cookies.language] !== undefined
-            ? info[cookies.language].name
+          {info && info[cookies.language] !== undefined
+            ? info[cookies.language].name && info[cookies.language].name
             : (cookies.language === "mn" && info["eng"].name) ||
               (cookies.language === "eng" && info["mn"].name)}
         </title>

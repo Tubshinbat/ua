@@ -300,6 +300,12 @@
   font-size: 0.9rem;
 }
 
+.Pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (max-width: 982px) {
   .PageTitle {
     margin-left: 320px;

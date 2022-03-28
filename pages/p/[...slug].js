@@ -13,6 +13,7 @@ import { SimpleShareButtons } from "react-simple-share";
 import css from "styles/Page.module.css";
 import { getPage } from "lib/page";
 import { useNews } from "hooks/use-news";
+import ReactTimeAgo from "react-time-ago";
 
 const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
   // const { page } = usePage(slug);
@@ -232,7 +233,7 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
                         }
                         return (
                           <a
-                            href={`/news/${el.slug}`}
+                            href={`/post/${el.slug}`}
                             className={css.Side__Newsbox}
                             key={el._id}
                           >

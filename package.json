@@ -15,6 +15,7 @@
     "react-bootstrap": "^2.1.2",
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
+    "react-js-pagination": "^3.0.3",
     "react-simple-share": "^0.1.2",
     "react-time-ago": "^7.1.9",
     "swiper": "^8.0.3",

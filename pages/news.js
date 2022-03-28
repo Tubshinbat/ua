@@ -1,6 +1,8 @@
 import Head from "next/head";
 import { useCookies } from "react-cookie";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import Pagination from "react-js-pagination";
 
 import { Fragment, useEffect, useState } from "react";
 import FooterPartners from "components/footer-partners";
@@ -14,10 +16,23 @@ import { getNews, getNewsMenus } from "lib/news";
 import { getInfo } from "lib/webinfo";
 import ReactTimeAgo from "react-time-ago";
 import { useNews } from "hooks/use-news";
+import Spinner from "components/Spinner";
 
-export default ({ info, news, menus }) => {
+export default ({ info, news, menus, pagination }) => {
   const [cookies] = useCookies(["language"]);
   const [infoLang, setinfoLang] = useState();
+  const [category, setCategory] = useState();
+  //-- PAGINATION
+  const [activePage, setActivePage] = useState(1);
+  const [limit, setLimit] = useState({});
+  const [total, setTotal] = useState();
+  const [newsData, setNewsData] = useState([]);
+  const [notFound, setNotFound] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  const { news: topNews } = useNews([], `limit=4&sort={ views: -1 }&star=true`);
 
   useEffect(() => {
     if (info) {
@@ -27,7 +42,46 @@ export default ({ info, news, menus }) => {
     }
   }, [info, cookies.language]);
 
-  const { news: topNews } = useNews(`limit=4&sort={ views: -1 }&star=true`);
+  useEffect(() => {
+    if (news) {
+      setNewsData(news);
+    }
+  }, [news]);
+
+  useEffect(async () => {
+    if (router.query.category) {
+      setNewsData(() => []);
+      setLoading(true);
+      const { news, pagination } = await getNews(
+        `active=true&category=${router.query.category}`
+      );
+      if (news) {
+        setLoading(false);
+      } else setLoading(false);
+      setTotal(pagination.total);
+      setLimit(pagination.limit);
+      setNewsData(() => news);
+    }
+  }, [router.query]);
+
+  useEffect(() => {
+    if (pagination) {
+      setTotal(pagination.total);
+      setLimit(pagination.limit);
+    }
+  }, [pagination]);
+
+  const handlePageChange = (pageNumber) => {
+    setActivePage(pageNumber);
+  };
+
+  useEffect(async () => {
+    setNewsData(() => []);
+    const { news } = await getNews(
+      `active=true&category=${router.query.category}&page=${activePage}`
+    );
+    setNewsData(news);
+  }, [activePage]);
 
   return (
     <Fragment>
@@ -48,8 +102,10 @@ export default ({ info, news, menus }) => {
               <div className="row">
                 <div className="col-md-8">
                   <div className={cssNews.NewsList}>
-                    {news &&
-                      news.map((el) => {
+                    {loading && <Spinner />}
+                    {notFound && notFound}
+                    {newsData &&
+                      newsData.map((el) => {
                         let nlang;
                         if (el[cookies.language] === undefined) {
                           cookies.language === "mn"
@@ -59,7 +115,7 @@ export default ({ info, news, menus }) => {
                         return (
                           <div className={cssNews.NewsList__item} key={el.slug}>
                             <div className={cssNews.NewsList__imgBox}>
-                              <Link href={`/news/${el.slug}`}>
+                              <Link href={`/post/${el.slug}`}>
                                 <img
                                   src={`http://naog-admin.lvg.mn/rest/uploads/350x350/${el.pictures[0]}`}
                                 />
@@ -79,7 +135,7 @@ export default ({ info, news, menus }) => {
                                   return (
                                     <a
                                       key={cat.slug}
-                                      href={`/n/${el.slug}`}
+                                      href={`/news/?category=${el._id}`}
                                       className={
                                         cssNews.NewsList__categories_item
                                       }
@@ -89,7 +145,7 @@ export default ({ info, news, menus }) => {
                                   );
                                 })}
                               </div>
-                              <Link href={`/news/${el.slug}`}>
+                              <Link href={`/post/${el.slug}`}>
                                 <h3 className={cssNews.NewsList__name}>
                                   {el[nlang] && el[nlang].name}
                                 </h3>
@@ -114,6 +170,17 @@ export default ({ info, news, menus }) => {
                         );
                       })}
                   </div>
+                  <div className={` ${css.Pagination} pagination`}>
+                    <Pagination
+                      activePage={activePage}
+                      itemClass={`page-item`}
+                      linkClass={"page-link"}
+                      itemsCountPerPage={limit}
+                      totalItemsCount={total}
+                      pageRangeDisplayed={5}
+                      onChange={handlePageChange.bind()}
+                    />
+                  </div>
                 </div>
                 <div className="col-md-4">
                   <div className={`${css.Sides}`}>
@@ -133,7 +200,7 @@ export default ({ info, news, menus }) => {
                             }
                             return (
                               <li key={menu._id}>
-                                <Link href={`/n/${menu.slug}`}>
+                                <Link href={`/news/?category=${menu._id}`}>
                                   <a>{menu[mlang] && menu[mlang].name}</a>
                                 </Link>
                               </li>
@@ -159,7 +226,7 @@ export default ({ info, news, menus }) => {
                           }
                           return (
                             <a
-                              href={`/news/${el.slug}`}
+                              href={`/post/${el.slug}`}
                               className={css.Side__Newsbox}
                               key={el._id}
                             >
@@ -197,9 +264,9 @@ export default ({ info, news, menus }) => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps = async ({ params }) => {
   const { info } = await getInfo();
-  const { news } = await getNews(`active=true`);
+  const { news, pagination } = await getNews(`active=true`);
   const { menus } = await getNewsMenus(`active=true`);
 
   return {
@@ -207,6 +274,7 @@ export const getStaticProps = async () => {
       info,
       news,
       menus,
+      pagination,
     },
     revalidate: 10,
   };

@@ -45,10 +45,12 @@ export default () => {
                 <SwiperSlide className={`newsSlide`}>
                   <div className={`sliderContainer`}>
                     {el.categories[0] && (
-                      <div className={`news__category`}>
-                        {el.categories[0][cookies.language] !== undefined &&
-                          el.categories[0][cookies.language].name}
-                      </div>
+                      <a href="news?category=${el.slug}">
+                        <div className={`news__category`}>
+                          {el.categories[0][cookies.language] !== undefined &&
+                            el.categories[0][cookies.language].name}
+                        </div>
+                      </a>
                     )}
                     <h3 className={`news__title`}>{el[lang].name}</h3>
                     <div className={`news__date`}>
@@ -63,13 +65,13 @@ export default () => {
                     <p className={`news__shortDescription`}>
                       {el[lang].shortDetails.substring(0, 150)}...
                     </p>
-                    <Link href={`/news/${el.slug}`}>
+                    <Link href={`/post/${el.slug}`}>
                       <a class={"news__more"}>Дэлгэрэнгүй</a>
                     </Link>
                   </div>
                   <div className={`news__image`}>
                     {el.pictures[0] && (
-                      <Link href={`/news/${el.slug}`}>
+                      <Link href={`/post/${el.slug}`}>
                         <img
                           src={`http://naog-admin.lvg.mn/rest/uploads/${el.pictures[0]}`}
                         />

@@ -37,7 +37,13 @@ const PageHeader = (props) => {
             <a href="/"> {cookies.language === "mn" ? "Эхлэл" : "Home"} </a>
           </li>
           {props.parent && props.parent[lang] && (
-            <li>{<a href={`${slug}`}>{props.parent[lang].name}</a>}</li>
+            <li>
+              {
+                <a href={`${!parent.link ? slug : parent.link}`}>
+                  {props.parent[lang].name}
+                </a>
+              }
+            </li>
           )}
           <li> {props.pageTitle} </li>
         </ul>

@@ -18,7 +18,7 @@ export const useTopNews = () => {
   };
 };
 
-export const useNews = (slug) => {
+export const useNews = (init, slug) => {
   let news = [];
   const { data, error } = useSWR(
     `http://naog-admin.lvg.mn/rest/api/v1/news?${slug}`
