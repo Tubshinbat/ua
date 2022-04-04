@@ -2,7 +2,7 @@ import useSWR from "swr";
 
 export const useBook = () => {
   const { data, error } = useSWR(
-    `http://naog-admin.lvg.mn/rest/api/v1/books?active=true&limit=8`
+    `http://localhost:8000/api/v1/books?status=true&limit=8`
   );
   let books = [];
 

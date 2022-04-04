@@ -11,11 +11,19 @@ import { Fragment, useEffect, useState } from "react";
 import { SimpleShareButtons } from "react-simple-share";
 
 import css from "styles/Page.module.css";
-import { getPage } from "lib/page";
+import { getEmployees, getPage } from "lib/page";
 import { useNews } from "hooks/use-news";
 import ReactTimeAgo from "react-time-ago";
+import Team from "components/teams";
 
-const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
+const Page = ({
+  menu,
+  parent,
+  pageData,
+  childeMenus,
+  sameParentMenus,
+  employees,
+}) => {
   // const { page } = usePage(slug);
   const router = useRouter();
   const [slug, setSlug] = useState(router.query.slug);
@@ -28,6 +36,7 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
   const [cookies] = useCookies(["language"]);
   const [lang, setLang] = useState();
   const [plang, setPageLang] = useState();
+
   useEffect(() => {
     if (menu) {
       if (menu[cookies.language] === undefined) {
@@ -106,7 +115,13 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
                           <div className="col-lg-4 col-md-6 col-sm-12">
                             <div className={css.List__element}>
                               <a href={link}>
-                                <img src="/images/list-bg.jpg" />
+                                {el.picture ? (
+                                  <img
+                                    src={`http://cdn.lvg.mn/uploads/${el.picture}`}
+                                  />
+                                ) : (
+                                  <img src="/images/list-bg.jpg" />
+                                )}
                               </a>
                               <div className={css.List__about}>
                                 <a href={link}> {el[Llang].name} </a>
@@ -117,6 +132,12 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
                       })}
                   </div>
                 )}
+                <div className="row">
+                  {employees &&
+                    employees.map((el, index) => (
+                      <Team memberData={el} key={`t-${index}`} />
+                    ))}
+                </div>
               </div>
             </div>
             <div className="col-md-4">
@@ -239,7 +260,7 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
                           >
                             <div className={css.News__img}>
                               <img
-                                src={`http://naog-admin.lvg.mn/rest/uploads/150x150/${el.pictures[0]}`}
+                                src={`http://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
                               />
                             </div>
                             <div className={css.News__detials}>
@@ -277,6 +298,7 @@ export const getServerSideProps = async ({ params }) => {
   let pageData = null;
   let childeMenus = null;
   let sameParentMenus = null;
+  let employees = null;
 
   await getMenu(params.slug)
     .then((res) => {
@@ -295,6 +317,21 @@ export const getServerSideProps = async ({ params }) => {
       .catch((err) => console.log(err));
   }
 
-  return { props: { menu, parent, pageData, childeMenus, sameParentMenus } };
+  if (pageData !== null) {
+    if (pageData.position) {
+      const pIds = [];
+      pageData.position.map((el) => pIds.push(el._id));
+
+      await getEmployees(pIds)
+        .then((res) => {
+          employees = res.employees;
+        })
+        .catch(() => {});
+    }
+  }
+
+  return {
+    props: { menu, parent, pageData, childeMenus, sameParentMenus, employees },
+  };
 };
 export default Page;

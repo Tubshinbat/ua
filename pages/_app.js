@@ -4,6 +4,8 @@ const isServer = typeof window === "undefined";
 import { SWRConfig } from "swr";
 const WOW = !isServer ? require("wow.js") : null;
 import { useCookies } from "react-cookie";
+import Router from "next/router";
+import Nprogress from "nprogress";
 
 import TimeAgo from "javascript-time-ago";
 import mn from "javascript-time-ago/locale/mn.json";
@@ -12,6 +14,7 @@ import ru from "javascript-time-ago/locale/ru.json";
 TimeAgo.addDefaultLocale(mn);
 TimeAgo.addLocale(ru);
 
+import "nprogress/nprogress.css";
 import "styles/hovereffects.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "styles/banner.css";
@@ -22,6 +25,19 @@ import "styles/book.css";
 import "animate.css";
 import { useEffect } from "react";
 import CustomCursor from "components/cursor";
+
+Router.onRouteChangeStart = (url) => {
+  console.log(url);
+  Nprogress.start();
+};
+
+Router.onRouteChangeComplete = (url) => {
+  Nprogress.done();
+};
+
+Router.onRouteChangeError = (url) => {
+  Nprogress.done();
+};
 
 function MyApp({ Component, pageProps }) {
   const [cookies, setCookie, removeCookie] = useCookies(["language"]);

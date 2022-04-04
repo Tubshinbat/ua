@@ -60,9 +60,7 @@ export default () => {
               return (
                 <SwiperSlide>
                   <a href={el.link} target="_blank">
-                    <img
-                      src={`http://naog-admin.lvg.mn/rest/uploads/${el.picture}`}
-                    />
+                    <img src={`http://cdn.lvg.mn/uploads/${el.picture}`} />
                     <div className="book_slider__text">
                       <h5>{el.name}</h5>
                       <p>{el.about}</p>

@@ -2,7 +2,7 @@ import useSWR from "swr";
 
 export const useBanners = () => {
   const { data, error } = useSWR(
-    `http://naog-admin.lvg.mn/rest/api/v1/banners?active=true`
+    `http://localhost:8000/api/v1/banners?status=true`
   );
 
   let banners = [];

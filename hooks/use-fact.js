@@ -1,9 +1,7 @@
 import useSWR from "swr";
 
 export const useFact = () => {
-  const { data, error } = useSWR(
-    "http://naog-admin.lvg.mn/rest/api/v1/facts?limit=3"
-  );
+  const { data, error } = useSWR("http://localhost:8000/api/v1/facts?limit=3");
   let facts = [];
   if (data) {
     facts = data.data;

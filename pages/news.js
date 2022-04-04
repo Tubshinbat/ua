@@ -32,7 +32,10 @@ export default ({ info, news, menus, pagination }) => {
 
   const router = useRouter();
 
-  const { news: topNews } = useNews([], `limit=4&sort={ views: -1 }&star=true`);
+  const { news: topNews } = useNews(
+    [],
+    `limit=4&sort={ views: -1 }&star=true&status=true`
+  );
 
   useEffect(() => {
     if (info) {
@@ -53,7 +56,7 @@ export default ({ info, news, menus, pagination }) => {
       setNewsData(() => []);
       setLoading(true);
       const { news, pagination } = await getNews(
-        `active=true&category=${router.query.category}`
+        `status=true&category=${router.query.category}`
       );
       if (news) {
         setLoading(false);
@@ -78,7 +81,7 @@ export default ({ info, news, menus, pagination }) => {
   useEffect(async () => {
     setNewsData(() => []);
     const { news } = await getNews(
-      `active=true&category=${router.query.category}&page=${activePage}`
+      `status=true&category=${router.query.category}&page=${activePage}`
     );
     setNewsData(news);
   }, [activePage]);
@@ -117,7 +120,7 @@ export default ({ info, news, menus, pagination }) => {
                             <div className={cssNews.NewsList__imgBox}>
                               <Link href={`/post/${el.slug}`}>
                                 <img
-                                  src={`http://naog-admin.lvg.mn/rest/uploads/350x350/${el.pictures[0]}`}
+                                  src={`http://cdn.lvg.mn/uploads/350x350/${el.pictures[0]}`}
                                 />
                               </Link>
                             </div>
@@ -135,7 +138,7 @@ export default ({ info, news, menus, pagination }) => {
                                   return (
                                     <a
                                       key={cat.slug}
-                                      href={`/news/?category=${el._id}`}
+                                      href={`/news?category=${cat._id}`}
                                       className={
                                         cssNews.NewsList__categories_item
                                       }
@@ -232,7 +235,7 @@ export default ({ info, news, menus, pagination }) => {
                             >
                               <div className={css.News__img}>
                                 <img
-                                  src={`http://naog-admin.lvg.mn/rest/uploads/150x150/${el.pictures[0]}`}
+                                  src={`http://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
                                 />
                               </div>
                               <div className={css.News__detials}>
@@ -266,8 +269,8 @@ export default ({ info, news, menus, pagination }) => {
 
 export const getStaticProps = async ({ params }) => {
   const { info } = await getInfo();
-  const { news, pagination } = await getNews(`active=true`);
-  const { menus } = await getNewsMenus(`active=true`);
+  const { news, pagination } = await getNews(`status=true`);
+  const { menus } = await getNewsMenus(`status=true`);
 
   return {
     props: {

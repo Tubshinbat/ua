@@ -11,6 +11,7 @@
     "lerpjs": "^1.1.2",
     "next": "^12.0.10",
     "nextjs-fonts": "^0.22.0",
+    "nprogress": "^0.2.0",
     "number-scroller": "^3.3.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.2",

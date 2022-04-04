@@ -74,9 +74,7 @@ export default () => {
                 </div>
                 <div className="imageBox">
                   <div className="imgBg"> </div>
-                  <img
-                    src={`http://naog-admin.lvg.mn/rest/uploads/${banner.banner}`}
-                  />
+                  <img src={`http://cdn.lvg.mn/uploads/${banner.banner}`} />
                 </div>
               </SwiperSlide>
             );

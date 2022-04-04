@@ -9,9 +9,7 @@ const Partners = () => {
         <div className={css.Logos}>
           {partners &&
             partners.map((el) => {
-              return (
-                <img src={`http://naog-admin.lvg.mn/rest/uploads/${el.logo}`} />
-              );
+              return <img src={`http://cdn.lvg.mn/uploads/${el.logo}`} />;
             })}
         </div>
       </div>

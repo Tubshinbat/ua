@@ -135,7 +135,7 @@ const TopLink = ({ info, topLink, topLinks, news }) => {
                           >
                             <div className={css.News__img}>
                               <img
-                                src={`http://naog-admin.lvg.mn/rest/uploads/150x150/${el.pictures[0]}`}
+                                src={`http://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
                               />
                             </div>
                             <div className={css.News__detials}>
