@@ -27,8 +27,8 @@ import { getInfo } from "lib/webinfo";
 const Contact = ({ info }) => {
   const router = useRouter();
   const [cookies] = useCookies(["language"]);
-  const [infoLang, setinfoLang] = useState();
   const [formData, setForm] = useState({});
+  const AnyReactComponent = ({ text }) => <div>{text}</div>;
   const [errors, setErrors] = useState({
     name: false,
     email: false,
@@ -36,8 +36,15 @@ const Contact = ({ info }) => {
     phoneNumber: false,
   });
 
-  const AnyReactComponent = ({ text }) => <div>{text}</div>;
   const [lang, setLang] = useState();
+
+  useEffect(() => {
+    if (info) {
+      if (info[cookies.language] === undefined)
+        cookies.language === "mn" ? setLang("eng") : setLang("mn");
+      else setLang(cookies.language);
+    }
+  }, [info, cookies.language]);
 
   //CHECK FORM FUNCTION
   const checkName = (el, name) => {
@@ -99,7 +106,6 @@ const Contact = ({ info }) => {
       <Head>
         <title>
           {cookies.language === "mn" ? "Холбоо барих" : "Contact us"} -{" "}
-          {info[infoLang] && info[infoLang].name}
         </title>
       </Head>
       <HomeHeader />
@@ -255,7 +261,7 @@ const Contact = ({ info }) => {
                             <ul className="list-unstyled ">
                               <li>
                                 <i className="fas fa-map-marker-alt fa-2x" />
-                                <p>{info.mn.address}</p>
+                                <p>{info[lang] && info[lang].address}</p>
                               </li>
                               <li>
                                 <i className="fas fa-phone mt-4 fa-2x" />
