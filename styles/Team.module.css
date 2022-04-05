@@ -51,6 +51,7 @@
     right: 0;
     text-align: justify;
     z-index: 1000;
+    top: 250px;
     padding: 40px;
     width: 50vw;
     height: 70vh;
