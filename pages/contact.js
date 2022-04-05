@@ -38,13 +38,6 @@ const Contact = ({ info }) => {
 
   const AnyReactComponent = ({ text }) => <div>{text}</div>;
   const [lang, setLang] = useState();
-  useEffect(() => {
-    if (info) {
-      if (info[cookies.language] === undefined)
-        cookies.language === "mn" ? setinfoLang("eng") : setinfoLang("mn");
-      else setinfoLang(cookies.language);
-    }
-  }, [info, cookies.language]);
 
   //CHECK FORM FUNCTION
   const checkName = (el, name) => {
