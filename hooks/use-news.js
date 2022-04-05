@@ -36,7 +36,7 @@ export const useNews = (init, slug) => {
 
 export const useNewNews = () => {
   const { data, error } = useSWR(
-    `http://localhost:8000/api/v1/news?status=true&limit=10`
+    `http://naog-admin.lvg.mn/rest/api/v1/news?status=true&limit=10`
   );
 
   let news = [];
