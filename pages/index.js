@@ -20,24 +20,10 @@ export default ({ info }) => {
 
   const [lang, setLang] = useState();
 
-  useEffect(() => {
-    if (info !== undefined && info !== null && !info) {
-      console.log(info);
-      console.log(cookies.language);
-      if (info[cookies.language] === undefined) {
-      } else setLang(cookies.language);
-    }
-  }, [info, cookies.language]);
-
   return (
     <Fragment>
       <Head>
-        <title>
-          {info &&
-            info[lang] !== undefined &&
-            info[lang].name &&
-            info[lang].name}
-        </title>
+        <title></title>
       </Head>
 
       <div className={css.HomeSection}>
@@ -62,6 +48,5 @@ export const getStaticProps = async () => {
     props: {
       info,
     },
-    revalidate: 10,
   };
 };
