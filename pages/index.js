@@ -7,7 +7,7 @@ import Slider from "components/home-slider";
 import css from "styles/Home.module.css";
 import HomeTopLinks from "components/home-top-links";
 import HomeNeedLink from "components/home-needLink";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import HomeTopNews from "components/home-top-news";
 import HomeStatic from "components/home-static";
 import HomeFiles from "components/home-files";
@@ -18,16 +18,20 @@ import { getInfo } from "lib/webinfo";
 export default ({ info }) => {
   const [cookies] = useCookies(["language"]);
 
+  const [lang, setLang] = useState();
+
+  useEffect(() => {
+    if (info) {
+      if (info[cookies.language] === undefined)
+        cookies.language === "mn" ? setLang("eng") : setLang("mn");
+      else setLang(cookies.language);
+    }
+  }, [info, cookies.language]);
+
   return (
     <Fragment>
       <Head>
-        <title>
-          {info !== null && info[cookies.language] !== undefined
-            ? info[cookies.language].name !== undefined &&
-              info[cookies.language].name
-            : (cookies.language === "mn" && info["eng"].name) ||
-              (cookies.language === "eng" && info["mn"].name)}
-        </title>
+        <title>{info[lang] !== undefined && info[lang].name}</title>
       </Head>
 
       <div className={css.HomeSection}>
