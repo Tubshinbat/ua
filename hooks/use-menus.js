@@ -3,7 +3,7 @@ import base from "base";
 
 export const useMenus = () => {
   const { data, error } = useSWR(
-    `http://localhost:8000/api/v1/menu?status=true`
+    `http://naog-admin.lvg.mn/rest/api/v1/menu?status=true`
   );
 
   let menus = [];
@@ -17,7 +17,7 @@ export const useMenus = () => {
 
 export const useFooterMenu = () => {
   const { data, error } = useSWR(
-    `http://localhost:8000/api/v1/footermenu?status=true`
+    `http://naog-admin.lvg.mn/rest/api/v1/footermenu?status=true`
   );
 
   let menus = [];

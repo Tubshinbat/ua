@@ -2,7 +2,7 @@ import useSWR from "swr";
 
 export const useMenus = () => {
   const { data, error } = useSWR(
-    `http://localhost:8000/api/v1/menu?status=true`
+    `http://naog-admin.lvg.mn/rest/api/v1/menu?status=true`
   );
   return {
     menus: data,
@@ -13,7 +13,7 @@ export const useMenus = () => {
 
 export const useTopLinks = () => {
   const { data, error } = useSWR(
-    `http://localhost:8000/api/v1/toplinks?status=true&limit=3`
+    `http://naog-admin.lvg.mn/rest/api/v1/toplinks?status=true&limit=3`
   );
 
   let topLinks = [];

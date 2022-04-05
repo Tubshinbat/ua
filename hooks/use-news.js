@@ -3,7 +3,7 @@ import base from "base";
 
 export const useTopNews = () => {
   const { data, error } = useSWR(
-    `http://localhost:8000/api/v1/news?status=true&star=true&limit=6`
+    `http://naog-admin.lvg.mn/rest/api/v1/news?status=true&star=true&limit=6`
   );
 
   let topNews = [];
@@ -20,7 +20,9 @@ export const useTopNews = () => {
 
 export const useNews = (init, slug) => {
   let news = [];
-  const { data, error } = useSWR(`http://localhost:8000/api/v1/news?${slug}`);
+  const { data, error } = useSWR(
+    `http://naog-admin.lvg.mn/rest/api/v1/news?${slug}`
+  );
 
   if (data) {
     news = data.data;
