@@ -65,7 +65,9 @@ export default ({ info, news, menus }) => {
       <Head>
         <title>
           {news[lang] && news[lang].name} -
-          {info[infoLang] && info[infoLang].name}
+          {info[infoLang] !== undefined &&
+            info[infoLang].name &&
+            info[infoLang].name}
         </title>
       </Head>
       <HomeHeader />

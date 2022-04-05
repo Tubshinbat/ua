@@ -106,7 +106,7 @@ const Contact = ({ info }) => {
       <Head>
         <title>
           {cookies.language === "mn" ? "Холбоо барих" : "Contact us"} -{" "}
-          {info[lang] !== undefined && info[lang].name}
+          {info[lang] !== undefined && info[lang].name && info[lang].name}
         </title>
       </Head>
       <HomeHeader />

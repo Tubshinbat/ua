@@ -49,7 +49,9 @@ const TopLink = ({ info, topLink, topLinks, news }) => {
       <Head>
         <title>
           {topLink[lang] && topLink[lang].name} -{" "}
-          {info[infoLang] && info[infoLang].name}
+          {info[infoLang] !== undefined &&
+            info[infoLang].name &&
+            info[infoLang].name}
         </title>
       </Head>
       <HomeHeader />

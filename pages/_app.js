@@ -27,7 +27,6 @@ import { useEffect } from "react";
 import CustomCursor from "components/cursor";
 
 Router.onRouteChangeStart = (url) => {
-  console.log(url);
   Nprogress.start();
 };
 

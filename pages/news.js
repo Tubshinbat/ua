@@ -91,7 +91,9 @@ export default ({ info, news, menus, pagination }) => {
       <Head>
         <title>
           {cookies.language === "mn" ? "Мэдээ мэдээлэл" : "News"} -{" "}
-          {info[infoLang] && info[infoLang].name}
+          {info[infoLang] !== undefined &&
+            info[infoLang].name &&
+            info[infoLang].name}
         </title>
       </Head>
       <HomeHeader />

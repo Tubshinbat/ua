@@ -31,7 +31,9 @@ export default ({ info }) => {
   return (
     <Fragment>
       <Head>
-        <title>{info[lang] !== undefined && info[lang].name}</title>
+        <title>
+          {info[lang] !== undefined && info[lang].name && info[lang].name}
+        </title>
       </Head>
 
       <div className={css.HomeSection}>
