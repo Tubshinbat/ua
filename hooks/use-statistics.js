@@ -17,16 +17,15 @@ export const useStatistics = () => {
 
 export const useSubStatistics = (id) => {
   let subStatistics = [];
-  let error;
-  if (id) {
-    const { data, error } = useSWR(
-      `http://naog-admin.lvg.mn/rest/api/v1/statisticssub?main=${id}&limit=3`
-    );
 
-    if (data) {
-      subStatistics = data.data;
-    }
+  const { data, error } = useSWR(
+    `http://naog-admin.lvg.mn/rest/api/v1/statisticssub?main=${id}&limit=3`
+  );
+
+  if (data) {
+    subStatistics = data.data;
   }
+
   return {
     subStatistics,
     isLoading: !error && !subStatistics,

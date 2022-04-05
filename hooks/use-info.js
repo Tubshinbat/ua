@@ -7,7 +7,7 @@ export const useInfo = () => {
 
   let info = {};
   if (data) {
-    info = data.data.data;
+    info = data.data;
   }
 
   return {
