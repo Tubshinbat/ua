@@ -21,10 +21,11 @@ export default ({ info }) => {
   const [lang, setLang] = useState();
 
   useEffect(() => {
-    if (info) {
-      if (info[cookies.language] === undefined)
-        cookies.language === "mn" ? setLang("eng") : setLang("mn");
-      else setLang(cookies.language);
+    if (info !== undefined && info !== null && !info) {
+      console.log(info);
+      console.log(cookies.language);
+      if (info[cookies.language] === undefined) {
+      } else setLang(cookies.language);
     }
   }, [info, cookies.language]);
 
@@ -32,7 +33,10 @@ export default ({ info }) => {
     <Fragment>
       <Head>
         <title>
-          {info[lang] !== undefined && info[lang].name && info[lang].name}
+          {info &&
+            info[lang] !== undefined &&
+            info[lang].name &&
+            info[lang].name}
         </title>
       </Head>
 
@@ -58,6 +62,6 @@ export const getStaticProps = async () => {
     props: {
       info,
     },
-    revalidate: 50,
+    revalidate: 10,
   };
 };

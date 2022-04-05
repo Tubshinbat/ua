@@ -18,8 +18,9 @@ export default () => {
     if (cookies.language == "mn") lang = "eng";
     else lang = "mn";
   } else lang = cookies.language;
+
   const { subStatistics } = useSubStatistics(activeStatistic._id);
-  console.log(subStatistics);
+
   useEffect(() => {
     if (subStatistics.length > 0) {
       let count = 0;
