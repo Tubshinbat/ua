@@ -319,7 +319,7 @@ export const getServerSideProps = async ({ params }) => {
 
   if (pageData !== null) {
     if (pageData.position) {
-      const pIds = [];
+      let pIds = [];
       pageData.position.map((el) => pIds.push(el._id));
       if (pIds.length <= 0) pIds = null;
 
