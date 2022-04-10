@@ -321,6 +321,7 @@ export const getServerSideProps = async ({ params }) => {
     if (pageData.position) {
       const pIds = [];
       pageData.position.map((el) => pIds.push(el._id));
+      if (pIds.length <= 0) pIds = null;
 
       await getEmployees(pIds)
         .then((res) => {
