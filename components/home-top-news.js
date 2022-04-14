@@ -21,7 +21,7 @@ export default () => {
 
   return (
     <>
-      <Section ClassPlus={`news  wow animate__animated animate__fadeIn`}>
+      {/* <Section ClassPlus={`news  wow animate__animated animate__fadeIn`}>
         <Swiper
           className={`newsTopSlider`}
           modules={[EffectFade, Navigation, Autoplay]}
@@ -91,7 +91,7 @@ export default () => {
             </div>
           </div>
         </Swiper>
-      </Section>
+      </Section> */}
       <HomeThreeNews />
     </>
   );

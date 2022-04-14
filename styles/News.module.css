@@ -81,3 +81,15 @@
 .NewsList__info div {
   margin-right: 10px;
 }
+
+@media (max-width:768px) {
+  .NewsList__item{
+    flex-direction: column;
+  }
+  .NewsList__imgBox{
+    height: auto;
+  }
+  .NewsList__imgBox > img {
+    width: auto;
+  }
+}

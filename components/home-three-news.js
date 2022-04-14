@@ -21,7 +21,7 @@ export default () => {
       <Swiper
         className={`news__three_slider wow animate__animated animate__fadeInUp`}
         modules={[EffectFade, Navigation, Scrollbar, Autoplay]}
-        slidesPerView={3}
+        slidesPerView={6}
         loop={true}
         spaceBetween={40}
         autoplay={{
@@ -71,6 +71,17 @@ export default () => {
                 <Link href={`/post/${el.slug}`}>
                   <div className="news__box_t">
                     <div className="news__box_t_image">
+                      <div className="news__typeBg">
+                        <i
+                          className={`fa-solid  ${
+                            el.type === "picture" && "fa-image"
+                          }  ${el.type === "video" && "fa-play"} ${
+                            el.type === "audio" && "fa-music"
+                          }
+                          `}
+                        ></i>
+                      </div>
+
                       <img
                         src={`http://cdn.lvg.mn/uploads/${el.pictures[0]}`}
                       />

@@ -41,7 +41,7 @@ export default ({ info }) => {
       </div>
       <HomeNeedLink />
       <HomeTopNews />
-      <HomeStatic />
+      {/* <HomeStatic /> */}
       <HomeFiles />
       <FooterPartners />
       <Footer />

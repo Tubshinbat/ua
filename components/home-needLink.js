@@ -12,7 +12,7 @@ export default () => {
     <Section ClassPlus="needLinks">
       <div className="container ">
         <div className="row">
-          <div className="col-xl-4 col-lg-12 col-md-12 ">
+          {/* <div className="col-xl-4 col-lg-12 col-md-12 ">
             <h3
               className="section__title wow animate__animated animate__fadeInDown"
               data-wow-delay={`0.20s`}
@@ -40,8 +40,8 @@ export default () => {
                 {cookies.language === "mn" ? "Холбоо барих" : "Contact us"}
               </button>
             </a>
-          </div>
-          <div className="col-xl-8 col-lg-12 col-md-12">
+          </div> */}
+          <div className="col-xl-12 col-lg-12 col-md-12">
             <div className={css.Links}>
               {fastLinks &&
                 fastLinks.map((el, index) => {

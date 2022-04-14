@@ -13,7 +13,8 @@
   flex: 0 0 40%;
   width: 40%;
   height: 100%;
-  background-color: #2c2929;
+  /* background-color: #2a292c; */
+  background-color: #053758;
 }
 
 .swiper-slide {
@@ -120,7 +121,8 @@
   right: 0;
   width: 100%;
   max-width: 340px;
-  background-color: #2c2929;
+  /* background-color: #2c2929; */
+  background-color: #053758;
   justify-content: center;
   align-items: center;
   z-index: 12;

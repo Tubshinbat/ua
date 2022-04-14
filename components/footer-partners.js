@@ -9,7 +9,11 @@ const Partners = () => {
         <div className={css.Logos}>
           {partners &&
             partners.map((el) => {
-              return <img src={`http://cdn.lvg.mn/uploads/${el.logo}`} />;
+              return (
+                <a href={el.link} target="_blank">
+                  <img src={`http://cdn.lvg.mn/uploads/${el.logo}`} />
+                </a>
+              );
             })}
         </div>
       </div>
