@@ -23,9 +23,11 @@ body {
   margin-left: auto;
 }
 
+
+
 h3.section__title {
   font-family: "DinPro";
-  font-size: 2.4rem;
+  font-size: 1.7rem;
   font-weight: 800;
   text-transform: uppercase;
   line-height: 2.5rem;
@@ -403,6 +405,46 @@ h3.section__title {
   color: #00407a;
   margin-bottom: 10px;
 }
+
+.newsNew{
+  background-color: rgb(251 251 251);
+}
+
+.news__typeBg{
+  position: absolute;
+  display: flex;
+  justify-items: center;
+  color:#fff;
+  top:0px;
+  left:0px;
+  z-index: 2;
+}
+
+.news__typeBg i{
+  padding: 10px;
+  margin:10px;
+  font-size: 0.7rem;
+  background-color: #00407a;
+}
+
+table{
+  width: 100%;
+}
+
+ td, #customers th {
+   justify-content: center;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+
+ tr:hover {background-color: #ddd;}
+
+ th {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 
 @-webkit-keyframes sk-circleBounceDelay {
   0%,

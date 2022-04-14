@@ -12,15 +12,202 @@ import "swiper/css/autoplay";
 
 import { EffectFade, Navigation, Autoplay } from "swiper";
 import HomeThreeNews from "./home-three-news";
-import { useTopNews } from "hooks/use-news";
+import { useNews } from "hooks/use-news";
 import { useCookies } from "react-cookie";
 
+import css from "styles/HomeNews.module.css";
+import { useEffect, useState } from "react";
+
 export default () => {
-  const { topNews } = useTopNews();
+  const [newsData, setNewsData] = useState(null);
+  const [bigNews, setBigNews] = useState(null);
+  const { news } = useNews([], "status=true&limit=5");
+  const { news: topNews } = useNews([], "status=true&star=true&limit=4");
   const [cookies] = useCookies(["language"]);
+
+  const mnTop = "Онцлох <span> мэдээлэл </span>";
+  const engTop = "Recent <span> news </span>";
+  const mnNew = " Шинэ <span> мэдээлэл </span>";
+  const engNew = "New <span> News </span>";
+
+  const langCheck = (val) => {
+    let lang;
+    if (val[cookies.language] === undefined) {
+      if (cookies.language == "mn") lang = "eng";
+      else lang = "mn";
+    } else lang = cookies.language;
+
+    return lang;
+  };
+
+  useEffect(() => {
+    if (news) {
+      setBigNews(news.shift());
+      setNewsData(news);
+    }
+  }, [news]);
+
+  useEffect(() => {
+    if (bigNews) {
+      let lang;
+      if (bigNews[cookies.language] === undefined) {
+        if (cookies.language == "mn") lang = "eng";
+        else lang = "mn";
+      } else lang = cookies.language;
+    }
+  }, [cookies.language]);
 
   return (
     <>
+      <Section ClassPlus={`newsNew  wow animate__animated animate__fadeIn`}>
+        <div className="container">
+          <div className={css.NewNews}>
+            <div className="row">
+              <div className="col-md-8">
+                <h5
+                  className={css.NewNews__title}
+                  dangerouslySetInnerHTML={{
+                    __html: cookies.language === "mn" ? mnNew : engNew,
+                  }}
+                ></h5>
+                <div className="row">
+                  <div className="col-md-12">
+                    {bigNews && (
+                      <div className={css.BigNews}>
+                        <Link href={`/post/${bigNews.slug}`}>
+                          <div className={css.BigNews__image}>
+                            {bigNews.type !== "default" && (
+                              <div className="news__typeBg">
+                                <i
+                                  className={`fa-solid  ${
+                                    bigNews.type === "picture" && "fa-image"
+                                  }  ${bigNews.type === "video" && "fa-play"} ${
+                                    bigNews.type === "audio" && "fa-music"
+                                  }
+                          `}
+                                ></i>
+                              </div>
+                            )}
+                            <img
+                              src={`http://cdn.lvg.mn/uploads/450/${bigNews.pictures[0]}`}
+                            />
+                          </div>
+                        </Link>
+                        <div className={css.BigNews__details}>
+                          <Link href={`/post/${bigNews.slug}`}>
+                            <h3 className={css.BigNews__title}>
+                              {bigNews[langCheck(bigNews)].name}
+                            </h3>
+                          </Link>
+                          <div className={`news__date`}>
+                            <div className={`news__date_item`}>
+                              <i class="fa-regular fa-clock"></i>{" "}
+                              <ReactTimeAgo
+                                date={bigNews.createAt}
+                                locale="mn-MN"
+                              />
+                            </div>
+                            <div className={`news__date_item`}>
+                              <i class="fa fa-bolt"></i> {bigNews.views} үзсэн
+                            </div>
+                          </div>
+                          <p>
+                            {bigNews[langCheck(bigNews)].shortDetails.substring(
+                              0,
+                              180
+                            )}
+                            ...
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  {newsData &&
+                    newsData.map((news) => (
+                      <div className="col-md-6" key={news._id}>
+                        <div className={css.Little_news}>
+                          <Link href={`/post/${news.slug}`}>
+                            <div className={css.LittleNews__image}>
+                              <img
+                                src={`http://cdn.lvg.mn/uploads/450/${news.pictures[0]}`}
+                              />
+                            </div>
+                          </Link>
+                          <div className={css.LittleNews_detials}>
+                            <div className={css.LittleNews__categories}>
+                              {news.categories &&
+                                news.categories.map((cat) => (
+                                  <a href={`news?category=${news.slug}`}>
+                                    <div className={css.Category}>
+                                      {cat[langCheck(cat)].name}
+                                    </div>
+                                  </a>
+                                ))}
+                            </div>
+                            <Link href={`/post/${news.slug}`}>
+                              <h3 className={css.LittleNews__title}>
+                                {news[langCheck(news)].name}
+                              </h3>
+                            </Link>
+                            <div className={`news__date`}>
+                              <div className={`news__date_item`}>
+                                <i class="fa fa-bolt"></i> {news.views} үзсэн
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+              <div className="col-md-4">
+                <h5
+                  className={css.NewNews__title}
+                  dangerouslySetInnerHTML={{
+                    __html: cookies.language === "mn" ? mnTop : engTop,
+                  }}
+                ></h5>
+                {topNews &&
+                  topNews.map((news) => (
+                    <div className="col-md-12" key={news._id}>
+                      <div className={`${css.Little_news} ${css.topNews}`}>
+                        <Link href={`/post/${news.slug}`}>
+                          <div className={css.LittleNews__image}>
+                            <img
+                              src={`http://cdn.lvg.mn/uploads/450/${news.pictures[0]}`}
+                            />
+                          </div>
+                        </Link>
+                        <div className={css.LittleNews_detials}>
+                          <div className={css.LittleNews__categories}>
+                            {news.categories &&
+                              news.categories.map((cat) => (
+                                <a href={`news?category=${news.slug}`}>
+                                  <div className={css.Category}>
+                                    {cat[langCheck(cat)].name}
+                                  </div>
+                                </a>
+                              ))}
+                          </div>
+                          <Link href={`/post/${news.slug}`}>
+                            <h3 className={css.LittleNews__title}>
+                              {news[langCheck(news)].name}
+                            </h3>
+                          </Link>
+                          <div className={`news__date`}>
+                            <div className={`news__date_item`}>
+                              <i class="fa fa-bolt"></i> {news.views} үзсэн
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </Section>
       {/* <Section ClassPlus={`news  wow animate__animated animate__fadeIn`}>
         <Swiper
           className={`newsTopSlider`}
@@ -92,7 +279,7 @@ export default () => {
           </div>
         </Swiper>
       </Section> */}
-      <HomeThreeNews />
+      {/* <HomeThreeNews /> */}
     </>
   );
 };

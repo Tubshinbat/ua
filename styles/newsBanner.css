@@ -283,23 +283,6 @@
   }
 }
 
-.news__typeBg{
-  position: absolute;
-  display: flex;
-  justify-items: center;
-  color:#fff;
-  top:0px;
-  left:0px;
-  background-color: rgba(0, 0, 0, 0.274);
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-}
-
-.news__typeBg i{
-  padding: 20px;
-  font-size: 1.3rem;
-}
 
 @media (max-width: 990px) {
   .news {

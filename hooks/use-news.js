@@ -24,6 +24,8 @@ export const useNews = (init, slug) => {
     `http://naog-admin.lvg.mn/rest/api/v1/news?${slug}`
   );
 
+  ("mongoimport -d 'UA' -c 'banners' --type csv --headerline --file /var/www/html/db/uadb/banners.csv");
+
   if (data) {
     news = data.data;
   }

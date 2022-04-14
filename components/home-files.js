@@ -9,18 +9,24 @@ import "swiper/css/pagination";
 // import required modules
 import { EffectCoverflow, Pagination, Autoplay } from "swiper";
 import { useBook } from "hooks/use-book";
+import { useCookies } from "react-cookie";
 
 export default () => {
+  const [cookies] = useCookies(["language"]);
   const { books } = useBook();
   return (
     <Section>
       <div className="container">
-        <h3 className="section__title">
-          Цахим <span> файлын сан </span>
-        </h3>
-        <p className="section_longInfo">
-          Судалгаа шинжилгээ болон цахим номнуудыг шууд уншах боломжтой
-        </p>
+        <h3
+          className="section__title"
+          dangerouslySetInnerHTML={{
+            __html:
+              cookies.language === "mn"
+                ? " Цахим <span> файлын сан </span>"
+                : " Online <span> library </span>",
+          }}
+        ></h3>
+
         <Swiper
           loop={true}
           slidesPerView={2}
