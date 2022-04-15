@@ -2,7 +2,7 @@ import useSWR from "swr";
 
 export const useMenus = () => {
   const { data, error } = useSWR(
-    `http://naog-admin.lvg.mn/rest/api/v1/menu?status=true`
+    `https://naog-admin.lvg.mn/rest/api/v1/menu?status=true`
   );
   return {
     menus: data,
@@ -13,7 +13,7 @@ export const useMenus = () => {
 
 export const useTopLinks = () => {
   const { data, error } = useSWR(
-    `http://naog-admin.lvg.mn/rest/api/v1/toplinks?status=true&limit=3`
+    `https://naog-admin.lvg.mn/rest/api/v1/toplinks?status=true&limit=3`
   );
 
   let topLinks = [];
@@ -30,7 +30,7 @@ export const useTopLinks = () => {
 
 export const useTopLink = (slug, initData) => {
   const { data, error } = useSWR(
-    `http://naog-admin.lvg.mn/rest/api/v1/toplinks/slug/${slug}`,
+    `https://naog-admin.lvg.mn/rest/api/v1/toplinks/slug/${slug}`,
     {
       initialData: initData,
     }
@@ -50,7 +50,7 @@ export const useTopLink = (slug, initData) => {
 
 export const useFastLinks = () => {
   const { data, error } = useSWR(
-    `http://naog-admin.lvg.mn/rest/api/v1/fastlinks?active=true&limit=6`
+    `https://naog-admin.lvg.mn/rest/api/v1/fastlinks?active=true&limit=6`
   );
 
   let fastLinks = [];
@@ -66,7 +66,7 @@ export const useFastLinks = () => {
 };
 
 export const useSocials = () => {
-  const { data, error } = useSWR(`http://naog-admin.lvg.mn/rest/api/v1/slinks`);
+  const { data, error } = useSWR(`https://naog-admin.lvg.mn/rest/api/v1/slinks`);
 
   let socialLinks = [];
   if (data) {

@@ -24,7 +24,7 @@ const Team = ({ memberData, boolenPop = true }) => {
         <div className={styles.Team} onClick={handleClick}>
           <div className={styles.UserImg}>
             {memberData.picture && (
-              <img src={`http://cdn.lvg.mn/uploads/${memberData.picture[0]}`} />
+              <img src={`https://cdn.lvg.mn/uploads/${memberData.picture[0]}`} />
             )}
           </div>
           <p>{memberData[lang].name}</p>
@@ -47,7 +47,7 @@ const Team = ({ memberData, boolenPop = true }) => {
           ></i>
           {memberData.picture && (
             <img
-              src={`http://cdn.lvg.mn/uploads/${memberData.picture[0]}`}
+              src={`https://cdn.lvg.mn/uploads/${memberData.picture[0]}`}
               className={styles.WindowImg}
             />
           )}

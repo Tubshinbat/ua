@@ -107,7 +107,7 @@ const HomeHeader = () => {
     <header className={`${css.Header} myHeader `}>
       <div className={css.LogoBox}>
         <img
-          src={`http://cdn.lvg.mn/uploads/${
+          src={`https://cdn.lvg.mn/uploads/${
             info[cookies.language] !== undefined
               ? info[cookies.language].whiteLogo
               : info[cookies.language] === "mn" && info.eng.whiteLogo

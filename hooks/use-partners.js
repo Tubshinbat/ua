@@ -2,7 +2,7 @@ import useSWR from "swr";
 
 export const usePartners = () => {
   const { data, error } = useSWR(
-    `http://naog-admin.lvg.mn/rest/api/v1/partners?active=true&limit=5`
+    `https://naog-admin.lvg.mn/rest/api/v1/partners?active=true&limit=5`
   );
   let partners = [];
 

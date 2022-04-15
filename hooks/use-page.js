@@ -3,7 +3,7 @@ import base from "base";
 
 export const usePage = (slug) => {
   const { data, error } = useSWR(
-    `http://naog-admin.lvg.mn/rest/api/v1/pages/slug/${slug}`
+    `https://naog-admin.lvg.mn/rest/api/v1/pages/slug/${slug}`
   );
   return {
     page: data,

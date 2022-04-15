@@ -2,7 +2,7 @@ import useSWR from "swr";
 
 export const useEmployee = () => {
   const { data, error } = useSWR(
-    `http://naog-admin.lvg.mn/rest/api/v1/employees?status=true&limit=20`
+    `https://naog-admin.lvg.mn/rest/api/v1/employees?status=true&limit=20`
   );
   let employees = [];
 
