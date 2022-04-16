@@ -11,7 +11,7 @@ const Partners = () => {
             partners.map((el) => {
               return (
                 <a href={el.link} target="_blank">
-                  <img src={`http://cdn.lvg.mn/uploads/${el.logo}`} />
+                  <img src={`https://cdn.lvg.mn/uploads/${el.logo}`} />
                 </a>
               );
             })}

@@ -83,7 +83,7 @@ export default () => {
                       </div>
 
                       <img
-                        src={`http://cdn.lvg.mn/uploads/${el.pictures[0]}`}
+                        src={`https://cdn.lvg.mn/uploads/${el.pictures[0]}`}
                       />
                     </div>
                     <div className="news__box_desciption">

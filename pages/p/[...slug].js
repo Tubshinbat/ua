@@ -117,7 +117,7 @@ const Page = ({
                               <a href={link}>
                                 {el.picture ? (
                                   <img
-                                    src={`http://cdn.lvg.mn/uploads/${el.picture}`}
+                                    src={`https://cdn.lvg.mn/uploads/${el.picture}`}
                                   />
                                 ) : (
                                   <img src="/images/list-bg.jpg" />
@@ -260,7 +260,7 @@ const Page = ({
                           >
                             <div className={css.News__img}>
                               <img
-                                src={`http://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
+                                src={`https://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
                               />
                             </div>
                             <div className={css.News__detials}>

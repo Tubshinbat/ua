@@ -89,7 +89,7 @@ export default ({ info, news, menus }) => {
                         </h4>
                         {news.pictures && (
                           <img
-                            src={`http://cdn.lvg.mn/uploads/${news.pictures[0]}`}
+                            src={`https://cdn.lvg.mn/uploads/${news.pictures[0]}`}
                             className={css.bigImage}
                           />
                         )}
@@ -168,7 +168,7 @@ export default ({ info, news, menus }) => {
                             >
                               <div className={css.News__img}>
                                 <img
-                                  src={`http://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
+                                  src={`https://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
                                 />
                               </div>
                               <div className={css.News__detials}>

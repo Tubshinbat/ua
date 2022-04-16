@@ -122,7 +122,7 @@ export default ({ info, news, menus, pagination }) => {
                             <div className={cssNews.NewsList__imgBox}>
                               <Link href={`/post/${el.slug}`}>
                                 <img
-                                  src={`http://cdn.lvg.mn/uploads/350x350/${el.pictures[0]}`}
+                                  src={`https://cdn.lvg.mn/uploads/350x350/${el.pictures[0]}`}
                                 />
                               </Link>
                             </div>
@@ -237,7 +237,7 @@ export default ({ info, news, menus, pagination }) => {
                             >
                               <div className={css.News__img}>
                                 <img
-                                  src={`http://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
+                                  src={`https://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
                                 />
                               </div>
                               <div className={css.News__detials}>

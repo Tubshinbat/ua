@@ -2,7 +2,7 @@ import useSWR from "swr";
 
 export const useInfo = () => {
   const { data, error } = useSWR(
-    `http://naog-admin.lvg.mn/rest/api/v1/webinfo`
+    `https://naog-admin.lvg.mn/rest/api/v1/webinfo`
   );
 
   let info = {};

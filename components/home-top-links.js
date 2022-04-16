@@ -33,11 +33,11 @@ export default () => {
                 key={el.direct}
               >
                 <div className={css.FastBg}>
-                  <img src={`http://cdn.lvg.mn/uploads/${el.picture}`} />
+                  <img src={`https://cdn.lvg.mn/uploads/${el.picture}`} />
                 </div>
                 <div className={css.FastBox__container}>
                   <img
-                    src={`http://cdn.lvg.mn/uploads/${el.icon}`}
+                    src={`https://cdn.lvg.mn/uploads/${el.icon}`}
                     className={css.Icon}
                   />
                   <h5> {el[lang].name} </h5>

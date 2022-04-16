@@ -89,7 +89,7 @@ export default () => {
                               </div>
                             )}
                             <img
-                              src={`http://cdn.lvg.mn/uploads/450/${bigNews.pictures[0]}`}
+                              src={`https://cdn.lvg.mn/uploads/450/${bigNews.pictures[0]}`}
                             />
                           </div>
                         </Link>
@@ -129,7 +129,7 @@ export default () => {
                           <Link href={`/post/${news.slug}`}>
                             <div className={css.LittleNews__image}>
                               <img
-                                src={`http://cdn.lvg.mn/uploads/450/${news.pictures[0]}`}
+                                src={`https://cdn.lvg.mn/uploads/450/${news.pictures[0]}`}
                               />
                             </div>
                           </Link>
@@ -174,7 +174,7 @@ export default () => {
                         <Link href={`/post/${news.slug}`}>
                           <div className={css.LittleNews__image}>
                             <img
-                              src={`http://cdn.lvg.mn/uploads/450/${news.pictures[0]}`}
+                              src={`https://cdn.lvg.mn/uploads/450/${news.pictures[0]}`}
                             />
                           </div>
                         </Link>
@@ -260,7 +260,7 @@ export default () => {
                     {el.pictures[0] && (
                       <Link href={`/post/${el.slug}`}>
                         <img
-                          src={`http://cdn.lvg.mn/uploads/${el.pictures[0]}`}
+                          src={`https://cdn.lvg.mn/uploads/${el.pictures[0]}`}
                         />
                       </Link>
                     )}
