@@ -161,6 +161,13 @@ export default () => {
                     <div className="newTopNews__scrollbar swiper-scrollbar"></div>
                   </div>
                 </div>
+                <Link href="/news">
+                  <button className="allNews">
+                    {cookies.language === "eng"
+                      ? "Read all news"
+                      : "Бүх мэдээг унших"}
+                  </button>
+                </Link>
               </div>
               <div className="col-lg-5 col-md-12 mobile-newNews">
                 <Swiper
