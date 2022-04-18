@@ -106,7 +106,7 @@ const HomeHeader = () => {
   return (
     <header className={`${css.Header} myHeader `}>
       <div className={css.LogoBox}>
-        <a href="/">
+        <Link href="/">
           <img
             src={`https://cdn.lvg.mn/uploads/${
               info[cookies.language] !== undefined
@@ -114,7 +114,7 @@ const HomeHeader = () => {
                 : info[cookies.language] === "mn" && info.eng.whiteLogo
             }`}
           />
-        </a>
+        </Link>
       </div>
       <div className={`custom-container ${css.Navbar}`}>
         <ul className={` ${css.Menus}  ${show && css.Active} `}>
