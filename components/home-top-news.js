@@ -83,6 +83,7 @@ export default () => {
                   autoplay={{
                     delay: 4000,
                   }}
+                  preventInteractionOnTransition={true}
                   scrollbar={{
                     el: ".newTopNews__scrollbar",
                     draggable: true,
@@ -123,14 +124,15 @@ export default () => {
                             </Link>
                             <div className="topNewsBox__dateViews">
                               <div className={`topNewsBox__time`}>
-                                <i class="fa fa-clock"></i>
+                                <i className="fa fa-clock"></i>
                                 <ReactTimeAgo
                                   date={topNews.createAt}
                                   locale="mn-MN"
                                 />
                               </div>
                               <div className={`topNewsBox__views`}>
-                                <i class="fa fa-bolt"></i> {topNews.views} үзсэн
+                                <i className="fa fa-bolt"></i> {topNews.views}{" "}
+                                үзсэн
                               </div>
                             </div>
                             <p>
@@ -157,6 +159,13 @@ export default () => {
                     direction={"vertical"}
                     modules={[Autoplay, Navigation]}
                     slidesPerView={3}
+                    mousewheel={{
+                      invert: true,
+                    }}
+                    touchRatio={0}
+                    onTouchStart={function () {
+                      return false;
+                    }}
                     navigation={{
                       prevEl: ".newNewsSlider__prev",
                       nextEl: ".newNewsSlider__next",
@@ -192,14 +201,15 @@ export default () => {
                               </div>
                               <div className="topNewsBox__dateViews">
                                 <div className={`topNewsBox__time`}>
-                                  <i class="fa fa-clock"></i>
+                                  <i className="fa fa-clock"></i>
                                   <ReactTimeAgo
                                     date={el.createAt}
                                     locale="mn-MN"
                                   />
                                 </div>
                                 <div className={`topNewsBox__views`}>
-                                  <i class="fa fa-bolt"></i> {el.views} үзсэн
+                                  <i className="fa fa-bolt"></i> {el.views}{" "}
+                                  үзсэн
                                 </div>
                               </div>
                               <p>

@@ -54,7 +54,7 @@ export default () => {
                   return (
                     <a
                       href={el.direct}
-                      className={`${css.Link} wow animate__animated animate__fadeInRight`}
+                      className={`${css.Link} wow animate__animated animate__fadeInDown`}
                       data-wow-delay={`${count}s`}
                     >
                       <div className={css.Link__top}>
