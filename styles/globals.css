@@ -25,12 +25,35 @@ body {
 
 
 
-h3.section__title {
+.section__title {
+  position: relative;
+  
+  margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.section__title h3{
   font-family: "DinPro";
   font-size: 1.7rem;
   font-weight: 800;
   text-transform: uppercase;
-  line-height: 2.5rem;
+}
+
+.section__title p{
+  font-size: 0.8rem;
+  font-weight: bold;
+  color:rgb(131, 131, 131);
+}
+
+.section__title:before {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 70px;
+  height: 2px;
+  background: #00407a;
 }
 
 .section__title span {
@@ -47,6 +70,7 @@ h3.section__title {
 .needLink__info {
   margin: 24px 0px;
 }
+
 
 @media (min-width: 1400px) {
   .custom-container {

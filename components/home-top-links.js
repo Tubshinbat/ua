@@ -1,7 +1,6 @@
 import { useTopLinks } from "hooks/use-links";
 import { Fragment } from "react";
 import { useCookies } from "react-cookie";
-import Link from "next/link";
 import css from "styles/TopLinks.module.css";
 
 export default () => {

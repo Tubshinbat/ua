@@ -17,15 +17,16 @@ export default () => {
   return (
     <Section>
       <div className="container">
-        <h3
-          className="section__title"
-          dangerouslySetInnerHTML={{
-            __html:
-              cookies.language === "mn"
-                ? " Цахим <span> файлын сан </span>"
-                : " Online <span> library </span>",
-          }}
-        ></h3>
+        <div className={`section__title`}>
+          <h3
+            dangerouslySetInnerHTML={{
+              __html:
+                cookies.language === "eng"
+                  ? " Online <span> library </span>"
+                  : " Цахим <span> файлын сан </span>",
+            }}
+          ></h3>
+        </div>
 
         <Swiper
           loop={true}

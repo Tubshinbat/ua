@@ -229,11 +229,14 @@
 .FastBox:hover .FastBg::before {
   background-color: #003f7aa2;
   box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
+
 }
 
 .FastBox:hover .FastBg > img {
   transform: scale(1.3);
 }
+
+
 
 .FastBox:hover .Icon {
   transform: rotateY(360deg);
@@ -261,6 +264,11 @@
   font-weight: bold;
   text-transform: uppercase;
   font-size: 1.2rem;
+  transition: all 0.3s;
+}
+
+.FastBox:hover h5{
+  padding-top:10px;
 }
 
 .FastBox a {
