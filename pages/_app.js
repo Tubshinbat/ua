@@ -10,6 +10,8 @@ import Nprogress from "nprogress";
 import TimeAgo from "javascript-time-ago";
 import mn from "javascript-time-ago/locale/mn.json";
 import ru from "javascript-time-ago/locale/ru.json";
+TimeAgo.addDefaultLocale(mn);
+TimeAgo.addLocale(ru);
 
 import "nprogress/nprogress.css";
 import "styles/hovereffects.css";
@@ -41,8 +43,6 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     new WOW().init();
     if (!cookies.language) setCookie("language", "mn", { path: "/" });
-    TimeAgo.addDefaultLocale(mn);
-    TimeAgo.addLocale(ru);
   }, []);
 
   const fetcher = async (url) => {
