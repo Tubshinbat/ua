@@ -270,6 +270,10 @@
     margin: 0px auto;
 }
 
+.mobile-newNews{
+    display: none;
+}
+
 @media (max-width:1199px) {
     .newListNews__about{
         width: 75%;
@@ -310,6 +314,7 @@
 
 
 
+
  @media (max-width:767px) {
     .newListNews__image{
         width: 25%;
@@ -322,6 +327,17 @@
     .newListNews__image{
         width: 150px;
         height: 120px;
+    }
+    .home-newNews{
+        display: none;
+    }
+    .mobile-newNews{
+        display: block;
+        margin-top:20px;
+    }
+    .topNewsBox{
+        width: 100%;
+        
     }
  }
 

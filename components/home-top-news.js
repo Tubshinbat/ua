@@ -119,6 +119,91 @@ export default () => {
                             </div>
                           </Link>
                           <div className="topNewsBox__details">
+                            <div className="newListNews__categories">
+                              <div className={`newListNews__category`}>
+                                <a href="#">
+                                  {cookies.language === "eng"
+                                    ? "Featured"
+                                    : "Онцлох"}
+                                </a>
+                              </div>
+                            </div>
+                            <Link href={`/post/${topNews.slug}`}>
+                              <h4> {topNews[langCheck(topNews)].name}</h4>
+                            </Link>
+                            <div className="topNewsBox__dateViews">
+                              <div className={`topNewsBox__time`}>
+                                <i className="fa fa-clock"></i>
+                                <ReactTimeAgo
+                                  date={topNews.createAt}
+                                  locale="mn-MN"
+                                />
+                              </div>
+                              <div className={`topNewsBox__views`}>
+                                <i className="fa fa-bolt"></i> {topNews.views}{" "}
+                                үзсэн
+                              </div>
+                            </div>
+                            <p>
+                              {topNews[langCheck(topNews)].shortDetails &&
+                                topNews[
+                                  langCheck(topNews)
+                                ].shortDetails.substring(0, 150)}
+                              ...
+                            </p>
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                </Swiper>
+                <div className="newTopNews__bottom">
+                  <div className="newTopNews__scrollbar_box">
+                    <div className="newTopNews__scrollbar swiper-scrollbar"></div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-lg-5 col-md-12 mobile-newNews">
+                <Swiper
+                  modules={[Pagination, Navigation, Scrollbar, Autoplay]}
+                  autoplay={{
+                    delay: 5000,
+                  }}
+                  preventInteractionOnTransition={true}
+                  scrollbar={{
+                    el: ".newTopNews__scrollbar",
+                    draggable: true,
+                  }}
+                  className="newTopNews"
+                >
+                  {news &&
+                    news.map((topNews) => (
+                      <SwiperSlide
+                        className="topNewSlide"
+                        key={topNews._id + "top"}
+                      >
+                        <div className="topNewsBox">
+                          <Link href={`/post/${topNews.slug}`}>
+                            <div className="topNewsBox__image">
+                              {topNews.type !== "default" && (
+                                <div className="news__typeBg">
+                                  <i
+                                    className={`fa-solid  ${
+                                      topNews.type === "picture" && "fa-image"
+                                    }  ${
+                                      topNews.type === "video" && "fa-play"
+                                    } ${
+                                      topNews.type === "audio" && "fa-music"
+                                    }`}
+                                  ></i>
+                                </div>
+                              )}
+
+                              <img
+                                src={`https://cdn.lvg.mn/uploads/450/${topNews.pictures[0]}`}
+                              />
+                            </div>
+                          </Link>
+                          <div className="topNewsBox__details">
                             <Link href={`/post/${topNews.slug}`}>
                               <h4> {topNews[langCheck(topNews)].name}</h4>
                             </Link>
@@ -160,11 +245,7 @@ export default () => {
                     modules={[Autoplay, Navigation]}
                     slidesPerView={3}
                     mousewheel={{
-                      invert: true,
-                    }}
-                    touchRatio={0}
-                    onTouchStart={function () {
-                      return false;
+                      releaseOnEdges: false,
                     }}
                     navigation={{
                       prevEl: ".newNewsSlider__prev",
