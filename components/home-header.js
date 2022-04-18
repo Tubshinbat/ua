@@ -106,20 +106,25 @@ const HomeHeader = () => {
   return (
     <header className={`${css.Header} myHeader `}>
       <div className={css.LogoBox}>
-        <img
-          src={`https://cdn.lvg.mn/uploads/${
-            info[cookies.language] !== undefined
-              ? info[cookies.language].whiteLogo
-              : info[cookies.language] === "mn" && info.eng.whiteLogo
-          }`}
-        />
+        <a href="/">
+          <img
+            src={`https://cdn.lvg.mn/uploads/${
+              info[cookies.language] !== undefined
+                ? info[cookies.language].whiteLogo
+                : info[cookies.language] === "mn" && info.eng.whiteLogo
+            }`}
+          />
+        </a>
       </div>
       <div className={`custom-container ${css.Navbar}`}>
         <ul className={` ${css.Menus}  ${show && css.Active} `}>
           <li>
             <Link href="/">
-              <a className={`effect  slide-down `} data-effect=" Эхлэл">
-                Эхлэл
+              <a
+                className={`effect  slide-down `}
+                data-effect={cookies.language === "eng" ? "Home" : "Эхлэл"}
+              >
+                {cookies.language === "eng" ? "Home" : "Эхлэл"}
               </a>
             </Link>
           </li>
