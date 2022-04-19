@@ -239,8 +239,12 @@ const Page = ({
                   </div>
                 )}
                 <div className={`${css.Side} `}>
-                  <div className={css.Side__title}> Эрэлтэй мэдээлэл</div>
-                  <div className={css.Title__Border}></div>
+                  <div className={css.Side__title}>
+                    {cookies.language === "eng"
+                      ? "Resent news"
+                      : "Эрэлтэй мэдээ"}
+                  </div>
+
                   <div className={css.Side__News}>
                     {news &&
                       news.map((el, index) => {
@@ -253,29 +257,27 @@ const Page = ({
                           language = cookies.language;
                         }
                         return (
-                          <a
-                            href={`/post/${el.slug}`}
-                            className={css.Side__Newsbox}
-                            key={el._id}
-                          >
-                            <div className={css.News__img}>
-                              <img
-                                src={`https://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
-                              />
-                            </div>
-                            <div className={css.News__detials}>
-                              <div className={css.News__date}>
-                                <i class="fa-regular fa-clock"></i>{" "}
-                                <ReactTimeAgo
-                                  date={el.createAt}
-                                  locale="mn-MN"
+                          <Link href={`/post/${el.slug}`}>
+                            <a className={css.Side__Newsbox} key={el._id}>
+                              <div className={css.News__img}>
+                                <img
+                                  src={`https://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
                                 />
                               </div>
-                              <h4 className={css.News__title}>
-                                {el[language] && el[language].name}
-                              </h4>
-                            </div>
-                          </a>
+                              <div className={css.News__detials}>
+                                <div className={css.News__date}>
+                                  <i class="fa-regular fa-clock"></i>{" "}
+                                  <ReactTimeAgo
+                                    date={el.createAt}
+                                    locale="mn-MN"
+                                  />
+                                </div>
+                                <h4 className={css.News__title}>
+                                  {el[language] && el[language].name}
+                                </h4>
+                              </div>
+                            </a>
+                          </Link>
                         );
                       })}
                   </div>

@@ -20,6 +20,7 @@
     "react-js-pagination": "^3.0.3",
     "react-simple-share": "^0.1.2",
     "react-time-ago": "^7.1.9",
+    "react-to-print": "^2.14.6",
     "swiper": "^8.0.3",
     "swr": "^1.2.2",
     "vanilla-tilt": "^1.7.2",

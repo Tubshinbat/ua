@@ -21,8 +21,9 @@ import "styles/globals.css";
 import "styles/newsBanner.css";
 import "styles/book.css";
 import "styles/newNewsHome.css";
-
+import "styles/NewsViewSlide.css";
 import "animate.css";
+
 import { useEffect } from "react";
 import CustomCursor from "components/cursor";
 
@@ -61,7 +62,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <SWRConfig
         value={{
-          refreshInterval: 10000,
+          refreshInterval: 5000,
           fetcher,
           onError: (error, key) => {
             if (error.status !== 403 && error.status !== 404) {

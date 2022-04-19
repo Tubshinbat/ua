@@ -10,7 +10,7 @@ import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 
 import { Coverflow, Navigation, Autoplay, Pagination, Scrollbar } from "swiper";
-import HomeThreeNews from "./home-three-news";
+// import HomeThreeNews from "./home-three-news";
 import { useNews } from "hooks/use-news";
 import { useCookies } from "react-cookie";
 
@@ -23,11 +23,6 @@ export default () => {
   const { news } = useNews([], "status=true&limit=9");
   const { news: topNews } = useNews([], "status=true&star=true&limit=4");
   const [cookies] = useCookies(["language"]);
-
-  const mnTop = "Онцлох <span> мэдээлэл </span>";
-  const engTop = "Recent <span> news </span>";
-  const mnNew = " Шинэ <span> мэдээлэл </span>";
-  const engNew = "New <span> News </span>";
 
   const langCheck = (val) => {
     let lang;
@@ -58,23 +53,35 @@ export default () => {
 
   return (
     <>
-      <Section ClassPlus={`newsNew  wow animate__animated animate__fadeIn`}>
-        <div className="container">
+      <Section ClassPlus={`newsNew `}>
+        <div
+          className="container wow animate__animated animate__fadeIn"
+          data-wow-delay={`.5s`}
+        >
           <div className={css.NewNews}>
             <div className={`section__title`}>
-              <h3
-                dangerouslySetInnerHTML={{
-                  __html:
-                    cookies.language === "eng"
-                      ? "Lastest <span> News </span>"
-                      : "Шинэ <span> мэдээлэл </span>",
-                }}
-              ></h3>
-              <p>
-                {cookies.language === "eng"
-                  ? "Don't miss daily news"
-                  : "Мэдээ мэдээллээс бүү хоцроорой"}
-              </p>
+              <div className="section__header">
+                <h3
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      cookies.language === "eng"
+                        ? "Lastest <span> News </span>"
+                        : "Шинэ <span> мэдээлэл </span>",
+                  }}
+                ></h3>
+                <p>
+                  {cookies.language === "eng"
+                    ? "Don't miss daily news"
+                    : "Мэдээ мэдээллээс бүү хоцроорой"}
+                </p>
+              </div>
+              <Link href="/news">
+                <button className="allNews">
+                  {cookies.language === "eng"
+                    ? "Read all news"
+                    : "Бүх мэдээг унших"}
+                </button>
+              </Link>
             </div>
             <div className="row">
               <div className="col-lg-5 col-md-12">
@@ -161,13 +168,6 @@ export default () => {
                     <div className="newTopNews__scrollbar swiper-scrollbar"></div>
                   </div>
                 </div>
-                <Link href="/news">
-                  <button className="allNews">
-                    {cookies.language === "eng"
-                      ? "Read all news"
-                      : "Бүх мэдээг унших"}
-                  </button>
-                </Link>
               </div>
               <div className="col-lg-5 col-md-12 mobile-newNews">
                 <Swiper
@@ -176,10 +176,6 @@ export default () => {
                     delay: 5000,
                   }}
                   preventInteractionOnTransition={true}
-                  scrollbar={{
-                    el: ".newTopNews__scrollbar",
-                    draggable: true,
-                  }}
                   className="newTopNews"
                 >
                   {news &&
@@ -309,22 +305,24 @@ export default () => {
                                 ...
                               </p>
                             </div>
-                            <div className="newListNews__image topNewsBox__image">
-                              {el.type !== "default" && (
-                                <div className="news__typeBg">
-                                  <i
-                                    className={`fa-solid  ${
-                                      el.type === "picture" && "fa-image"
-                                    }  ${el.type === "video" && "fa-play"} ${
-                                      el.type === "audio" && "fa-music"
-                                    }`}
-                                  ></i>
-                                </div>
-                              )}
-                              <img
-                                src={`https://cdn.lvg.mn/uploads/450/${el.pictures[0]}`}
-                              />
-                            </div>
+                            <Link href={`/post/${el.slug}`}>
+                              <div className="newListNews__image topNewsBox__image">
+                                {el.type !== "default" && (
+                                  <div className="news__typeBg">
+                                    <i
+                                      className={`fa-solid  ${
+                                        el.type === "picture" && "fa-image"
+                                      }  ${el.type === "video" && "fa-play"} ${
+                                        el.type === "audio" && "fa-music"
+                                      }`}
+                                    ></i>
+                                  </div>
+                                )}
+                                <img
+                                  src={`https://cdn.lvg.mn/uploads/450/${el.pictures[0]}`}
+                                />
+                              </div>
+                            </Link>
                           </div>
                         </SwiperSlide>
                       ))}

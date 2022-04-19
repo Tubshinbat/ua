@@ -17,11 +17,12 @@ import { getInfo } from "lib/webinfo";
 import ReactTimeAgo from "react-time-ago";
 import { useNews } from "hooks/use-news";
 import Spinner from "components/Spinner";
+import { langCheck } from "lib/language";
+import { NewsSide } from "components/news-side";
 
 export default ({ info, news, menus, pagination }) => {
   const [cookies] = useCookies(["language"]);
-  const [infoLang, setinfoLang] = useState();
-  const [category, setCategory] = useState();
+
   //-- PAGINATION
   const [activePage, setActivePage] = useState(1);
   const [limit, setLimit] = useState({});
@@ -30,40 +31,45 @@ export default ({ info, news, menus, pagination }) => {
   const [notFound, setNotFound] = useState();
   const [loading, setLoading] = useState(false);
 
+  const titleCase = (str) => {
+    let count = 0;
+    return str
+      .toLowerCase()
+      .split(" ")
+      .map((word) => {
+        if (count === 0) {
+          count++;
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        } else return word.charAt(0) + word.slice(1);
+      })
+      .join(" ");
+  };
+
   const router = useRouter();
-
-  const { news: topNews } = useNews(
-    [],
-    `limit=4&sort={ views: -1 }&star=true&status=true`
-  );
+  const { query, asPath } = useRouter();
+  const { news: data } = useNews(news, `status=true`);
 
   useEffect(() => {
-    if (info) {
-      if (info[cookies.language] === undefined)
-        cookies.language === "mn" ? setinfoLang("eng") : setinfoLang("mn");
-      else setinfoLang(cookies.language);
+    if (data) {
+      setNewsData(data);
     }
-  }, [info, cookies.language]);
-
-  useEffect(() => {
-    if (news) {
-      setNewsData(news);
-    }
-  }, [news]);
+  }, [data]);
 
   useEffect(async () => {
-    if (router.query.category) {
+    if (router.query) {
       setNewsData(() => []);
       setLoading(true);
+
       const { news, pagination } = await getNews(
-        `status=true&category=${router.query.category}`
+        `status=true&category=${router.query.category}&sortNews=${router.query.sortNews}`
       );
-      if (news) {
+
+      if (news && pagination) {
+        setTotal(pagination.total);
+        setLimit(pagination.limit);
+        setNewsData(() => news);
         setLoading(false);
       } else setLoading(false);
-      setTotal(pagination.total);
-      setLimit(pagination.limit);
-      setNewsData(() => news);
     }
   }, [router.query]);
 
@@ -75,37 +81,126 @@ export default ({ info, news, menus, pagination }) => {
   }, [pagination]);
 
   const handlePageChange = (pageNumber) => {
+    window.scrollTo(0, 0);
     setActivePage(pageNumber);
   };
 
   useEffect(async () => {
     setNewsData(() => []);
     const { news } = await getNews(
-      `status=true&category=${router.query.category}&page=${activePage}`
+      `status=true&category=${router.query.category}&sortNews=${router.query.sortNews}&page=${activePage}`
     );
     setNewsData(news);
   }, [activePage]);
+
+  const handleSort = async (event) => {
+    router.replace({
+      pathname: router.pathname,
+      query: { ...query, sortNews: event.target.value },
+    });
+  };
 
   return (
     <Fragment>
       <Head>
         <title>
-          {cookies.language === "mn" ? "Мэдээ мэдээлэл" : "News"} -{" "}
-          {info[infoLang] !== undefined &&
-            info[infoLang].name &&
-            info[infoLang].name}
+          {cookies.language === "eng" ? "News " : "Мэдээ мэдээлэл "} -{" "}
+          {info[langCheck(info)] !== undefined && info[langCheck(info)].name}
         </title>
+        <meta property="og:url" content={`https://naog.lvg.mn${asPath}`} />
+        <meta
+          property="og:title"
+          content={`  ${
+            cookies.language === "eng" ? "News " : "Мэдээ мэдээлэл "
+          } - ${" "}
+            ${
+              info[langCheck(info)] !== undefined && info[langCheck(info)].name
+            }`}
+        />
+        <meta
+          property="og:description"
+          content={`${
+            cookies.language === "eng" ? "News " : "Мэдээ мэдээлэл "
+          } - ${
+            info[langCheck(info)] !== undefined &&
+            info[langCheck(info)].siteInfo
+          }`}
+        />
+        <meta name="twitter:site" content="@National_Academy_Of_Governance" />
+        <meta property="og:url" content={`https://naog.lvg.mn${asPath}`} />
+        <meta
+          property="og:title"
+          content={`${
+            cookies.language === "eng" ? "News " : "Мэдээ мэдээлэл "
+          } - ${
+            info[langCheck(info)] !== undefined && info[langCheck(info)].name
+          }`}
+        />
+        <meta
+          property="og:description"
+          content={`${
+            info[langCheck(info)] !== undefined &&
+            info[langCheck(info)].siteInfo
+          }`}
+        />
       </Head>
       <HomeHeader />
       <PageHeader
         pageTitle={cookies.language === "mn" ? "Мэдээ мэдээлэл" : "News"}
       />
+
       <div className={`${cssNews.Page} animate__animated animate__fadeIn`}>
         <div className="container">
           <div className="row">
             <div className="container">
               <div className="row">
                 <div className="col-md-8">
+                  <div className={`section__title`}>
+                    <div className="section__header">
+                      <h3
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            cookies.language === "eng"
+                              ? "Most Recent <span> News </span>"
+                              : "Мэдээ <span> мэдээлэл </span>",
+                        }}
+                      ></h3>
+                      <p>
+                        {cookies.language === "eng"
+                          ? "Don't miss daily news"
+                          : "Мэдээ мэдээллээс бүү хоцроорой"}
+                      </p>
+                    </div>
+
+                    <select
+                      className={` ${cssNews.SelectNews} `}
+                      onChange={handleSort}
+                      name="sort"
+                    >
+                      <option
+                        value="last"
+                        selected={router.query.sortNews === "last"}
+                      >
+                        {cookies.language === "eng"
+                          ? "Lastest"
+                          : "Сүүлд нэмэгдсэн"}
+                      </option>
+                      <option
+                        value="views"
+                        selected={router.query.sortNews === "views"}
+                      >
+                        {cookies.language === "eng"
+                          ? "Most View"
+                          : "Хамгийн их уншигдсан"}
+                      </option>
+                      <option
+                        value="star"
+                        selected={router.query.sortNews === "star"}
+                      >
+                        {cookies.language === "eng" ? "Featured" : "Онцгой"}
+                      </option>
+                    </select>
+                  </div>
                   <div className={cssNews.NewsList}>
                     {loading && <Spinner />}
                     {notFound && notFound}
@@ -119,13 +214,27 @@ export default ({ info, news, menus, pagination }) => {
                         } else nlang = cookies.language;
                         return (
                           <div className={cssNews.NewsList__item} key={el.slug}>
-                            <div className={cssNews.NewsList__imgBox}>
-                              <Link href={`/post/${el.slug}`}>
+                            <Link href={`/post/${el.slug}`}>
+                              <div
+                                className={`${cssNews.NewsList__imgBox} topNewsBox__image`}
+                              >
+                                {el.type !== "default" && (
+                                  <div className="news__typeBg">
+                                    <i
+                                      className={`fa-solid  ${
+                                        el.type === "picture" && "fa-image"
+                                      }  ${el.type === "video" && "fa-play"} ${
+                                        el.type === "audio" && "fa-music"
+                                      }`}
+                                    ></i>
+                                  </div>
+                                )}
+
                                 <img
                                   src={`https://cdn.lvg.mn/uploads/350x350/${el.pictures[0]}`}
                                 />
-                              </Link>
-                            </div>
+                              </div>
+                            </Link>
                             <div className={cssNews.NewsList__detials}>
                               <div className={cssNews.NewsList__categories}>
                                 {el.categories.map((cat) => {
@@ -152,15 +261,12 @@ export default ({ info, news, menus, pagination }) => {
                               </div>
                               <Link href={`/post/${el.slug}`}>
                                 <h3 className={cssNews.NewsList__name}>
-                                  {el[nlang] && el[nlang].name}
+                                  {el[nlang] && titleCase(el[nlang].name)}
                                 </h3>
                               </Link>
-                              <p className={cssNews.NewsList__shortInfo}>
-                                {el[nlang] && el[nlang].shortDetails}
-                              </p>
                               <div className={cssNews.NewsList__info}>
                                 <div className={cssNews.NewsList__date_item}>
-                                  <i class="fa-regular fa-clock"></i>{" "}
+                                  <i class="fa-regular fa-clock"></i>
                                   <ReactTimeAgo
                                     date={el.createAt}
                                     locale="mn-MN"
@@ -170,11 +276,15 @@ export default ({ info, news, menus, pagination }) => {
                                   <i class="fa fa-bolt"></i> {el.views} үзсэн
                                 </div>
                               </div>
+                              <p className={cssNews.NewsList__shortInfo}>
+                                {el[nlang] && el[nlang].shortDetails}
+                              </p>
                             </div>
                           </div>
                         );
                       })}
                   </div>
+
                   <div className={` ${css.Pagination} pagination`}>
                     <Pagination
                       activePage={activePage}
@@ -188,75 +298,7 @@ export default ({ info, news, menus, pagination }) => {
                   </div>
                 </div>
                 <div className="col-md-4">
-                  <div className={`${css.Sides}`}>
-                    {menus && (
-                      <div className={`${css.Side} `}>
-                        <ul className={css.ListSub}>
-                          {menus.map((menu) => {
-                            let mlang;
-                            if (menu[cookies.language] === undefined) {
-                              if (cookies.language === "mn") {
-                                mlang = "eng";
-                              } else if (cookies.language === "eng") {
-                                mlang = "mn";
-                              }
-                            } else {
-                              mlang = cookies.language;
-                            }
-                            return (
-                              <li key={menu._id}>
-                                <Link href={`/news/?category=${menu._id}`}>
-                                  <a>{menu[mlang] && menu[mlang].name}</a>
-                                </Link>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                  <div className={`${css.Side} `}>
-                    <div className={css.Side__title}> Эрэлтэй мэдээлэл</div>
-                    <div className={css.Title__Border}></div>
-                    <div className={css.Side__News}>
-                      {topNews &&
-                        topNews.map((el, index) => {
-                          let language;
-                          if (el[cookies.language] === undefined) {
-                            cookies.language === "mn"
-                              ? (language = "eng")
-                              : (language = "mn");
-                          } else {
-                            language = cookies.language;
-                          }
-                          return (
-                            <a
-                              href={`/post/${el.slug}`}
-                              className={css.Side__Newsbox}
-                              key={el._id}
-                            >
-                              <div className={css.News__img}>
-                                <img
-                                  src={`https://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
-                                />
-                              </div>
-                              <div className={css.News__detials}>
-                                <div className={css.News__date}>
-                                  <i class="fa-regular fa-clock"></i>{" "}
-                                  <ReactTimeAgo
-                                    date={el.createAt}
-                                    locale="mn-MN"
-                                  />
-                                </div>
-                                <h4 className={css.News__title}>
-                                  {el[language] && el[language].name}
-                                </h4>
-                              </div>
-                            </a>
-                          );
-                        })}
-                    </div>
-                  </div>
+                  <NewsSide menus={menus} />
                 </div>
               </div>
             </div>

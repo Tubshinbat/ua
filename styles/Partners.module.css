@@ -12,7 +12,7 @@
 }
 
 .Logos img {
-  width: 230px;
+  width: 100%;
   height: auto;
   padding: 30px;
   cursor: pointer;
@@ -26,7 +26,7 @@
   opacity: 1;
   /* filter: grayscale(0%); */
 }
-
+/* 
 @media (max-width: 1399px) {
   .Logos img {
     width: 200px;
@@ -53,9 +53,9 @@
     height: auto;
     padding: 15px;
   }
-}
+} */
 
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
   .Logos img {
     width: 200px;
     height: auto;
@@ -70,4 +70,4 @@
     height: auto;
     padding: 15px;
   }
-}
+} */

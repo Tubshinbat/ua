@@ -16,8 +16,8 @@ export default () => {
   const { books } = useBook();
   return (
     <Section>
-      <div className="container">
-        <div className={`section__title`}>
+      <div className="container wow animate__animated animate__fadeInUp">
+        <div className={`section__title `}>
           <h3
             dangerouslySetInnerHTML={{
               __html:

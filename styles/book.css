@@ -21,7 +21,7 @@
   height: 250px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   transition: all 0.3s;
-  border-radius: 15px;
+  border-radius: 3px;
 }
 
 .bookSlider .swiper-slide a:hover img {

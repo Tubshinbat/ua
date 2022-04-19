@@ -2,28 +2,32 @@ import Head from "next/head";
 import { useCookies } from "react-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import ReactToPrint from "react-to-print";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import FooterPartners from "components/footer-partners";
 import Footer from "components/footer";
 import HomeHeader from "components/home-header";
 import PageHeader from "components/page-header";
 
 import cssNews from "styles/News.module.css";
-import css from "styles/Page.module.css";
+import css from "styles/NewsView.module.css";
 import { getNews, getNewsMenus, getSlug, updateView } from "lib/news";
 import { getInfo } from "lib/webinfo";
 import ReactTimeAgo from "react-time-ago";
 import { useNews } from "hooks/use-news";
 import Spinner from "components/Spinner";
 import { SimpleShareButtons } from "react-simple-share";
+import { NewsSide } from "components/news-side";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+
+import { Navigation } from "swiper";
 
 export default ({ info, news, menus }) => {
   const router = useRouter();
-  useEffect(async () => {
-    const { slug } = router.query;
-    await updateView(slug);
-  }, []);
 
   if (router.isFallback)
     return (
@@ -32,14 +36,35 @@ export default ({ info, news, menus }) => {
       </div>
     );
 
-  if (!router.isFallback && !news?.slug)
-    return <div>Уучлаарай ийм пост байхгүй байна...</div>;
+  if (!router.isFallback && !news?.slug) {
+    router.push("/404");
+  }
+  const componentRef = useRef();
+  const { asPath } = useRouter();
+  const titleCase = (str) => {
+    let count = 0;
+    return str
+      .toLowerCase()
+      .split(" ")
+      .map((word) => {
+        if (count === 0) {
+          count++;
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        } else return word.charAt(0) + word.slice(1);
+      })
+      .join(" ");
+  };
+
+  useEffect(async () => {
+    if (news) {
+      const { slug } = router.query;
+      await updateView(slug);
+    }
+  }, [news]);
 
   const [cookies] = useCookies(["language"]);
   const [infoLang, setinfoLang] = useState();
   const [lang, setLang] = useState();
-
-  useEffect(() => {}, []);
 
   useEffect(() => {
     if (info) {
@@ -59,7 +84,6 @@ export default ({ info, news, menus }) => {
     link: "/news",
   };
 
-  const { news: topNews } = useNews([], `limit=4&sort={ views: -1 }&star=true`);
   return (
     <Fragment>
       <Head>
@@ -69,6 +93,29 @@ export default ({ info, news, menus }) => {
             info[infoLang].name &&
             info[infoLang].name}
         </title>
+        <meta property="og:url" content={`https://naog.lvg.mn${asPath}`} />
+        <meta
+          property="og:title"
+          content={`  ${news[lang] && news[lang].name} `}
+        />
+        <meta
+          property="og:description"
+          content={`${news[lang] && news[lang].shortDetails} `}
+        />
+        <meta name="twitter:site" content="@National_Academy_Of_Governance" />
+        <meta property="og:url" content={`https://naog.lvg.mn${asPath}`} />
+        <meta
+          property="og:title"
+          content={`  ${news[lang] && news[lang].name} `}
+        />
+        <meta
+          property="og:description"
+          content={`${news[lang] && news[lang].shortDetails} `}
+        />
+        <meta
+          property="og:image"
+          content={news && "https://cdn.lvg.mn/uploads/" + news.pictures[0]}
+        />
       </Head>
       <HomeHeader />
       <PageHeader
@@ -80,34 +127,115 @@ export default ({ info, news, menus }) => {
           <div className="row">
             <div className="container">
               <div className="row">
-                <div className="col-md-8">
+                <div className="col-md-8" ref={componentRef}>
                   <div className={cssNews.NewsList}>
                     <div className={css.PageInfo}>
                       <div className={css.PageInfo__head}>
                         <h4 className={css.PageName}>
-                          {news[lang] && news[lang].name}
+                          {news[lang] && titleCase(news[lang].name)}
                         </h4>
-                        {news.pictures && (
+
+                        {news.pictures && news.pictures.length === 1 && (
                           <img
                             src={`https://cdn.lvg.mn/uploads/${news.pictures[0]}`}
                             className={css.bigImage}
                           />
                         )}
-                        <div className={css.News__date}>
-                          <i class="fa-regular fa-clock"></i>{" "}
-                          <ReactTimeAgo date={news.createAt} locale="mn-MN" />
+
+                        <Swiper
+                          modules={[Navigation]}
+                          autoHeight={true}
+                          navigation={{
+                            prevEl: ".newsViewSlider__prev",
+                            nextEl: ".newsViewSlider__next",
+                          }}
+                          className="newsViewSlider"
+                        >
+                          {news.pictures &&
+                            news.pictures.length > 1 &&
+                            news.pictures.map((pic, index) => (
+                              <SwiperSlide
+                                className="newsViewSlide"
+                                key={index + "nview"}
+                              >
+                                <img
+                                  src={`https://cdn.lvg.mn/uploads/${pic}`}
+                                />
+                              </SwiperSlide>
+                            ))}
+                          <div className="newsViewSlide__nav">
+                            <div className="newsViewSlider__prev swiper-button-prev"></div>
+                            <div className="newsViewSlider__next swiper-button-next"></div>
+                          </div>
+                        </Swiper>
+                        <div className={css.Page__info}>
+                          <div className={css.Page__infoLeft}>
+                            <ReactToPrint
+                              trigger={() => (
+                                <div className={css.Page__print}>
+                                  {" "}
+                                  <i class="fa fa-print"></i>
+                                  Хэвлэх
+                                </div>
+                              )}
+                              content={() => componentRef.current}
+                            />
+                          </div>
+                          <div className={css.Page__infoRigth}>
+                            <div className={css.Page__date}>
+                              <i class="fa fa-bolt"></i>
+                              {news.views}
+                            </div>
+                            <div className={css.Page__date}>
+                              <i class="fa-regular fa-clock"></i>
+                              <ReactTimeAgo
+                                date={news.createAt}
+                                locale="mn-MN"
+                              />
+                            </div>
+                            <div className={css.Page__share}>
+                              {news[lang] && (
+                                <SimpleShareButtons
+                                  whitelist={[
+                                    "Facebook",
+                                    "Twitter",
+                                    "LinkedIn",
+                                    "Google+",
+                                  ]}
+                                  size={"16px"}
+                                />
+                              )}
+                            </div>
+                          </div>
                         </div>
-                        {news[lang] && (
-                          <SimpleShareButtons
-                            whitelist={[
-                              "Facebook",
-                              "Twitter",
-                              "LinkedIn",
-                              "Google+",
-                            ]}
-                            size={"25px"}
-                          />
-                        )}
+                      </div>
+                      <div className={`row ${css.Description}`}>
+                        {news.type === "video" &&
+                          news.videos &&
+                          news.videos.map((video) => (
+                            <div className="col-md-6">
+                              <video
+                                controls
+                                src={URL.createObjectURL(
+                                  `https://cdn.lvg.mn/uploads/${video}`
+                                )}
+                                className={css.Video}
+                              />
+                            </div>
+                          ))}
+
+                        {news.type === "audio" &&
+                          news.audios &&
+                          news.audios((audio) => (
+                            <div className="col-md-12">
+                              <audio
+                                controls
+                                src={URL.createObjectURL(
+                                  `https://cdn.lvg.mn/uploads/${audio}`
+                                )}
+                              ></audio>
+                            </div>
+                          ))}
                       </div>
                       <div
                         dangerouslySetInnerHTML={{
@@ -119,75 +247,7 @@ export default ({ info, news, menus }) => {
                   </div>
                 </div>
                 <div className="col-md-4">
-                  <div className={`${css.Sides}`}>
-                    {menus && (
-                      <div className={`${css.Side} `}>
-                        <ul className={css.ListSub}>
-                          {menus.map((menu) => {
-                            let mlang;
-                            if (menu[cookies.language] === undefined) {
-                              if (cookies.language === "mn") {
-                                mlang = "eng";
-                              } else if (cookies.language === "eng") {
-                                mlang = "mn";
-                              }
-                            } else {
-                              mlang = cookies.language;
-                            }
-                            return (
-                              <li key={menu._id}>
-                                <Link href={`/news?category=${menu._id}`}>
-                                  <a>{menu[mlang] && menu[mlang].name}</a>
-                                </Link>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                  <div className={`${css.Side} `}>
-                    <div className={css.Side__title}> Эрэлтэй мэдээлэл</div>
-                    <div className={css.Title__Border}></div>
-                    <div className={css.Side__News}>
-                      {topNews &&
-                        topNews.map((el, index) => {
-                          let language;
-                          if (el[cookies.language] === undefined) {
-                            cookies.language === "mn"
-                              ? (language = "eng")
-                              : (language = "mn");
-                          } else {
-                            language = cookies.language;
-                          }
-                          return (
-                            <a
-                              href={`/post/${el.slug}`}
-                              className={css.Side__Newsbox}
-                              key={el._id}
-                            >
-                              <div className={css.News__img}>
-                                <img
-                                  src={`https://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
-                                />
-                              </div>
-                              <div className={css.News__detials}>
-                                <div className={css.News__date}>
-                                  <i class="fa-regular fa-clock"></i>{" "}
-                                  <ReactTimeAgo
-                                    date={el.createAt}
-                                    locale="mn-MN"
-                                  />
-                                </div>
-                                <h4 className={css.News__title}>
-                                  {el[language] && el[language].name}
-                                </h4>
-                              </div>
-                            </a>
-                          );
-                        })}
-                    </div>
-                  </div>
+                  <NewsSide menus={menus} />
                 </div>
               </div>
             </div>
@@ -208,7 +268,7 @@ export const getStaticProps = async ({ params }) => {
   return {
     props: {
       info,
-      news: news,
+      news,
       menus,
     },
     revalidate: 10,

@@ -15,16 +15,22 @@ const Footer = () => {
     let myCategories = [];
     let count = 1;
     categories &&
-      categories.map((el) => {
+      categories.map((el, index) => {
         let lang;
         if (el[cookies.language].name === undefined) {
           if (cookies.language == "mn") lang = "eng";
           else lang = "mn";
         } else lang = cookies.language;
-
+        let dly = 0.2 * index;
         myCategories.push(
           <>
-            <div key={el._id} className={`${!child && css.Footer__box}`}>
+            <div
+              key={el._id}
+              className={`${
+                !child && css.Footer__box
+              } wow animate__animated animate__fadeInDown`}
+              data-wow-delay={`${dly}s`}
+            >
               {!child && (
                 <div className={css.Footer__Title}>{el[lang].name}</div>
               )}
@@ -53,7 +59,10 @@ const Footer = () => {
               ) : null}
             </div>
             {child === false && count++ === 2 ? (
-              <div className={css.Footer__logo}>
+              <div
+                className={`${css.Footer__logo} wow animate__animated animate__fadeInDown`}
+                data-wow-delay={`${dly}s`}
+              >
                 <img src="/images/footer-logo.png" />
               </div>
             ) : null}
@@ -74,7 +83,10 @@ const Footer = () => {
             </div>
             {renderCategories(menus)}
 
-            <div className={`${css.Footer__box}`}>
+            <div
+              className={`${css.Footer__box} wow animate__animated animate__fadeInDown`}
+              data-wow-delay={`0.8s`}
+            >
               <div className={css.Footer__contact}>
                 <div className={css.Footer__contact_box}>
                   <i class="fa-solid fa-phone"></i>
@@ -97,7 +109,11 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <div className={css.Footer__end}>© 2022 УДИРДЛАГЫН АКАДЕМИ</div>
+      <div className={css.Footer__end}>
+        {cookies.language === "eng"
+          ? `© ${new Date().getFullYear()} NATIONAL ACADEMY OF GOVERNANCE`
+          : `© ${new Date().getFullYear()} УДИРДЛАГЫН АКАДЕМИ`}
+      </div>
     </>
   );
 };
