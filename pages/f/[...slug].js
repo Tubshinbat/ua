@@ -49,6 +49,10 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
     }
   }, [menu, pageData, cookies.language]);
 
+  const backGo = () => {
+    router.back();
+  };
+
   return (
     <Fragment>
       <Head>
@@ -72,12 +76,37 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
                     {menu[lang] && menu[lang].name}
                   </h4>
 
-                  {pageData[plang] && !pageData.listActive && (
-                    <SimpleShareButtons
-                      whitelist={["Facebook", "Twitter", "LinkedIn", "Google+"]}
-                      size={"25px"}
-                    />
-                  )}
+                  <div className={css.Page__info}>
+                    <div className={css.Page__infoLeft}>
+                      <ReactToPrint
+                        trigger={() => (
+                          <div className={css.Page__print}>
+                            <i class="fa fa-print"></i>
+                            Хэвлэх
+                          </div>
+                        )}
+                        content={() => componentRef.current}
+                      />
+                    </div>
+                    <div className={css.Page__infoRigth}>
+                      <div className={css.Page__share}>
+                        {pageData[plang] && (
+                          <SimpleShareButtons
+                            whitelist={[
+                              "Facebook",
+                              "Twitter",
+                              "LinkedIn",
+                              "Google+",
+                            ]}
+                            size={"16px"}
+                          />
+                        )}
+                      </div>
+                      <div className={css.Page__share} onClick={backGo}>
+                        <i className="fa-solid fa-arrow-left"></i>Өмнөх цэс
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {pageData.pictures && pageData.pictures.length === 1 && (

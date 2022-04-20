@@ -56,6 +56,26 @@
   padding: 50px 0px;
 }
 
+.Description blockquote {
+  background: #fcfcfc;
+  border-left: 10px solid #00407a;
+  margin: 1.5em 10px;
+  padding: 1em 20px;
+ 
+}
+.Description blockquote:before {
+  color: #00407a;
+  content: open-quote;
+  font-family: "DinPro", sans-serif;
+  font-size:5em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+.Description blockquote p {
+  display: inline;
+}
+
 .Description {
   font-size: 0.9rem;
   font-size: normal;

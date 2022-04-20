@@ -4,6 +4,7 @@
 }
 
 .Logos {
+  z-index: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -12,6 +13,7 @@
 }
 
 .Logos img {
+  z-index: 0;
   width: 100%;
   height: auto;
   padding: 30px;

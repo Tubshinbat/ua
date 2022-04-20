@@ -43,6 +43,10 @@ const Page = ({
   const [lang, setLang] = useState();
   const [plang, setPageLang] = useState();
 
+  const backGo = () => {
+    router.back();
+  };
+
   useEffect(() => {
     if (menu) {
       if (menu[cookies.language] === undefined) {
@@ -106,6 +110,9 @@ const Page = ({
                             size={"16px"}
                           />
                         )}
+                      </div>
+                      <div className={css.Page__share} onClick={backGo}>
+                        <i className="fa-solid fa-arrow-left"></i>Өмнөх цэс
                       </div>
                     </div>
                   </div>
