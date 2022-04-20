@@ -9,6 +9,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, useEffect, useState } from "react";
 import { SimpleShareButtons } from "react-simple-share";
+import ReactToPrint from "react-to-print";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper";
 
 import css from "styles/Page.module.css";
 import { getFooterPage, getPage } from "lib/page";
@@ -65,6 +71,7 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
                   <h4 className={css.PageName}>
                     {menu[lang] && menu[lang].name}
                   </h4>
+
                   {pageData[plang] && !pageData.listActive && (
                     <SimpleShareButtons
                       whitelist={["Facebook", "Twitter", "LinkedIn", "Google+"]}
@@ -72,6 +79,37 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
                     />
                   )}
                 </div>
+
+                {pageData.pictures && pageData.pictures.length === 1 && (
+                  <img
+                    src={`https://cdn.lvg.mn/uploads/${pageData.pictures[0]}`}
+                    className={css.bigImage}
+                  />
+                )}
+                <Swiper
+                  modules={[Navigation]}
+                  autoHeight={true}
+                  navigation={{
+                    prevEl: ".newsViewSlider__prev",
+                    nextEl: ".newsViewSlider__next",
+                  }}
+                  className="newsViewSlider"
+                >
+                  {pageData.pictures &&
+                    pageData.pictures.length > 1 &&
+                    pageData.pictures.map((pic, index) => (
+                      <SwiperSlide
+                        className="newsViewSlide"
+                        key={index + "nview"}
+                      >
+                        <img src={`https://cdn.lvg.mn/uploads/${pic}`} />
+                      </SwiperSlide>
+                    ))}
+                  <div className="newsViewSlide__nav">
+                    <div className="newsViewSlider__prev swiper-button-prev"></div>
+                    <div className="newsViewSlider__next swiper-button-next"></div>
+                  </div>
+                </Swiper>
 
                 <div
                   dangerouslySetInnerHTML={{

@@ -23,8 +23,12 @@ const Team = ({ memberData, boolenPop = true }) => {
       <div className="col-lg-4 col-md-6">
         <div className={styles.Team} onClick={handleClick}>
           <div className={styles.UserImg}>
-            {memberData.picture && (
-              <img src={`https://cdn.lvg.mn/uploads/${memberData.picture[0]}`} />
+            {memberData.picture[0] ? (
+              <img
+                src={`https://cdn.lvg.mn/uploads/${memberData.picture[0]}`}
+              />
+            ) : (
+              <img src={`/images/no-photo.jpg`} />
             )}
           </div>
           <p>{memberData[lang].name}</p>
@@ -45,17 +49,23 @@ const Team = ({ memberData, boolenPop = true }) => {
             className={`fa fa-circle-xmark ${styles.CloseIcon}`}
             onClick={handleClick}
           ></i>
-          {memberData.picture && (
+          {memberData.picture[0] ? (
             <img
               src={`https://cdn.lvg.mn/uploads/${memberData.picture[0]}`}
               className={styles.WindowImg}
             />
+          ) : (
+            <img src={`/images/no-photo.jpg`} className={styles.WindowImg} />
           )}
 
           <div className={styles.Info}>
             <h6> {memberData[lang].name} </h6>
             <span> {memberData[lang].degree} </span>
-            <p dangerouslySetInnerHTML={{ __html: memberData[lang].about }}></p>
+            <p
+              dangerouslySetInnerHTML={{
+                __html: memberData[lang] && memberData[lang].about,
+              }}
+            ></p>
           </div>
         </div>
       </div>

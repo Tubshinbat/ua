@@ -7,14 +7,20 @@ import Head from "next/head";
 import { useCookies } from "react-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { SimpleShareButtons } from "react-simple-share";
+import ReactToPrint from "react-to-print";
 
 import css from "styles/Page.module.css";
 import { getEmployees, getPage } from "lib/page";
 import { useNews } from "hooks/use-news";
 import ReactTimeAgo from "react-time-ago";
 import Team from "components/teams";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper";
 
 const Page = ({
   menu,
@@ -51,7 +57,7 @@ const Page = ({
       } else setPageLang(cookies.language);
     }
   }, [menu, pageData, cookies.language]);
-
+  const componentRef = useRef();
   return (
     <Fragment>
       <Head>
@@ -68,19 +74,73 @@ const Page = ({
       <div className={`${css.Page} animate__animated animate__fadeIn`}>
         <div className="container">
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-md-8" ref={componentRef}>
               <div className={css.PageInfo}>
                 <div className={css.PageInfo__head}>
                   <h4 className={css.PageName}>
                     {menu[lang] && menu[lang].name}
                   </h4>
-                  {pageData[plang] && !pageData.listActive && (
-                    <SimpleShareButtons
-                      whitelist={["Facebook", "Twitter", "LinkedIn", "Google+"]}
-                      size={"25px"}
-                    />
-                  )}
+
+                  <div className={css.Page__info}>
+                    <div className={css.Page__infoLeft}>
+                      <ReactToPrint
+                        trigger={() => (
+                          <div className={css.Page__print}>
+                            <i class="fa fa-print"></i>
+                            Хэвлэх
+                          </div>
+                        )}
+                        content={() => componentRef.current}
+                      />
+                    </div>
+                    <div className={css.Page__infoRigth}>
+                      <div className={css.Page__share}>
+                        {pageData[plang] && (
+                          <SimpleShareButtons
+                            whitelist={[
+                              "Facebook",
+                              "Twitter",
+                              "LinkedIn",
+                              "Google+",
+                            ]}
+                            size={"16px"}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
+                {pageData.pictures && pageData.pictures.length === 1 && (
+                  <img
+                    src={`https://cdn.lvg.mn/uploads/${pageData.pictures[0]}`}
+                    className={css.bigImage}
+                  />
+                )}
+                <Swiper
+                  modules={[Navigation]}
+                  autoHeight={true}
+                  navigation={{
+                    prevEl: ".newsViewSlider__prev",
+                    nextEl: ".newsViewSlider__next",
+                  }}
+                  className="newsViewSlider"
+                >
+                  {pageData.pictures &&
+                    pageData.pictures.length > 1 &&
+                    pageData.pictures.map((pic, index) => (
+                      <SwiperSlide
+                        className="newsViewSlide"
+                        key={index + "nview"}
+                      >
+                        <img src={`https://cdn.lvg.mn/uploads/${pic}`} />
+                      </SwiperSlide>
+                    ))}
+                  <div className="newsViewSlide__nav">
+                    <div className="newsViewSlider__prev swiper-button-prev"></div>
+                    <div className="newsViewSlider__next swiper-button-next"></div>
+                  </div>
+                </Swiper>
 
                 <div
                   dangerouslySetInnerHTML={{
