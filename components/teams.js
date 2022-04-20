@@ -61,11 +61,12 @@ const Team = ({ memberData, boolenPop = true }) => {
           <div className={styles.Info}>
             <h6> {memberData[lang].name} </h6>
             <span> {memberData[lang].degree} </span>
-            <p
+
+            <div
               dangerouslySetInnerHTML={{
-                __html: memberData[lang] && memberData[lang].about,
+                __html: memberData[lang].about,
               }}
-            ></p>
+            ></div>
           </div>
         </div>
       </div>
