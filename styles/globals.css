@@ -457,14 +457,29 @@ body {
   background-color: #00407a;
 }
 
+
 table{
+  display: flex;
+  position: relative;
+  flex:0 0 100%;
   width: 100%;
+  justify-content: center;
+  border:0px;
+  overflow-x: scroll auto;
+  font-size: 0.8rem;
 }
 
- td, #customers th {
+ td, th {
    justify-content: center;
   border: 1px solid #ddd;
   text-align: center;
+  padding: 0px;
+  padding: 5px 10px;
+}
+
+table p{
+  padding: 0px;
+  margin: 0px;
 }
 
 

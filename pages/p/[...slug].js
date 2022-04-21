@@ -12,7 +12,7 @@ import { SimpleShareButtons } from "react-simple-share";
 import ReactToPrint from "react-to-print";
 
 import css from "styles/Page.module.css";
-import { getEmployees, getPage } from "lib/page";
+import { getEmployees, getPage, getPages } from "lib/page";
 import { useNews } from "hooks/use-news";
 import ReactTimeAgo from "react-time-ago";
 import Team from "components/teams";
@@ -29,6 +29,7 @@ const Page = ({
   childeMenus,
   sameParentMenus,
   employees,
+  pages,
 }) => {
   // const { page } = usePage(slug);
   const router = useRouter();
@@ -60,7 +61,7 @@ const Page = ({
         else setPageLang("mn");
       } else setPageLang(cookies.language);
     }
-  }, [menu, pageData, cookies.language]);
+  }, [menu, pageData, pages, cookies.language]);
   const componentRef = useRef();
   return (
     <Fragment>
@@ -155,6 +156,52 @@ const Page = ({
                   }}
                   className={css.Description}
                 ></div>
+
+                {/* {pageData.listAdmissionActive === true && (
+                  <div className={`row ${css.PageLists}`}>
+                    {pages &&
+                      pages.map((el) => {
+                        let Llang;
+                        if (el[cookies.language] === undefined) {
+                          if (cookies.language == "mn") Llang = "eng";
+                          else Llang = "mn";
+                        } else Llang = cookies.language;
+
+                        let link;
+
+                        if (!el.menu[0].isDirect && !el.menu[0].model) {
+                          link = `/p/${el.menu[0].slug}`;
+                        }
+
+                        if (el.menu[0].isDirect) {
+                          link = el.menu[0].direct;
+                        }
+                        if (el.menu[0].model) {
+                          link = el.menu[0].model;
+                        }
+
+                        return (
+                          <div className="col-lg-4 col-md-6 col-sm-12">
+                            <div className={css.List__element}>
+                              <a href={link}>
+                                {el.picture ? (
+                                  <img
+                                    src={`https://cdn.lvg.mn/uploads/${el.picture}`}
+                                  />
+                                ) : (
+                                  <img src="/images/list-bg.jpg" />
+                                )}
+                              </a>
+                              <div className={css.List__about}>
+                                <a href={link}> {el[Llang].name} </a>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                )} */}
+
                 {pageData.listActive && (
                   <div className={`row ${css.PageLists}`}>
                     {childeMenus &&
@@ -212,7 +259,8 @@ const Page = ({
                 {pageData.admissionActive && (
                   <div className={`${css.Side} `}>
                     <a
-                      href={`/admission?menu=${menu._id}`}
+                      href={pageData.admissionLink}
+                      target="link"
                       className={css.ApplyBtn}
                     >
                       <i class="fa-solid fa-paper-plane"></i>
@@ -368,6 +416,7 @@ export const getServerSideProps = async ({ params }) => {
   let childeMenus = null;
   let sameParentMenus = null;
   let employees = null;
+  // let pages = null;
 
   await getMenu(params.slug)
     .then((res) => {
@@ -398,10 +447,23 @@ export const getServerSideProps = async ({ params }) => {
         })
         .catch(() => {});
     }
+    // if (pageData && pageData.listAdmissionActive === true) {
+    //   await getPages(`status=true&admissionActive=true`).then((res) => {
+    //     pages = res.pages;
+    //   });
+    // }
   }
 
   return {
-    props: { menu, parent, pageData, childeMenus, sameParentMenus, employees },
+    props: {
+      menu,
+      parent,
+      pageData,
+      childeMenus,
+      sameParentMenus,
+      employees,
+      // pages,
+    },
   };
 };
 export default Page;
