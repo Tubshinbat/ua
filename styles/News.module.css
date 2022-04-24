@@ -28,6 +28,8 @@
   font-size: 1.1rem;
   font-weight: 600;
   transition: all 0.4s;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .NewsList__name:hover {
@@ -36,6 +38,8 @@
 
 .NewsList__shortInfo {
   font-size: 0.85rem;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .NewsList__imgBox {

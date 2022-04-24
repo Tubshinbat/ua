@@ -16,6 +16,7 @@ import FooterPartners from "components/footer-partners";
 import Footer from "components/footer";
 import { getInfo } from "lib/webinfo";
 import { langCheck } from "lib/language";
+import HomeMedia from "components/home-media";
 
 export default ({ info }) => {
   const [cookies] = useCookies(["language"]);
@@ -73,6 +74,7 @@ export default ({ info }) => {
       </div>
       <HomeNeedLink />
       <HomeTopNews />
+      <HomeMedia />
       {/* <HomeStatic /> */}
       <HomeFiles />
       <FooterPartners />
