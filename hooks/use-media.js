@@ -1,10 +1,8 @@
+import base from "lib/base";
 import useSWR from "swr";
-import base from "base";
 
 export const useTopMedia = () => {
-  const { data, error } = useSWR(
-    `https://naog-admin.lvg.mn/rest/api/v1/media?status=true&limit=6`
-  );
+  const { data, error } = useSWR(`${base.apiUrl}/media?status=true&limit=6`);
 
   let topMedia = [];
   if (data) {
@@ -20,9 +18,7 @@ export const useTopMedia = () => {
 
 export const useMedia = (init, slug) => {
   let media = [];
-  const { data, error } = useSWR(
-    `https://naog-admin.lvg.mn/rest/api/v1/media?${slug}`
-  );
+  const { data, error } = useSWR(`${base.apiUrl}/media?${slug}`);
 
   if (data) {
     media = data.data;
@@ -35,9 +31,7 @@ export const useMedia = (init, slug) => {
 };
 
 export const useNewMedia = () => {
-  const { data, error } = useSWR(
-    `https://naog-admin.lvg.mn/rest/api/v1/media?status=true&limit=10`
-  );
+  const { data, error } = useSWR(`${base.apiUrl}/media?status=true&limit=10`);
 
   let media = [];
   if (data) {

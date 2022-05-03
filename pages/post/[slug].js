@@ -25,6 +25,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 import { Navigation } from "swiper";
+import base from "lib/base";
 
 export default ({ info, news, menus }) => {
   const router = useRouter();
@@ -93,7 +94,7 @@ export default ({ info, news, menus }) => {
             info[infoLang].name &&
             info[infoLang].name}
         </title>
-        <meta property="og:url" content={`https://naog.lvg.mn${asPath}`} />
+        <meta property="og:url" content={`${base.siteUrl}${asPath}`} />
         <meta
           property="og:title"
           content={`  ${news[lang] && news[lang].name} `}
@@ -103,7 +104,7 @@ export default ({ info, news, menus }) => {
           content={`${news[lang] && news[lang].shortDetails} `}
         />
         <meta name="twitter:site" content="@National_Academy_Of_Governance" />
-        <meta property="og:url" content={`https://naog.lvg.mn${asPath}`} />
+        <meta property="og:url" content={`${base.siteUrl}${asPath}`} />
         <meta
           property="og:title"
           content={`  ${news[lang] && news[lang].name} `}
@@ -114,7 +115,7 @@ export default ({ info, news, menus }) => {
         />
         <meta
           property="og:image"
-          content={news && "https://cdn.lvg.mn/uploads/" + news.pictures[0]}
+          content={news && base.cdnUrl + news.pictures[0]}
         />
       </Head>
       <HomeHeader />
@@ -137,7 +138,7 @@ export default ({ info, news, menus }) => {
 
                         {news.pictures && news.pictures.length === 1 && (
                           <img
-                            src={`https://cdn.lvg.mn/uploads/${news.pictures[0]}`}
+                            src={`${base.cdnUrl}/${news.pictures[0]}`}
                             className={css.bigImage}
                           />
                         )}
@@ -158,9 +159,7 @@ export default ({ info, news, menus }) => {
                                 className="newsViewSlide"
                                 key={index + "nview"}
                               >
-                                <img
-                                  src={`https://cdn.lvg.mn/uploads/${pic}`}
-                                />
+                                <img src={`${base.cdnUrl}/${pic}`} />
                               </SwiperSlide>
                             ))}
                           <div className="newsViewSlide__nav">
@@ -217,7 +216,7 @@ export default ({ info, news, menus }) => {
                               <video
                                 controls
                                 src={URL.createObjectURL(
-                                  `https://cdn.lvg.mn/uploads/${video}`
+                                  `${base.cdnUrl}/${video}`
                                 )}
                                 className={css.Video}
                               />
@@ -231,7 +230,7 @@ export default ({ info, news, menus }) => {
                               <audio
                                 controls
                                 src={URL.createObjectURL(
-                                  `https://cdn.lvg.mn/uploads/${audio}`
+                                  `${base.cdnUrl}/${audio}`
                                 )}
                               ></audio>
                             </div>

@@ -2,7 +2,7 @@ import { useTopLinks } from "hooks/use-links";
 import { Fragment } from "react";
 import { useCookies } from "react-cookie";
 import css from "styles/TopLinks.module.css";
-
+import base from "lib/base";
 export default () => {
   const { topLinks } = useTopLinks();
   const [cookies] = useCookies(["language"]);
@@ -32,13 +32,10 @@ export default () => {
                 key={el.direct}
               >
                 <div className={css.FastBg}>
-                  <img src={`https://cdn.lvg.mn/uploads/${el.picture}`} />
+                  <img src={`${base.cdnUrl}/${el.picture}`} />
                 </div>
                 <div className={css.FastBox__container}>
-                  <img
-                    src={`https://cdn.lvg.mn/uploads/${el.icon}`}
-                    className={css.Icon}
-                  />
+                  <img src={`${base.cdnUrl}/${el.icon}`} className={css.Icon} />
                   <h5> {el[lang].name} </h5>
                 </div>
               </a>

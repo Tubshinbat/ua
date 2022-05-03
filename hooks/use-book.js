@@ -1,9 +1,8 @@
+import base from "lib/base";
 import useSWR from "swr";
 
 export const useBook = () => {
-  const { data, error } = useSWR(
-    `https://naog-admin.lvg.mn/rest/api/v1/books?status=true&limit=8`
-  );
+  const { data, error } = useSWR(`${base.apiUrl}/books?status=true&limit=8`);
   let books = [];
 
   if (data) {

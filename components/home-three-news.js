@@ -11,6 +11,7 @@ import { EffectFade, Navigation, Autoplay, Scrollbar } from "swiper";
 import { useNewNews } from "hooks/use-news";
 import { useCookies } from "react-cookie";
 import ReactTimeAgo from "react-time-ago";
+import base from "lib/base";
 
 export default () => {
   const [cookies] = useCookies(["language"]);
@@ -82,9 +83,7 @@ export default () => {
                         ></i>
                       </div>
 
-                      <img
-                        src={`https://cdn.lvg.mn/uploads/${el.pictures[0]}`}
-                      />
+                      <img src={`${base.cdnUrl}/${el.pictures[0]}`} />
                     </div>
                     <div className="news__box_desciption">
                       <div className="news__box_date">

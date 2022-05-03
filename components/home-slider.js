@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { useBanners } from "hooks/use-banner";
 import { useCookies } from "react-cookie";
-
+import base from "lib/base";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -74,7 +74,7 @@ export default () => {
                 </div>
                 <div className="imageBox">
                   <div className="imgBg"> </div>
-                  <img src={`https://cdn.lvg.mn/uploads/${banner.banner}`} />
+                  <img src={`${base.cdnUrl}/${banner.banner}`} />
                 </div>
               </SwiperSlide>
             );

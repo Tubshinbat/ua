@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import css from "styles/Page.module.css";
 import Link from "next/link";
 import ReactTimeAgo from "react-time-ago";
+import base from "lib/base";
 
 export const MediaSide = ({ menus }) => {
   const [cookies] = useCookies(["language"]);
@@ -63,9 +64,7 @@ export const MediaSide = ({ menus }) => {
                   key={el._id}
                 >
                   <div className={css.News__img}>
-                    <img
-                      src={`https://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
-                    />
+                    <img src={`${base.cdnUrl}/150x150/${el.pictures[0]}`} />
                   </div>
                   <div className={css.News__detials}>
                     <div className={css.News__date}>

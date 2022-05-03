@@ -16,7 +16,7 @@ import { useCookies } from "react-cookie";
 
 import css from "styles/HomeNews.module.css";
 import { useEffect, useState } from "react";
-
+import base from "lib/base";
 export default () => {
   const [newsData, setNewsData] = useState(null);
   const [bigNews, setBigNews] = useState(null);
@@ -121,7 +121,7 @@ export default () => {
                               )}
 
                               <img
-                                src={`https://cdn.lvg.mn/uploads/450/${topNews.pictures[0]}`}
+                                src={`${base.cdnUrl}/450/${topNews.pictures[0]}`}
                               />
                             </div>
                           </Link>
@@ -202,7 +202,7 @@ export default () => {
                               )}
 
                               <img
-                                src={`https://cdn.lvg.mn/uploads/450/${topNews.pictures[0]}`}
+                                src={`${base.cdnUrl}/450/${topNews.pictures[0]}`}
                               />
                             </div>
                           </Link>
@@ -319,7 +319,7 @@ export default () => {
                                   </div>
                                 )}
                                 <img
-                                  src={`https://cdn.lvg.mn/uploads/450/${el.pictures[0]}`}
+                                  src={`${base.cdnUrl}/450/${el.pictures[0]}`}
                                 />
                               </div>
                             </Link>

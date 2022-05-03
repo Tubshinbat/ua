@@ -3,7 +3,7 @@ import Section from "./generals/section";
 import css from "styles/NeedLink.module.css";
 import { useCookies } from "react-cookie";
 import { useFastLinks } from "hooks/use-links";
-
+import base from "lib/base";
 export default () => {
   const [cookies] = useCookies(["language"]);
   const { fastLinks } = useFastLinks();
@@ -59,9 +59,7 @@ export default () => {
                     >
                       <div className={css.Link__top}>
                         <div className={`${css.TopIcon} ${css.Gray} `}>
-                          <img
-                            src={`https://cdn.lvg.mn/uploads/${el.picture}`}
-                          />
+                          <img src={`${base.cdnUrl}/${el.picture}`} />
                         </div>
                         <h4 className={css.Link__title}> {el[lang].name}</h4>
                       </div>

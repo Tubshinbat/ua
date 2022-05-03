@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useMenus } from "hooks/use-menus";
 import { useCookies } from "react-cookie";
 import { useInfo } from "hooks/use-info";
-import base from "base";
+import base from "lib/base";
 
 const HomeHeader = () => {
   const [cookies, setCookie] = useCookies(["language"]);
@@ -108,7 +108,7 @@ const HomeHeader = () => {
       <div className={css.LogoBox}>
         <Link href="/">
           <img
-            src={`https://cdn.lvg.mn/uploads/${
+            src={`${base.cdnUrl}/${
               info[cookies.language] !== undefined
                 ? info[cookies.language].whiteLogo
                 : info[cookies.language] === "mn" && info.eng.whiteLogo

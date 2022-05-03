@@ -12,7 +12,7 @@ import PageHeader from "components/page-header";
 
 import cssNews from "styles/News.module.css";
 import css from "styles/Page.module.css";
-
+import base from "lib/base";
 import { getInfo } from "lib/webinfo";
 import ReactTimeAgo from "react-time-ago";
 
@@ -102,7 +102,7 @@ export default ({ info, media, menus, pagination }) => {
           {cookies.language === "eng" ? "Media content " : "Медиа контент "} -{" "}
           {info[langCheck(info)] !== undefined && info[langCheck(info)].name}
         </title>
-        <meta property="og:url" content={`https://naog.lvg.mn${asPath}`} />
+        <meta property="og:url" content={`${base.siteUrl}${asPath}`} />
         <meta
           property="og:title"
           content={`  ${
@@ -122,7 +122,7 @@ export default ({ info, media, menus, pagination }) => {
           }`}
         />
         <meta name="twitter:site" content="@National_Academy_Of_Governance" />
-        <meta property="og:url" content={`https://naog.lvg.mn${asPath}`} />
+        <meta property="og:url" content={`${base.siteUrl}${asPath}`} />
         <meta
           property="og:title"
           content={`${
@@ -199,7 +199,7 @@ export default ({ info, media, menus, pagination }) => {
                                 )}
 
                                 <img
-                                  src={`https://cdn.lvg.mn/uploads/350x350/${el.pictures[0]}`}
+                                  src={`${base.cdnUrl}/350x350/${el.pictures[0]}`}
                                 />
                               </div>
                             </Link>

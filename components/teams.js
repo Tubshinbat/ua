@@ -1,3 +1,4 @@
+import base from "lib/base";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import styles from "styles/Team.module.css";
@@ -24,9 +25,7 @@ const Team = ({ memberData, boolenPop = true }) => {
         <div className={styles.Team} onClick={handleClick}>
           <div className={styles.UserImg}>
             {memberData.picture[0] ? (
-              <img
-                src={`https://cdn.lvg.mn/uploads/${memberData.picture[0]}`}
-              />
+              <img src={`${base.cdnUrl}/${memberData.picture[0]}`} />
             ) : (
               <img src={`/images/no-photo.jpg`} />
             )}
@@ -51,7 +50,7 @@ const Team = ({ memberData, boolenPop = true }) => {
           ></i>
           {memberData.picture[0] ? (
             <img
-              src={`https://cdn.lvg.mn/uploads/${memberData.picture[0]}`}
+              src={`${base.cdnUrl}/${memberData.picture[0]}`}
               className={styles.WindowImg}
             />
           ) : (

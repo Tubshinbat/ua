@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
-
+import base from "lib/base";
 import { Coverflow, Navigation, Autoplay, Pagination, Scrollbar } from "swiper";
 // import HomeThreeNews from "./home-three-news";
 import { useNews } from "hooks/use-news";
@@ -116,7 +116,7 @@ export default () => {
                               )}
 
                               <img
-                                src={`https://cdn.lvg.mn/uploads/450/${topNews.pictures[0]}`}
+                                src={`${base.cdnUrl}/450/${topNews.pictures[0]}`}
                               />
                             </div>
                           </Link>

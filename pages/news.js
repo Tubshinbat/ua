@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Pagination from "react-js-pagination";
 
+import base from "lib/base";
+
 import { Fragment, useEffect, useState } from "react";
 import FooterPartners from "components/footer-partners";
 import Footer from "components/footer";
@@ -107,7 +109,7 @@ export default ({ info, news, menus, pagination }) => {
           {cookies.language === "eng" ? "News " : "Мэдээ мэдээлэл "} -{" "}
           {info[langCheck(info)] !== undefined && info[langCheck(info)].name}
         </title>
-        <meta property="og:url" content={`https://naog.lvg.mn${asPath}`} />
+        <meta property="og:url" content={`${base.siteUrl}${asPath}`} />
         <meta
           property="og:title"
           content={`  ${
@@ -127,7 +129,7 @@ export default ({ info, news, menus, pagination }) => {
           }`}
         />
         <meta name="twitter:site" content="@National_Academy_Of_Governance" />
-        <meta property="og:url" content={`https://naog.lvg.mn${asPath}`} />
+        <meta property="og:url" content={`${base.siteUrl}${asPath}`} />
         <meta
           property="og:title"
           content={`${
@@ -231,7 +233,7 @@ export default ({ info, news, menus, pagination }) => {
                                 )}
 
                                 <img
-                                  src={`https://cdn.lvg.mn/uploads/350x350/${el.pictures[0]}`}
+                                  src={`${base.cdnUrl}/350x350/${el.pictures[0]}`}
                                 />
                               </div>
                             </Link>

@@ -1,9 +1,8 @@
+import base from "lib/base";
 import useSWR from "swr";
 
 export const useStatistics = () => {
-  const { data, error } = useSWR(
-    "https://naog-admin.lvg.mn/rest/api/v1/statistics/active"
-  );
+  const { data, error } = useSWR(`${base.apiUrl}/statistics/active`);
   let activeStatistic = {};
   if (data) {
     activeStatistic = data.data;
@@ -19,7 +18,7 @@ export const useSubStatistics = (id) => {
   let subStatistics = [];
 
   const { data, error } = useSWR(
-    `https://naog-admin.lvg.mn/rest/api/v1/statisticssub?main=${id}&limit=3`
+    `${base.apiUrl}/statisticssub?main=${id}&limit=3`
   );
 
   if (data) {

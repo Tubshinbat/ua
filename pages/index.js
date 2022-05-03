@@ -17,6 +17,7 @@ import Footer from "components/footer";
 import { getInfo } from "lib/webinfo";
 import { langCheck } from "lib/language";
 import HomeMedia from "components/home-media";
+import base from "lib/base";
 
 export default ({ info }) => {
   const [cookies] = useCookies(["language"]);
@@ -36,7 +37,7 @@ export default ({ info }) => {
         <title>
           {info[langCheck(info)] !== undefined && info[langCheck(info)].name}
         </title>
-        <meta property="og:url" content={`https://naog.lvg.mn`} />
+        <meta property="og:url" content={`${base.siteUrl}`} />
         <meta
           property="og:title"
           content={
@@ -51,7 +52,7 @@ export default ({ info }) => {
           }
         />
         <meta name="twitter:site" content="@National_Academy_Of_Governance" />
-        <meta property="og:url" content={`https://naog.lvg.mn`} />
+        <meta property="og:url" content={`${base.siteUrl}`} />
         <meta
           property="og:title"
           content={

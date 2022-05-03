@@ -10,6 +10,7 @@ import "swiper/css/pagination";
 import { EffectCoverflow, Pagination, Autoplay } from "swiper";
 import { useBook } from "hooks/use-book";
 import { useCookies } from "react-cookie";
+import base from "lib/base";
 
 export default () => {
   const [cookies] = useCookies(["language"]);
@@ -67,7 +68,7 @@ export default () => {
               return (
                 <SwiperSlide>
                   <a href={el.link} target="_blank">
-                    <img src={`https://cdn.lvg.mn/uploads/${el.picture}`} />
+                    <img src={`${base.cdnUrl}/${el.picture}`} />
                     <div className="book_slider__text">
                       <h5>{el.name}</h5>
                       <p>{el.about}</p>

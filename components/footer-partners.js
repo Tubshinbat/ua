@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/autoplay";
 
 import { Autoplay } from "swiper";
+import base from "lib/base";
 
 const Partners = () => {
   const { partners } = usePartners();
@@ -48,7 +49,7 @@ const Partners = () => {
                     data-wow-delay={`${count}s`}
                   >
                     <a href={el.link} target="_blank">
-                      <img src={`https://cdn.lvg.mn/uploads/${el.logo}`} />
+                      <img src={`${base.cdnUrl}/${el.logo}`} />
                     </a>
                   </SwiperSlide>
                 );

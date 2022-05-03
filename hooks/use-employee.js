@@ -1,8 +1,9 @@
+import base from "lib/base";
 import useSWR from "swr";
 
 export const useEmployee = () => {
   const { data, error } = useSWR(
-    `https://naog-admin.lvg.mn/rest/api/v1/employees?status=true&limit=20`
+    `${base.apiUrl}/employees?status=true&limit=20`
   );
   let employees = [];
 

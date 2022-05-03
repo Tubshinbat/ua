@@ -21,6 +21,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper";
+import base from "lib/base";
 
 const Page = ({
   menu,
@@ -121,7 +122,7 @@ const Page = ({
 
                 {pageData.pictures && pageData.pictures.length === 1 && (
                   <img
-                    src={`https://cdn.lvg.mn/uploads/${pageData.pictures[0]}`}
+                    src={`${base.cdnUrl}/${pageData.pictures[0]}`}
                     className={css.bigImage}
                   />
                 )}
@@ -141,7 +142,7 @@ const Page = ({
                         className="newsViewSlide"
                         key={index + "nview"}
                       >
-                        <img src={`https://cdn.lvg.mn/uploads/${pic}`} />
+                        <img src={`${base.cdnUrl}/${pic}`} />
                       </SwiperSlide>
                     ))}
                   <div className="newsViewSlide__nav">
@@ -186,7 +187,7 @@ const Page = ({
                               <a href={link}>
                                 {el.picture ? (
                                   <img
-                                    src={`https://cdn.lvg.mn/uploads/${el.picture}`}
+                                    src={`${base.cdnUrl}/${el.picture}`}
                                   />
                                 ) : (
                                   <img src="/images/list-bg.jpg" />
@@ -230,9 +231,7 @@ const Page = ({
                             <div className={css.List__element}>
                               <a href={link}>
                                 {el.picture ? (
-                                  <img
-                                    src={`https://cdn.lvg.mn/uploads/${el.picture}`}
-                                  />
+                                  <img src={`${base.cdnUrl}/${el.picture}`} />
                                 ) : (
                                   <img src="/images/list-bg.jpg" />
                                 )}
@@ -376,7 +375,7 @@ const Page = ({
                             <a className={css.Side__Newsbox} key={el._id}>
                               <div className={css.News__img}>
                                 <img
-                                  src={`https://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
+                                  src={`${base.cdnUrl}/150x150/${el.pictures[0]}`}
                                 />
                               </div>
                               <div className={css.News__detials}>

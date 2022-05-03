@@ -1,9 +1,9 @@
+import base from "lib/base";
 import useSWR from "swr";
-import base from "base";
 
 export const useTopNews = () => {
   const { data, error } = useSWR(
-    `https://naog-admin.lvg.mn/rest/api/v1/news?status=true&star=true&limit=6`
+    `${base.apiUrl}/news?status=true&star=true&limit=6`
   );
 
   let topNews = [];
@@ -20,9 +20,7 @@ export const useTopNews = () => {
 
 export const useNews = (init, slug) => {
   let news = [];
-  const { data, error } = useSWR(
-    `https://naog-admin.lvg.mn/rest/api/v1/news?${slug}`
-  );
+  const { data, error } = useSWR(`${base.apiUrl}/news?${slug}`);
 
   if (data) {
     news = data.data;
@@ -35,9 +33,7 @@ export const useNews = (init, slug) => {
 };
 
 export const useNewNews = () => {
-  const { data, error } = useSWR(
-    `https://naog-admin.lvg.mn/rest/api/v1/news?status=true&limit=10`
-  );
+  const { data, error } = useSWR(`${base.apiUrl}/news?status=true&limit=10`);
 
   let news = [];
   if (data) {

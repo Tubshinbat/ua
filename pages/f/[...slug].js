@@ -20,6 +20,7 @@ import css from "styles/Page.module.css";
 import { getFooterPage, getPage } from "lib/page";
 import { useNews } from "hooks/use-news";
 import ReactTimeAgo from "react-time-ago";
+import base from "lib/base";
 
 const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
   // const { page } = usePage(slug);
@@ -111,7 +112,7 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
 
                 {pageData.pictures && pageData.pictures.length === 1 && (
                   <img
-                    src={`https://cdn.lvg.mn/uploads/${pageData.pictures[0]}`}
+                    src={`${base.cdnUrl}/${pageData.pictures[0]}`}
                     className={css.bigImage}
                   />
                 )}
@@ -131,7 +132,7 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
                         className="newsViewSlide"
                         key={index + "nview"}
                       >
-                        <img src={`https://cdn.lvg.mn/uploads/${pic}`} />
+                        <img src={`${base.cdnUrl}/${pic}`} />
                       </SwiperSlide>
                     ))}
                   <div className="newsViewSlide__nav">
@@ -295,7 +296,7 @@ const Page = ({ menu, parent, pageData, childeMenus, sameParentMenus }) => {
                             <a className={css.Side__Newsbox} key={el._id}>
                               <div className={css.News__img}>
                                 <img
-                                  src={`https://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
+                                  src={`${base.cdnUrl}/150x150/${el.pictures[0]}`}
                                 />
                               </div>
                               <div className={css.News__detials}>

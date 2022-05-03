@@ -16,6 +16,7 @@ import css from "styles/Page.module.css";
 import { getTopLink, getTopLinks } from "lib/topLink";
 import { getInfo } from "lib/webinfo";
 import { getNews } from "lib/news";
+import base from "lib/base";
 
 const TopLink = ({ info, topLink, topLinks, news }) => {
   const router = useRouter();
@@ -137,7 +138,7 @@ const TopLink = ({ info, topLink, topLinks, news }) => {
                           >
                             <div className={css.News__img}>
                               <img
-                                src={`https://cdn.lvg.mn/uploads/150x150/${el.pictures[0]}`}
+                                src={`${base.cdnUrl}/150x150/${el.pictures[0]}`}
                               />
                             </div>
                             <div className={css.News__detials}>
