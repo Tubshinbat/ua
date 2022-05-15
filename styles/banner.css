@@ -361,8 +361,7 @@
 .social_links {
   position: absolute;
   z-index: 10000;
-  width: 100%;
-  height: 100%;
+
   display: flex;
   justify-content: flex-end;
   align-content: center;
