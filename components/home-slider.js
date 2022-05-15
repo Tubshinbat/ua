@@ -17,10 +17,12 @@ import {
   Scrollbar,
   Autoplay,
 } from "swiper";
+import { useSocials } from "hooks/use-links";
 
 export default () => {
   const { banners } = useBanners();
   const [cookies] = useCookies(["language"]);
+  const { socialLinks } = useSocials();
 
   return (
     <Fragment>
@@ -67,9 +69,11 @@ export default () => {
                   <h4 className="slide__title">{banner[lang].name}</h4>
                   <p className="slide__text">{banner[lang].details}</p>
                   {banner.link && (
-                    <button className={`btn bannerBtn btn__defualt`}>
-                      {cookies.language === "mn" ? "Дэлгэрэнгүй" : "More"}
-                    </button>
+                    <a href={banner.link} target="_blank">
+                      <button className={`btn bannerBtn btn__defualt`}>
+                        {cookies.language === "mn" ? "Дэлгэрэнгүй" : "More"}
+                      </button>
+                    </a>
                   )}
                 </div>
                 <div className="imageBox">
@@ -91,6 +95,14 @@ export default () => {
             <div className="slider__prev swiper-button-prev"></div>
             <div className="slider__next swiper-button-next"></div>
           </div>
+        </div>
+        <div className="social_links">
+          {socialLinks &&
+            socialLinks.map((el) => (
+              <a href={el.link} target="_blank">
+                <i class={`fa-brands fa-${el.name.toLowerCase()}`}></i>
+              </a>
+            ))}
         </div>
       </Swiper>
     </Fragment>

@@ -181,8 +181,6 @@
   color: #585858;
 }
 
-
-
 .imgBg {
   position: absolute;
   z-index: 6;
@@ -360,11 +358,30 @@
   }
 }
 
+.social_links {
+  position: absolute;
+  z-index: 10000;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  right: 3%;
+  top: 45%;
+}
+
+.social_links a {
+  color: #fff;
+}
+
 @media (max-width: 850px) {
   .contentText {
     width: 65%;
     padding: 0px;
     padding-right: 3rem;
+  }
+  .social_links {
+    display: none;
   }
 }
 

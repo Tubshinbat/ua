@@ -35,13 +35,6 @@ export default () => {
   };
 
   useEffect(() => {
-    if (news) {
-      setBigNews(news.shift());
-      setNewsData(news);
-    }
-  }, [news]);
-
-  useEffect(() => {
     if (bigNews) {
       let lang;
       if (bigNews[cookies.language] === undefined) {

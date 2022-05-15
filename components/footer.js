@@ -99,8 +99,8 @@ const Footer = () => {
                 <div className={css.Footer__socials}>
                   {socialLinks &&
                     socialLinks.map((el) => (
-                      <a href={el.link}>
-                        <i class={`fa-brands fa-${el.name}`}></i>
+                      <a href={el.link} target="_blank">
+                        <i class={`fa-brands fa-${el.name.toLowerCase()}`}></i>
                       </a>
                     ))}
                 </div>
