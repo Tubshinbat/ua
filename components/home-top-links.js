@@ -20,7 +20,7 @@ export default () => {
             let count = 0.2 * index;
             let link = "#";
             if (el.direct && !el.oldDirect) {
-              link = "/toplinks/" + el.direct;
+              link = el.direct;
             } else if (el.oldDirect) {
               link = el.oldDirect;
             }
