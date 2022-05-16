@@ -47,7 +47,7 @@ export default () => {
                     __html:
                       cookies.language === "eng"
                         ? "Media <span> content </span>"
-                        : "Медиа <span> контнет </span>",
+                        : "Медиа <span> контент </span>",
                   }}
                 ></h3>
                 <p>
