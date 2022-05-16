@@ -56,13 +56,6 @@ export default ({ info, news, menus }) => {
       .join(" ");
   };
 
-  useEffect(async () => {
-    if (news) {
-      const { slug } = router.query;
-      await updateView(slug);
-    }
-  }, [news]);
-
   const [cookies] = useCookies(["language"]);
   const [infoLang, setinfoLang] = useState();
   const [lang, setLang] = useState();

@@ -76,7 +76,7 @@ export default ({ info, media, menus }) => {
   const parent = {
     eng: { name: "Media" },
     mn: { name: "Медиа контент" },
-    link: "/media",
+    link: "/medias",
   };
 
   return (

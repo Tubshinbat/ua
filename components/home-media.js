@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 import { useMedia } from "hooks/use-media";
 
 export default () => {
-  const { media } = useMedia([], "status=true&limit=9");
+  const { media } = useMedia(null, "status=true&limit=9");
   const [cookies] = useCookies(["language"]);
 
   const langCheck = (val) => {
