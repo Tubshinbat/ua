@@ -208,7 +208,7 @@ export default ({ info, media, menus }) => {
                         {media.type === "video" &&
                           media.videos &&
                           media.videos.map((video) => (
-                            <div className="col-md-6">
+                            <div className="col-md-12">
                               <video
                                 controls
                                 src={`${base.cdnUrl}/${video}`}
