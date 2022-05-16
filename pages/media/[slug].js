@@ -211,9 +211,7 @@ export default ({ info, media, menus }) => {
                             <div className="col-md-6">
                               <video
                                 controls
-                                src={URL.createObjectURL(
-                                  `${base.cdnUrl}/${video}`
-                                )}
+                                src={`${base.cdnUrl}/${video}`}
                                 className={css.Video}
                               />
                             </div>
@@ -225,9 +223,7 @@ export default ({ info, media, menus }) => {
                             <div className="col-md-12">
                               <audio
                                 controls
-                                src={URL.createObjectURL(
-                                  `${base.cdnUrl}/${audio}`
-                                )}
+                                src={`${base.cdnUrl}/${audio}`}
                               ></audio>
                             </div>
                           ))}
