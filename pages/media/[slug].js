@@ -221,7 +221,7 @@ export default ({ info, media, menus }) => {
 
                         {media.type === "audio" &&
                           media.audios &&
-                          media.audios((audio) => (
+                          media.audios.map((audio) => (
                             <div className="col-md-12">
                               <audio
                                 controls
