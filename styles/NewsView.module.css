@@ -60,6 +60,7 @@
   font-size: 0.9rem;
   font-size: normal;
   text-align: justify;
+  word-break: break-all;
 }
 
 .Description audio,
