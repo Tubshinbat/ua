@@ -2,11 +2,6 @@
   padding: 50px 0px;
 }
 
-audio,
-video {
-  width: 100%;
-}
-
 .NewsList__item {
   position: relative;
   display: flex;
