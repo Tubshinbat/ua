@@ -51,7 +51,7 @@ const Contact = ({ info }) => {
     return name === el;
   };
 
-  const checkFrom = (name, val) => {
+  const checkForm = (name, val) => {
     // Шалгах формуудаа энд тодорхойлоно
     const valueErrors = Object.keys(errors);
     let result;
@@ -79,7 +79,7 @@ const Contact = ({ info }) => {
 
   const allCheck = () => {
     Object.keys(errors).map((el) => {
-      checkFrom(el, formData[el] === undefined ? "" : formData[el]);
+      checkForm(el, formData[el] === undefined ? "" : formData[el]);
     });
     return checkTrue();
   };
@@ -88,7 +88,7 @@ const Contact = ({ info }) => {
   const handleChange = (event) => {
     let { name, value } = event.target;
     setForm((bf) => ({ ...bf, [name]: value }));
-    checkFrom(event.target.name, event.target.value);
+    checkForm(event.target.name, event.target.value);
   };
 
   const send = () => {

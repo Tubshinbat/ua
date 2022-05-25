@@ -16,11 +16,13 @@ import { useCookies } from "react-cookie";
 
 import css from "styles/HomeNews.module.css";
 import { useEffect, useState } from "react";
-import { useMedia } from "hooks/use-media";
+import { useMedia, useMediaCat } from "hooks/use-media";
 
 export default () => {
-  const { media } = useMedia(null, "status=true&limit=9");
+  const [mediaCat, setMediaCat] = useState("");
+  const { media } = useMedia(null, `status=true&limit=9&category=${mediaCat}`);
   const [cookies] = useCookies(["language"]);
+  const { mediaCategory } = useMediaCat();
 
   const langCheck = (val) => {
     let lang;
@@ -31,6 +33,11 @@ export default () => {
 
     return lang;
   };
+
+  useEffect(() => {
+    if (mediaCategory && mediaCategory.length > 0)
+      setMediaCat(mediaCategory[0]._id);
+  }, [mediaCategory]);
 
   return (
     <>
@@ -66,6 +73,19 @@ export default () => {
             </div>
             <div className="row">
               <div className="col-lg-12 col-md-12">
+                <div className="mediaCategories">
+                  {mediaCategory &&
+                    mediaCategory.map((el) => (
+                      <button
+                        className={`mediaCat ${
+                          el._id === mediaCat && "current"
+                        }`}
+                        onClick={() => setMediaCat(el._id)}
+                      >
+                        {el[langCheck(el)].name}
+                      </button>
+                    ))}
+                </div>
                 <Swiper
                   modules={[Pagination, Navigation, Scrollbar, Autoplay]}
                   autoplay={{

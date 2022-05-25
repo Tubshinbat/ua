@@ -16,6 +16,21 @@ export const useTopMedia = () => {
   };
 };
 
+export const useMediaCat = (slug) => {
+  const { data, error } = useSWR(`${base.apiUrl}/media-categories?${slug}`);
+
+  let mediaCategory = [];
+  if (data) {
+    mediaCategory = data.data;
+  }
+
+  return {
+    mediaCategory,
+    isLoading: !error && !data,
+    error,
+  };
+};
+
 export const useMedia = (init, slug) => {
   let media = [];
   const { data, error } = useSWR(`${base.apiUrl}/media?${slug}`);

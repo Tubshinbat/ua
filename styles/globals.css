@@ -1,4 +1,4 @@
-.mediaSection{
+.mediaSection {
   background-color: #ffffff;
 }
 
@@ -27,33 +27,31 @@ body {
   margin-left: auto;
 }
 
-
-
 .section__title {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 40px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
 }
 
-.section__title h3{
+.section__title h3 {
   font-family: "DinPro";
   font-size: 1.7rem;
   font-weight: 800;
   text-transform: uppercase;
 }
 
-.section__title p{
+.section__title p {
   font-size: 0.8rem;
   font-weight: bold;
-  color:rgb(131, 131, 131);
+  color: rgb(131, 131, 131);
 }
 
 .section__title:before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -1px;
   left: 0;
@@ -76,7 +74,6 @@ body {
 .needLink__info {
   margin: 24px 0px;
 }
-
 
 @media (min-width: 1400px) {
   .custom-container {
@@ -124,7 +121,7 @@ body {
   .custom-container {
     max-width: 500px;
   }
-  .section__title{
+  .section__title {
     flex-direction: column;
   }
 }
@@ -440,106 +437,126 @@ body {
   margin-bottom: 10px;
 }
 
-.newsNew{
+.newsNew {
   background-color: rgb(251 251 251);
 }
 
-.news__typeBg{
+.news__typeBg {
   position: absolute;
   display: flex;
   justify-items: center;
-  color:#fff;
-  top:0px;
-  left:0px;
+  color: #fff;
+  top: 0px;
+  left: 0px;
   z-index: 2;
 }
 
-.news__typeBg i{
+.news__typeBg i {
   padding: 10px;
-  margin:10px;
+  margin: 10px;
   font-size: 0.7rem;
   background-color: #00407a;
 }
 
-
-table{
+table {
   display: flex;
   position: relative;
-  flex:0 0 100%;
+  flex: 0 0 100%;
   width: 100%;
   justify-content: center;
-  border:0px;
+  border: 0px;
   overflow-x: scroll auto;
   font-size: 0.8rem;
 }
 
- td, th {
-   justify-content: center;
+td,
+th {
+  justify-content: center;
   border: 1px solid #ddd;
   text-align: center;
   padding: 0px;
   padding: 5px 10px;
 }
 
-table p{
+table p {
   padding: 0px;
   margin: 0px;
 }
 
+tr:hover {
+  background-color: #ddd;
+}
 
- tr:hover {background-color: #ddd;}
-
- th {
+th {
   padding-top: 5px;
   padding-bottom: 5px;
 }
 
-.page-link{
-    padding: 0.6rem 0.9rem;
-    font-size: 0.75rem;
-    color:rgb(73, 73, 73);
-    font-weight: bold;
+.page-link {
+  padding: 0.6rem 0.9rem;
+  font-size: 0.75rem;
+  color: rgb(73, 73, 73);
+  font-weight: bold;
 }
 
-.page-item.active .page-link{
+.page-item.active .page-link {
   background-color: #00407a;
-  border-color:#00407a;
-
+  border-color: #00407a;
 }
 
-
-.NotFound{
+.NotFound {
   display: flex;
   flex-direction: column;
   text-align: center;
   align-items: center;
-  padding:60px 0px;
+  padding: 60px 0px;
 }
 
-.NotFound > h1{
+.NotFound > h1 {
   font-size: 5rem;
   font-weight: bold;
-  color:#00407a;
+  color: #00407a;
 }
 
-.NotFound > h4{
+.NotFound > h4 {
   font-size: 1.7rem;
-  color:rgb(119, 118, 118);
+  color: rgb(119, 118, 118);
   font-weight: 500;
 }
 
-.NotFound > p{
+.NotFound > p {
   font-size: 0.8rem;
 }
-.NotFound > button{
-  border:0px;
-  padding:10px 24px;
+.NotFound > button {
+  border: 0px;
+  padding: 10px 24px;
   font-size: 0.65rem;
   margin-top: 15px;
   text-transform: uppercase;
   font-weight: bold;
   background-color: #00407a;
-  color:#fff;
+  color: #fff;
+}
+
+.mediaCategories {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 20px;
+  gap: 13px;
+}
+
+.mediaCategories button {
+  border: 0px;
+  padding: 8px 15px;
+  font-size: 0.8rem;
+  color: #fff;
+  background-color: #00407a;
+  transition: all 0.3s;
+}
+
+.mediaCategories button:hover,
+.mediaCategories button.current {
+  background-color: #032c53;
 }
 
 @-webkit-keyframes sk-circleBounceDelay {
