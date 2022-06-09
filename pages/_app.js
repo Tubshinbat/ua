@@ -97,6 +97,15 @@ function MyApp({ Component, pageProps }) {
           ></Script>
 
           <Script src="/js/all.min.js" crossorigin />
+          <Script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-B2E3N5ZCZQ"
+          ></Script>
+          <Script>
+            window.dataLayer = window.dataLayer || []; function gtag()
+            {dataLayer.push(arguments)}
+            gtag('js', new Date()); gtag('config', 'G-B2E3N5ZCZQ');
+          </Script>
         </Head>
         <CustomCursor />
         <Component {...pageProps} />
