@@ -33,8 +33,8 @@ const Team = ({ memberData, boolenPop = true }) => {
           <p>{memberData[lang].name}</p>
           <span>{memberData[lang].degree}</span>
           <div className="contactTeam">
-            <span> {memberData[lang].phone}</span>
-            <span>{memberData[lang].email}</span>
+            <span> {memberData.phoneNumber}</span>
+            <span>{memberData.email}</span>
           </div>
         </div>
       </div>
