@@ -559,6 +559,18 @@ th {
   background-color: #032c53;
 }
 
+.contactTeam {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  row-gap: 12px;
+  margin-top: 5px;
+}
+.contactTeam span {
+  padding: 4px;
+  font-weight: bold;
+}
+
 @-webkit-keyframes sk-circleBounceDelay {
   0%,
   80%,
